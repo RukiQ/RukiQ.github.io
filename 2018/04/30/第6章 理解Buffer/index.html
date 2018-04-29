@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Node.js,reading," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="✁ 为什么需要 Buffer？ 在 Node 中，应用需要处理网络协议、操作数据库、处理图片、接收上传文件等，在网络流和文件的操作中，还要处理大量二进制数据，JavaScript 自由的字符串远远不能满足这些需求，于是 Buffer 对象应运而生。 ✁ 字符串与 Buffer 的区别 Buffer 是二进制数据，字符串与 Buffer 之间存在编码关系。 一、Buffer 结构Buffer 是一个">
+<meta name="keywords" content="Node.js,reading">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第6章 理解 Buffer">
+<meta property="og:url" content="http://yoursite.com/2018/04/30/第6章 理解Buffer/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="✁ 为什么需要 Buffer？ 在 Node 中，应用需要处理网络协议、操作数据库、处理图片、接收上传文件等，在网络流和文件的操作中，还要处理大量二进制数据，JavaScript 自由的字符串远远不能满足这些需求，于是 Buffer 对象应运而生。 ✁ 字符串与 Buffer 的区别 Buffer 是二进制数据，字符串与 Buffer 之间存在编码关系。 一、Buffer 结构Buffer 是一个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE6-1%20Buffer%E7%9A%84%E5%88%86%E5%B7%A5.png?raw=true">
+<meta property="og:updated_time" content="2018-04-29T20:45:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第6章 理解 Buffer">
+<meta name="twitter:description" content="✁ 为什么需要 Buffer？ 在 Node 中，应用需要处理网络协议、操作数据库、处理图片、接收上传文件等，在网络流和文件的操作中，还要处理大量二进制数据，JavaScript 自由的字符串远远不能满足这些需求，于是 Buffer 对象应运而生。 ✁ 字符串与 Buffer 的区别 Buffer 是二进制数据，字符串与 Buffer 之间存在编码关系。 一、Buffer 结构Buffer 是一个">
+<meta name="twitter:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE6-1%20Buffer%E7%9A%84%E5%88%86%E5%B7%A5.png?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/30/第6章 理解Buffer/"/>
+
+
+
+
+
+  <title>第6章 理解 Buffer | My Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">My Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">love life</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第6章 理解Buffer/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lu Qian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第6章 理解 Buffer</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-30T04:42:54+08:00">
+                2018-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/《深入浅出Node-js》/" itemprop="url" rel="index">
+                    <span itemprop="name">《深入浅出Node.js》</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>✁ 为什么需要 <code>Buffer</code>？</strong></p>
+<p>在 Node 中，应用需要处理网络协议、操作数据库、处理图片、接收上传文件等，在网络流和文件的操作中，还要处理大量二进制数据，JavaScript 自由的字符串远远不能满足这些需求，于是 <code>Buffer</code> 对象应运而生。</p>
+<p><strong>✁ 字符串与 <code>Buffer</code> 的区别</strong></p>
+<p><code>Buffer</code> 是二进制数据，字符串与 <code>Buffer</code> 之间存在编码关系。</p>
+<h4 id="一、Buffer-结构"><a href="#一、Buffer-结构" class="headerlink" title="一、Buffer 结构"></a><p style="background:orange;">一、Buffer 结构</p></h4><p><code>Buffer</code> 是一个像 <code>Array</code> 的对象，但它主要用于操作字节。</p>
+<ol>
+<li><p><span style="color:#ac4a4a"><strong>模块结构</strong></span></p>
+<p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE6-1%20Buffer%E7%9A%84%E5%88%86%E5%B7%A5.png?raw=true" alt="图6-1 Buffer的分工"></p>
+<p> <code>Buffer</code> 所占用的内存不是通过 V8 分配的，属于堆外内存。</p>
+<p> 由于 <code>Buffer</code> 太过常见，Node 在进程启动时就已经加载了它，并将其放在全局对象（<code>global</code>）上。所以在使用 <code>Buffer</code> 时，无需通过 <code>require()</code> 即可直接使用。    </p>
+</li>
+<li><p><span style="color:#ac4a4a"><strong>Buffer 对象</strong></span></p>
+<p> <code>Buffer</code> 对象类似于数组，它的元素为16进制的两位数，即 0-255 的数值。</p>
+<pre><code>var str = &apos;深入浅出Node.js&apos;;
+var buf = new Buffer(str, &apos;utf-8&apos;);
+
+// 不同的编码的字符串占用的元素个数各不相同
+// 中文字在 UTF-8 编码下占用3个元素，字母和半标点符号占用1个元素
+buf;  
+// =&gt; &lt;Buffer e6 b7 b1 e5 85 a5 e6 b5 85 e5 87 ba 6e 6f 64 65 2e 6a 73&gt;
+
+// Buffer 受 Array 类型的影响很大，
+// 可以访问 length 属性得到长度，也可以通过下标访问元素
+buf.length; // =&gt; 19
+buf[10];    // =&gt; 135
+
+var newBuf = new Buffer(100);
+newBuf.length; // =&gt; 100
+newBuf[10];    // =&gt; 88 (元素值是一个 0-255 的随机值)
+
+// 如果给元素赋值不是0-255的数时：
+// 给元素的赋值如果小于0，就讲该值逐次加256，直到得到0-255区间内的整数
+newBuf[20] = -100;
+newBuf[20]; // =&gt; 156
+
+// 给元素的赋值如果大于0，就逐次减256，直到得到0-255区间内的整数
+newBuf[21] = 300;
+newBuf[21]; // =&gt; 44
+
+// 如果是小数，舍弃小数部分，只保留整数部分
+newBuf[22] = 3.1415;
+newBuf[22]; // 3
+</code></pre></li>
+<li><p><span style="color:#ac4a4a"><strong>Buffer 内存分配</strong></span></p>
+<p> <code>Buffer</code> 对象的内存分配不是在 V8 的堆内存中，而是在 Node 的 C++ 层面实现内存的申请的。</p>
+<p> Node 在内存的使用上应用的是在 C++ 层面申请内存、在 JavaScript 中分配内存的策略。</p>
+<p> 【小结】：</p>
+<ul>
+<li>真正的内存是在 Node 的 C++ 层面提供的，JavaScript 层面只是使用它。</li>
+<li>当进行小而频繁的 <code>Buffer</code> 操作时，采用 slab 的机制进行预先申请和事后分配，使得 JavaScript 到操作系统之间不必有过多的内存申请方面的系统调用。</li>
+<li>对于大块的 <code>Buffer</code> 而言，则直接使用 C++ 层面提供的内存，而无需细腻的分配操作。</li>
+</ul>
+</li>
+</ol>
+<h4 id="二、Buffer-的转换"><a href="#二、Buffer-的转换" class="headerlink" title="二、Buffer 的转换"></a><p style="background:orange;">二、Buffer 的转换</p></h4><p><code>Buffer</code> 对象可以与字符串之间相互转换。目前支持的字符串编码类型有：ASCII、UTF-8、UTF-16LE/UCS-2、Base64、Binary、Hex。</p>
+<ol>
+<li><p><span style="color:#ac4a4a"><strong>字符串转 Buffer</strong></span></p>
+<p> 字符串转 <code>Buffer</code> 对象主要是通过 <strong><em>构造函数</em></strong> 完成的。</p>
+<pre><code>new Buffer(str, [encoding]);
+</code></pre><blockquote>
+<p>通过构造函数转换的 <code>Buffer</code> 对象，存储的只能是一种编码类型。<code>encoding</code> 参数不传递时，默认按 UTF-8 编码进行转码和存储。</p>
+</blockquote>
+<p> 一个 <code>Buffer</code> 对象可以存储不同编码类型的字符串转码的值，调用 <strong><code>write()</code></strong> 方法可以实现。</p>
+<pre><code>buf.write(string, [offset], [length], [encoding]);
+</code></pre><blockquote>
+<p>由于可以不断写入内容到 <code>Buffer</code> 对象中，并且每次写入可以指定编码，所以 <code>Buffer</code> 对象中可以存在多种编码转化后的内容。需要小心的是，每种编码所用的字节长度不同，将 <code>Buffer</code> 反转回字符串时需要谨慎处理。</p>
+</blockquote>
+</li>
+<li><p><span style="color:#ac4a4a"><strong>Buffer 转字符串</strong></span></p>
+<p> <code>Buffer</code> 对象的 <strong><code>toString()</code></strong> 可以将 <code>Buffer</code> 对象转换为字符串。</p>
+<pre><code>buf.toString([encoding], [start], [end]);
+</code></pre></li>
+<li><p><span style="color:#ac4a4a"><strong>Buffer 不支持的编码类型</strong></span></p>
+<p> <strong><code>isEncoding()</code></strong> 方法：判断编码是否支持转换</p>
+<pre><code>Buffer.isEncoding(encoding);
+
+Buffer.isEncoding(&apos;utf-8&apos;);    // true
+Buffer.isEncoding(&apos;GBK&apos;);    // false
+</code></pre><p> 对于不支持的编码类型，可以借助 Node 生态圈中的模块完成转换。<strong><em>iconv</em></strong> 和 <strong><em>iconv-lite</em></strong> 两个模块可以支持更多的编码类型转换。</p>
+</li>
+</ol>
+<h4 id="三、Buffer-的拼接"><a href="#三、Buffer-的拼接" class="headerlink" title="三、Buffer 的拼接"></a><p style="background:orange;">三、Buffer 的拼接</p></h4><p><code>Buffer</code> 在使用场景中，通常是以一段一段的方式传输。</p>
+<pre><code>var fs = require(&apos;fs&apos;);
+var rs = fs.createReadStream(&apos;test.md&apos;);
+var data = &apos;&apos;;
+
+rs.on(&apos;data&apos;, function(chunk) {
+    // data 事件中获取的 chunk 对象即是 Buffer 对象
+    // 隐藏了 toString() 操作
+    // 等价于：data = data.toString() + chunk.toString();
+    data += chunk;
+});
+
+rs.on(&apos;end&apos;, function() {
+    console.log(data);
+});
+</code></pre><ol>
+<li><p><span style="color:#ac4a4a"><strong>乱码是如何产生的</strong></span></p>
+<p> <code>toString()</code> 默认以 UTF-8 编码，中文在该编码方式下占3个字节，因此，对于宽字节的中文，会形成问题。</p>
+<pre><code>// 将文件可读流的每次读取的 Buffer 长度限制为 11
+var rs = fs.createReadStream(&apos;test.md&apos;, {highWaterMark: 11});
+// =&gt; 窗前明◆◆◆光，疑◆◆◆地上霜
+</code></pre><blockquote>
+<p>✎ 第一个 Buffer 对象在输出时，只能显示3个字符，Buffer 中剩下的2个字节将会以乱码的形式显示。第二个Buffer对象的第一个字节也不能形成文字，只能显示乱码。</p>
+</blockquote>
+<p> ☁ 对于任意长度的 <code>Buffer</code> 而言，宽字节字符串都有可能存在被截断的情况，只不过 <code>Buffer</code> 的长度越大出现的概率越低而已。</p>
+</li>
+<li><p><span style="color:#ac4a4a"><strong>setEncoding() 与 string_decoder()</strong></span>  ☛ 不能从根本上解决乱码问题</p>
+<p> ◐ <strong><code>setEncoding</code></strong> 方法：设置编码</p>
+<p> 【作用】：让 data 事件中传递的不再是一个 <code>Buffer</code> 对象，而是编码后的字符串。</p>
+<pre><code>readable.setEncoding(encoding);
+
+var rs = fs.createReadStream(&apos;test.md&apos;, {highWaterMark: 11});
+rs.setEncoding(&apos;utf8&apos;);
+// =&gt; 窗前明月光，疑是地上霜
+</code></pre><p> 如论如何设置编码，触发 data 事件的次数依旧相同，即意味着设置编码并未改变按段读取的基本方式。</p>
+<p> 在调用 <code>setEncoding()</code> 时，可读流对象在内部设置了一个 <code>decoder</code> 对象。</p>
+<p> ◑ <strong><code>decoder</code></strong> 对象：来自于 <code>string_decoder</code> 模块 <code>StringDecoder</code> 的实例对象，最终解决乱码问题。</p>
+<pre><code>// decoder 的神奇原理：
+var StringDecoder = require(&apos;string_decoder&apos;).StringDecoder;
+var decoder = new StringDecoder(&apos;utf8&apos;);
+
+var buf1 = new Buffer([0xE5, 0xBA, 0x8A, 0xE5, 0x89, 0x8D, 0xE6, 0x98, 0x8E, 0xE6, 0x9C]);
+console.log(decoder.write(buf1));   // =&gt; 床前明
+
+var buf2 = new Buffer([0x88, 0xE5, 0x85, 0x89, 0xEF, 0xBC, 0x8C, 0xE7, 0x96, 0x91, 0xE6]);
+console.log(decoder.write(buf2));   // =&gt; 月光，疑
+</code></pre><blockquote>
+<p>虽然 <code>string_decoder</code> 模块很奇妙，但是它也并非万能药，它目前只能处理 UTF8、Base64 和 UCS-2/UTF-16LE 这3种编码。所以，通过 <code>setEncoding()</code> 的方式不可否认能解决大部分的乱码问题，但并不能从根本上解决该问题。</p>
+</blockquote>
+</li>
+<li><p><span style="color:#ac4a4a"><strong>正确拼接 Buffer</strong></span></p>
+<p> ① 用一个数组来存储接收到的所有 <code>Buffer</code> 片段并记录下所有片段的总长度；</p>
+<p> ② 调用 <code>Buffer.concat()</code> 方法生成一个合并的 <code>Buffer</code> 对象。</p>
+<pre><code>var chunks = [];
+var size = 0;
+
+rs.on(&apos;data&apos;, function(chunk) {
+    chunks.push(chunk);
+    size += chunk.length;
+});
+
+rs.on(&apos;end&apos;, function() {
+    var buf = Buffer.concat(chunks, size);
+    var str = iconv.decode(buf, &apos;utf8&apos;);
+    console.log(str);
+});
+</code></pre><p> <code>Buffer.concat()</code> 方法封装了从小 <code>Buffer</code> 对象向大 <code>Buffer</code> 对象的复制过程：</p>
+<pre><code>Buffer.concat = function(list, length) {
+    if (!Array.isArray(list)) {
+        throw new Error(&apos;Usage: Buffer.concat(list, [length]&apos;);
+    }
+
+    if (list.length === 0) {
+        return new Buffer(0);
+    } else if (list.length === 1) {
+        return list[0];
+    }
+
+    if (typeof length !== &apos;number&apos;) {
+        length = 0;
+        for (var i = 0; i &lt; list.length; i++) {
+            var buf = list[i];
+            length += buf.length;
+        }
+    }
+
+    var buffer = new Buffer(length);
+    var pos = 0;
+    for (var i = 0; i &lt; list.length; i++) {
+        var buf = list[i];
+        buf.copy(buffer, pos);
+        pos += buf.length;
+    }
+    return buffer;
+}
+</code></pre></li>
+</ol>
+<h4 id="四、Buffer-与性能"><a href="#四、Buffer-与性能" class="headerlink" title="四、Buffer 与性能"></a><p style="background:orange;">四、Buffer 与性能</p></h4><ul>
+<li><p><code>Buffer</code> 在文件 I/O 和网络 I/O 中运用广泛。</p>
+<ul>
+<li><p>在应用中：操作字符串；</p>
+</li>
+<li><p>在网络中传输：需要转换为 <code>Buffer</code>，以进行二进制数据传输。</p>
+</li>
+</ul>
+</li>
+<li><p>在 Web 应用中，字符串转换到 <code>Buffer</code> 是时时刻刻发生的，提高字符串到 <code>Buffer</code> 的转换效率，可以很大程度地提高网络吞吐率。</p>
+</li>
+<li><p><code>Buffer</code> 的使用除了与字符串的转换有性能损耗外，在文件的读取时，有一个 <code>highWaterMark</code> 设置对性能的影响至关重要。</p>
+<ul>
+<li>highWaterMark 设置对 <code>Buffer</code> 内存的分配和使用有一定影响；</li>
+<li>highWaterMark 设置过小，可能导致系统调用次数过多；</li>
+<li>highWaterMark 的值越大，读取速度越快。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+          
+            <a href="/tags/reading/" rel="tag"># reading</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/30/第5章 内存控制/" rel="next" title="第5章 内存控制">
+                <i class="fa fa-chevron-left"></i> 第5章 内存控制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/30/第7章 网络编程/" rel="prev" title="第7章 网络编程">
+                第7章 网络编程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lu Qian</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、Buffer-结构"><span class="nav-number">1.</span> <span class="nav-text">一、Buffer 结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、Buffer-的转换"><span class="nav-number">2.</span> <span class="nav-text">二、Buffer 的转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、Buffer-的拼接"><span class="nav-number">3.</span> <span class="nav-text">三、Buffer 的拼接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、Buffer-与性能"><span class="nav-number">4.</span> <span class="nav-text">四、Buffer 与性能</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lu Qian</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

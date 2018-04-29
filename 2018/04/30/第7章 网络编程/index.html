@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Node.js,reading," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Node 只需要几行代码即可构建服务器，无需额外的容器。 Node 提供了以下4个模块（适用于服务器端和客户端）：  net -&amp;gt; TCP dgram -&amp;gt; UDP http -&amp;gt; HTTP https -&amp;gt; HTTPS  OSI 模型：由七层组成，分别为物理层、数据链路层、网络层、传输层、表示层、应用层。  一、构建 TCP 服务 TCP  TCP（传输控制协议），属于传">
+<meta name="keywords" content="Node.js,reading">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第7章 网络编程">
+<meta property="og:url" content="http://yoursite.com/2018/04/30/第7章 网络编程/index.html">
+<meta property="og:site_name" content="My Blog">
+<meta property="og:description" content="Node 只需要几行代码即可构建服务器，无需额外的容器。 Node 提供了以下4个模块（适用于服务器端和客户端）：  net -&amp;gt; TCP dgram -&amp;gt; UDP http -&amp;gt; HTTP https -&amp;gt; HTTPS  OSI 模型：由七层组成，分别为物理层、数据链路层、网络层、传输层、表示层、应用层。  一、构建 TCP 服务 TCP  TCP（传输控制协议），属于传">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE7-1%20OSI%E6%A8%A1%E5%9E%8B%EF%BC%88%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE%EF%BC%89.png?raw=true">
+<meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE7-4%20http%E6%A8%A1%E5%9D%97%E4%BA%A7%E7%94%9F%E8%AF%B7%E6%B1%82%E7%9A%84%E6%B5%81%E7%A8%8B.png?raw=true">
+<meta property="og:updated_time" content="2018-04-29T20:45:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第7章 网络编程">
+<meta name="twitter:description" content="Node 只需要几行代码即可构建服务器，无需额外的容器。 Node 提供了以下4个模块（适用于服务器端和客户端）：  net -&amp;gt; TCP dgram -&amp;gt; UDP http -&amp;gt; HTTP https -&amp;gt; HTTPS  OSI 模型：由七层组成，分别为物理层、数据链路层、网络层、传输层、表示层、应用层。  一、构建 TCP 服务 TCP  TCP（传输控制协议），属于传">
+<meta name="twitter:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE7-1%20OSI%E6%A8%A1%E5%9E%8B%EF%BC%88%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE%EF%BC%89.png?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/30/第7章 网络编程/"/>
+
+
+
+
+
+  <title>第7章 网络编程 | My Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">My Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">love life</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第7章 网络编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lu Qian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="My Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第7章 网络编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-30T04:50:20+08:00">
+                2018-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/《深入浅出Node-js》/" itemprop="url" rel="index">
+                    <span itemprop="name">《深入浅出Node.js》</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Node 只需要几行代码即可构建服务器，无需额外的容器。</p>
+<p>Node 提供了以下4个模块（适用于服务器端和客户端）：</p>
+<ul>
+<li><code>net</code> -&gt; TCP</li>
+<li><code>dgram</code> -&gt; UDP</li>
+<li><code>http</code> -&gt; HTTP</li>
+<li><code>https</code> -&gt; HTTPS</li>
+</ul>
+<p>OSI 模型：由七层组成，分别为物理层、数据链路层、网络层、传输层、表示层、应用层。</p>
+<p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE7-1%20OSI%E6%A8%A1%E5%9E%8B%EF%BC%88%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE%EF%BC%89.png?raw=true" alt="图7-1 OSI模型（七层协议）"></p>
+<h4 id="一、构建-TCP-服务"><a href="#一、构建-TCP-服务" class="headerlink" title="一、构建 TCP 服务"></a><p style="background:orange;">一、构建 TCP 服务</p></h4><ol>
+<li><p><span style="color:#ac4a4a"><strong>TCP</strong></span></p>
+<p> TCP（传输控制协议），属于传输层协议，是面向连接的协议。</p>
+<p> 许多应用层协议基于 TCP 构建，典型的是 HTTP、SMTP、IMAP 等协议。</p>
+<p> 【显著特征】：在传输之前需要3次握手形成会话。</p>
+<ul>
+<li><p>只有会话形成之后，服务器端和客户端之间才能互相发送数据</p>
+</li>
+<li><p>在创建会话的过程中，服务器端和客户端分别提供一个套接字，这两个套接字共同形成一个连接。</p>
+</li>
+<li><p>服务器端与客户端则通过套接字实现两者之间连接的操作。</p>
+</li>
+</ul>
+</li>
+<li><p><span style="color:#ac4a4a"><strong>创建 TCP 服务器端</strong></span></p>
+<p> <strong>TCP-Server.js</strong></p>
+<pre><code>var net = require(&apos;net&apos;);
+
+var server = net.createServer(function(socket) {
+    // 新的连接
+    socket.on(&apos;data&apos;, function(data) {
+        socket.write(&apos;你好&apos;);
+    });
+
+    socket.on(&apos;end&apos;, function() {
+        console.log(&apos;连接断开&apos;);
+    });
+
+    socket.write(&apos;欢迎光临《深入浅出Node.js》示例：\n&apos;);
+});
+
+server.listen(8124, function() {
+    console.log(&apos;server bound&apos;);
+});
+</code></pre><p> 或者：</p>
+<pre><code>var server = net.createServer();
+server.on(&apos;connection&apos;, function(socket) {
+    // 新的连接
+});
+server.listen(8124);
+</code></pre><p> <strong>TCP-Client.js</strong>：</p>
+<p> 通过 net 模块自行构造客户端进行会话，测试上面构建的TCP服务</p>
+<pre><code>var client = net.connect({
+    port: 8124
+}, function() { // &apos;connect&apos; listener
+    console.log(&apos;client connected&apos;);
+    client.write(&apos;world!\r\n&apos;);
+});
+
+client.on(&apos;data&apos;, function(data) {
+    console.log(data.toString());
+    client.end();
+});
+
+client.on(&apos;end&apos;, function() {
+    console.log(&apos;client disconnected&apos;);
+});
+</code></pre><p> 输出：</p>
+<pre><code>client connected
+欢迎光临《深入浅出Node.js》示例：
+
+你好
+client disconnected
+</code></pre></li>
+</ol>
+<ol start="3">
+<li><p><span style="color:#ac4a4a"><strong>TCP 服务的事件</strong></span></p>
+<p> （1）服务器事件： <code>listening</code>、 <code>connection</code>、 <code>close</code> 、 <code>error</code></p>
+<p> （2）连接事件： <code>data</code>、 <code>end</code>、 <code>connect</code>、 <code>drain</code>、 <code>error</code>、 <code>close</code>、 <code>timeout</code></p>
+<blockquote>
+<p>注意，TCP针对网络中的小数据包有一定的优化策略：Nagle算法（默认），可以调用 <code>socket.setNoDelay(true)</code> 去掉 Nagle 算法，使得 write() 可以立即发送数据到网络中。</p>
+</blockquote>
+</li>
+</ol>
+<h4 id="二、构建-UDP-服务"><a href="#二、构建-UDP-服务" class="headerlink" title="二、构建 UDP 服务"></a><p style="background:orange;">二、构建 UDP 服务</p></h4><p><strong>UDP：</strong>用户数据包协议，与 TCP 一样同属于网络传输层。</p>
+<p><strong>UDP 与 TCP 的最大区别：</strong></p>
+<p>（1） TCP 中连接一旦建立，所有会话都基于连接完成，客户端如果要与另一个TCP服务通信，需要另创建一个套接字来完成连接；</p>
+<p>（2）UDP 不是面向连接的，可以与多个 UDP 服务通信，提供面向事务的简单不可靠信息传输服务。</p>
+<p><strong>缺点：</strong>在网络差的情况下丢包严重；</p>
+<p><strong>优点：</strong>无须连接，资源消耗低，处理快速且灵活；</p>
+<p><strong>应用：</strong>音频、视频等，及 DNS 服务。</p>
+<ol>
+<li><p><span style="color:#ac4a4a"><strong>创建 UDP 套接字</strong></span></p>
+<p> UDP 套接字一旦创建，既可以作为客户端发送数据，也可以作为服务端接收数据。</p>
+<pre><code>var dgram = require(&apos;dgram&apos;);
+var socket = dgram.createSocket(&apos;udp4&apos;);
+</code></pre></li>
+<li><p><span style="color:#ac4a4a"><strong>创建 UDP 服务器端</strong></span></p>
+<pre><code>var dgram = require(&apos;dgram&apos;);
+var server = dgram.createSocket(&apos;udp4&apos;);
+
+server.on(&apos;message&apos;, function(msg, rinfo) {
+    console.log(&apos;server got:&apos; + msg + &apos; from &apos; + rinfo.address + &apos;:&apos; + rinfo.port);
+});
+
+server.on(&apos;listening&apos;, function() {
+    var address = server.address();
+    console.log(&apos;Server listening &apos; + address.address + &apos;:&apos; + address.port);
+});
+
+// 调用 dgram.bind(port, [address]) 方法对网卡和端口进行绑定
+// 该套接字将接收所有网卡上 41234 端口上的消息
+server.bind(41234);
+</code></pre></li>
+<li><p><span style="color:#ac4a4a"><strong>创建 UDP 客户端</strong></span></p>
+<pre><code>var dgram = require(&apos;dgram&apos;);
+var message = new Buffer(&apos;深入浅出Node.js&apos;);
+var client = dgram.createSocket(&apos;udp4&apos;);
+
+// send() 方法：socket.send(buf, offset, length, port, address, [callback]);
+client.send(message, 0, message.length, 41234, &apos;localhost&apos;, function(err, bytes) {
+    client.close();
+});
+</code></pre></li>
+<li><p><span style="color:#ac4a4a"><strong>UDP 套接字事件</strong></span></p>
+<p> <code>message</code>、<code>listening</code>、<code>close</code>、<code>error</code></p>
+</li>
+</ol>
+<h4 id="三、构建-HTTP-服务"><a href="#三、构建-HTTP-服务" class="headerlink" title="三、构建 HTTP 服务"></a><p style="background:orange;">三、构建 HTTP 服务</p></h4><p>如果要构造高效的网络应用，应该从传输层（TCP/UDP）进行着手，但是对于经典的应用场景，应用层协议绰绰有余。</p>
+<pre><code>var http = require(&apos;http&apos;);
+
+http.createServer(function(req, res) {
+    res.writeHead(200, {
+        &apos;Content-Type&apos;: &apos;text/plain&apos;
+    });
+    res.end(&apos;Hello World\n&apos;);
+}).listen(1337, &apos;127.0.0.1&apos;);
+
+console.log(&apos;Server running at http://127.0.0.1:1337/&apos;);
+</code></pre><ol>
+<li><p><span style="color:#ac4a4a"><strong>HTTP</strong></span></p>
+<p> 浏览器，其实是一个 HTTP 的代理。</p>
+<p> HTTP 服务只做两件事情：处理 HTTP 请求和发送 HTTP 响应。</p>
+</li>
+<li><p><span style="color:#ac4a4a"><strong>http 模块</strong></span></p>
+<p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE7-4%20http%E6%A8%A1%E5%9D%97%E4%BA%A7%E7%94%9F%E8%AF%B7%E6%B1%82%E7%9A%84%E6%B5%81%E7%A8%8B.png?raw=true" alt="图7-4 http模块产生请求的流程"></p>
+<p> http 模块将连接所有套接字的读写抽象为 <code>ServerRequest</code> 和 <code>ServerResponse</code> 对象，它们分别对应请求和响应操作。</p>
+<p> ① <strong>HTTP 请求：</strong></p>
+<p> 报文头部会通过 http_parser 进行解析。</p>
+<p> ② <strong>HTTP 响应：</strong></p>
+<p> 影响响应报文头部信息的 API：<code>res.setHeader()</code> 和 <code>res.writeHead()</code></p>
+<p> 报文体部分调用：<code>res.write()</code> 和 <code>res.end()</code></p>
+<blockquote>
+<p>注意：无论服务器端在处理业务逻辑时是否发生异常，务必在结束时调用 <code>res.end()</code> 结束请求，否则客户端将一直处于等待的状态。当然，也可以通过延迟 <code>res.end()</code> 的方式实现客户端与服务器端之间的长连接，但结束时务必关闭连接。</p>
+</blockquote>
+<p> ③ <strong>HTTP 服务的事件</strong></p>
+<p> <code>connection</code>、<code>request</code>、<code>close</code>、<code>checkContinue</code>、<code>connect</code>、<code>upgrade</code>、<code>clientError</code></p>
+</li>
+<li><p><span style="color:#ac4a4a"><strong>HTTP 客户端</strong></span></p>
+<pre><code>var http = require(&apos;http&apos;);
+
+var options = {
+    hostname: &apos;127.0.0.1&apos;,
+    port: 1337,
+    path: &apos;/&apos;,
+    method: &apos;GET&apos;
+};
+
+var req = http.request(options, function(res) {
+    console.log(&apos;STATUS: &apos; + res.statusCode);
+    console.log(&apos;HEADERS: &apos; + JSON.stringify(res.headers));
+    res.setEncoding(&apos;utf8&apos;);
+    res.on(&apos;data&apos;, function(chunk) {
+        console.log(chunk);
+    });
+});
+
+req.end();
+</code></pre><p> ① <strong>HTTP 响应</strong></p>
+<p> ② <strong>HTTP 代理</strong>：</p>
+<p> 为了重用 TCP 连接，http 模块包含一个默认的客户端代理对象 http.globalAgent。</p>
+<p> 它对每个服务器端（host+port）创建的连接进行了管理，默认情况下，通过 http 提供的 <code>ClientRequest</code> 对象对同一个服务发起的 HTTP 请求最多可以创建5个连接。</p>
+<p> 可以在 options 中传递 <code>agent</code> 选项，更改连接数限制。</p>
+<p> ③ <strong>HTTP 客户端事件</strong></p>
+<p> <code>response</code>、<code>socket</code>、<code>connect</code>、<code>upgrade</code>、<code>continue</code></p>
+</li>
+</ol>
+<h4 id="四、构建-WebSocket-服务"><a href="#四、构建-WebSocket-服务" class="headerlink" title="四、构建 WebSocket 服务"></a><p style="background:orange;">四、构建 WebSocket 服务</p></h4><p>相比 HTTP，WebSocket 更接近于传输层协议，它并没有在 HTTP 的基础上模拟服务器端的推送，而是在 TCP 上定义独立的协议。</p>
+<p>WebSocket 协议主要分为两个部分：握手和数据传输。</p>
+<h4 id="五、网络服务与安全"><a href="#五、网络服务与安全" class="headerlink" title="五、网络服务与安全"></a><p style="background:orange;">五、网络服务与安全</p></h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
+          
+            <a href="/tags/reading/" rel="tag"># reading</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/30/第6章 理解Buffer/" rel="next" title="第6章 理解 Buffer">
+                <i class="fa fa-chevron-left"></i> 第6章 理解 Buffer
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/30/第8章 构建Web应用/" rel="prev" title="第8章 构建Web应用">
+                第8章 构建Web应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Lu Qian</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、构建-TCP-服务"><span class="nav-number">1.</span> <span class="nav-text">一、构建 TCP 服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、构建-UDP-服务"><span class="nav-number">2.</span> <span class="nav-text">二、构建 UDP 服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、构建-HTTP-服务"><span class="nav-number">3.</span> <span class="nav-text">三、构建 HTTP 服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、构建-WebSocket-服务"><span class="nav-number">4.</span> <span class="nav-text">四、构建 WebSocket 服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五、网络服务与安全"><span class="nav-number">5.</span> <span class="nav-text">五、网络服务与安全</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lu Qian</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
