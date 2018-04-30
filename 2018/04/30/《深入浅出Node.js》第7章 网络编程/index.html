@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Node.js,reading," />
+  <meta name="keywords" content="reading,Node.js," />
 
 
 
@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="Node 只需要几行代码即可构建服务器，无需额外的容器。 Node 提供了以下4个模块（适用于服务器端和客户端）：  net -&amp;gt; TCP dgram -&amp;gt; UDP http -&amp;gt; HTTP https -&amp;gt; HTTPS  OSI 模型：由七层组成，分别为物理层、数据链路层、网络层、传输层、表示层、应用层。  一、构建 TCP 服务 TCP  TCP（传输控制协议），属于传">
-<meta name="keywords" content="Node.js,reading">
+<meta name="description" content="Node 只需要几行代码即可构建服务器，无需额外的容器。 Node 提供了以下4个模块（适用于服务器端和客户端）：  net -&amp;gt; TCP dgram -&amp;gt; UDP http -&amp;gt; HTTP https -&amp;gt; HTTPS">
+<meta name="keywords" content="reading,Node.js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第7章 网络编程">
-<meta property="og:url" content="http://yoursite.com/2018/04/30/第7章 网络编程/index.html">
-<meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="Node 只需要几行代码即可构建服务器，无需额外的容器。 Node 提供了以下4个模块（适用于服务器端和客户端）：  net -&amp;gt; TCP dgram -&amp;gt; UDP http -&amp;gt; HTTP https -&amp;gt; HTTPS  OSI 模型：由七层组成，分别为物理层、数据链路层、网络层、传输层、表示层、应用层。  一、构建 TCP 服务 TCP  TCP（传输控制协议），属于传">
+<meta property="og:title" content="《深入浅出Node.js》第7章 网络编程">
+<meta property="og:url" content="http://yoursite.com/2018/04/30/《深入浅出Node.js》第7章 网络编程/index.html">
+<meta property="og:site_name" content="一个笑点低的妹子">
+<meta property="og:description" content="Node 只需要几行代码即可构建服务器，无需额外的容器。 Node 提供了以下4个模块（适用于服务器端和客户端）：  net -&amp;gt; TCP dgram -&amp;gt; UDP http -&amp;gt; HTTP https -&amp;gt; HTTPS">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE7-1%20OSI%E6%A8%A1%E5%9E%8B%EF%BC%88%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE%EF%BC%89.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE7-4%20http%E6%A8%A1%E5%9D%97%E4%BA%A7%E7%94%9F%E8%AF%B7%E6%B1%82%E7%9A%84%E6%B5%81%E7%A8%8B.png?raw=true">
-<meta property="og:updated_time" content="2018-04-29T20:45:20.000Z">
+<meta property="og:updated_time" content="2018-04-29T21:47:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第7章 网络编程">
-<meta name="twitter:description" content="Node 只需要几行代码即可构建服务器，无需额外的容器。 Node 提供了以下4个模块（适用于服务器端和客户端）：  net -&amp;gt; TCP dgram -&amp;gt; UDP http -&amp;gt; HTTP https -&amp;gt; HTTPS  OSI 模型：由七层组成，分别为物理层、数据链路层、网络层、传输层、表示层、应用层。  一、构建 TCP 服务 TCP  TCP（传输控制协议），属于传">
+<meta name="twitter:title" content="《深入浅出Node.js》第7章 网络编程">
+<meta name="twitter:description" content="Node 只需要几行代码即可构建服务器，无需额外的容器。 Node 提供了以下4个模块（适用于服务器端和客户端）：  net -&amp;gt; TCP dgram -&amp;gt; UDP http -&amp;gt; HTTP https -&amp;gt; HTTPS">
 <meta name="twitter:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE7-1%20OSI%E6%A8%A1%E5%9E%8B%EF%BC%88%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE%EF%BC%89.png?raw=true">
 
 
@@ -101,7 +101,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/30/第7章 网络编程/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第7章 网络编程/"/>
 
 
 
 
 
-  <title>第7章 网络编程 | My Blog</title>
+  <title>《深入浅出Node.js》第7章 网络编程 | 一个笑点低的妹子</title>
   
 
 
@@ -159,12 +159,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">My Blog</span>
+        <span class="site-title">一个笑点低的妹子</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">love life</p>
+        <p class="site-subtitle">love life，把书读薄</p>
       
   </div>
 
@@ -190,6 +190,26 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -236,7 +256,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第7章 网络编程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第7章 网络编程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lu Qian">
@@ -245,7 +265,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
+      <meta itemprop="name" content="一个笑点低的妹子">
     </span>
 
     
@@ -253,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">第7章 网络编程</h1>
+          <h1 class="post-title" itemprop="name headline">《深入浅出Node.js》第7章 网络编程</h1>
         
 
         <div class="post-meta">
@@ -333,9 +353,10 @@
 <li><code>http</code> -&gt; HTTP</li>
 <li><code>https</code> -&gt; HTTPS</li>
 </ul>
+<a id="more"></a>
 <p>OSI 模型：由七层组成，分别为物理层、数据链路层、网络层、传输层、表示层、应用层。</p>
 <p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE7-1%20OSI%E6%A8%A1%E5%9E%8B%EF%BC%88%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE%EF%BC%89.png?raw=true" alt="图7-1 OSI模型（七层协议）"></p>
-<h4 id="一、构建-TCP-服务"><a href="#一、构建-TCP-服务" class="headerlink" title="一、构建 TCP 服务"></a><p style="background:orange;">一、构建 TCP 服务</p></h4><ol>
+<h3 id="一、构建-TCP-服务"><a href="#一、构建-TCP-服务" class="headerlink" title="一、构建 TCP 服务"></a>一、构建 TCP 服务</h3><ol>
 <li><p><span style="color:#ac4a4a"><strong>TCP</strong></span></p>
 <p> TCP（传输控制协议），属于传输层协议，是面向连接的协议。</p>
 <p> 许多应用层协议基于 TCP 构建，典型的是 HTTP、SMTP、IMAP 等协议。</p>
@@ -409,7 +430,7 @@ client disconnected
 </blockquote>
 </li>
 </ol>
-<h4 id="二、构建-UDP-服务"><a href="#二、构建-UDP-服务" class="headerlink" title="二、构建 UDP 服务"></a><p style="background:orange;">二、构建 UDP 服务</p></h4><p><strong>UDP：</strong>用户数据包协议，与 TCP 一样同属于网络传输层。</p>
+<h3 id="二、构建-UDP-服务"><a href="#二、构建-UDP-服务" class="headerlink" title="二、构建 UDP 服务"></a>二、构建 UDP 服务</h3><p><strong>UDP：</strong>用户数据包协议，与 TCP 一样同属于网络传输层。</p>
 <p><strong>UDP 与 TCP 的最大区别：</strong></p>
 <p>（1） TCP 中连接一旦建立，所有会话都基于连接完成，客户端如果要与另一个TCP服务通信，需要另创建一个套接字来完成连接；</p>
 <p>（2）UDP 不是面向连接的，可以与多个 UDP 服务通信，提供面向事务的简单不可靠信息传输服务。</p>
@@ -453,7 +474,7 @@ client.send(message, 0, message.length, 41234, &apos;localhost&apos;, function(e
 <p> <code>message</code>、<code>listening</code>、<code>close</code>、<code>error</code></p>
 </li>
 </ol>
-<h4 id="三、构建-HTTP-服务"><a href="#三、构建-HTTP-服务" class="headerlink" title="三、构建 HTTP 服务"></a><p style="background:orange;">三、构建 HTTP 服务</p></h4><p>如果要构造高效的网络应用，应该从传输层（TCP/UDP）进行着手，但是对于经典的应用场景，应用层协议绰绰有余。</p>
+<h3 id="三、构建-HTTP-服务"><a href="#三、构建-HTTP-服务" class="headerlink" title="三、构建 HTTP 服务"></a>三、构建 HTTP 服务</h3><p>如果要构造高效的网络应用，应该从传输层（TCP/UDP）进行着手，但是对于经典的应用场景，应用层协议绰绰有余。</p>
 <pre><code>var http = require(&apos;http&apos;);
 
 http.createServer(function(req, res) {
@@ -512,7 +533,7 @@ req.end();
 <p> <code>response</code>、<code>socket</code>、<code>connect</code>、<code>upgrade</code>、<code>continue</code></p>
 </li>
 </ol>
-<h4 id="四、构建-WebSocket-服务"><a href="#四、构建-WebSocket-服务" class="headerlink" title="四、构建 WebSocket 服务"></a><p style="background:orange;">四、构建 WebSocket 服务</p></h4><p>相比 HTTP，WebSocket 更接近于传输层协议，它并没有在 HTTP 的基础上模拟服务器端的推送，而是在 TCP 上定义独立的协议。</p>
+<h3 id="四、构建-WebSocket-服务"><a href="#四、构建-WebSocket-服务" class="headerlink" title="四、构建 WebSocket 服务"></a>四、构建 WebSocket 服务</h3><p>相比 HTTP，WebSocket 更接近于传输层协议，它并没有在 HTTP 的基础上模拟服务器端的推送，而是在 TCP 上定义独立的协议。</p>
 <p>WebSocket 协议主要分为两个部分：握手和数据传输。</p>
 <h4 id="五、网络服务与安全"><a href="#五、网络服务与安全" class="headerlink" title="五、网络服务与安全"></a><p style="background:orange;">五、网络服务与安全</p></h4>
       
@@ -531,9 +552,9 @@ req.end();
       
         <div class="post-tags">
           
-            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
-          
             <a href="/tags/reading/" rel="tag"># reading</a>
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
           
         </div>
       
@@ -546,8 +567,8 @@ req.end();
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/30/第6章 理解Buffer/" rel="next" title="第6章 理解 Buffer">
-                <i class="fa fa-chevron-left"></i> 第6章 理解 Buffer
+              <a href="/2018/04/30/《深入浅出Node.js》第6章 理解Buffer/" rel="next" title="《深入浅出Node.js》第6章 理解 Buffer">
+                <i class="fa fa-chevron-left"></i> 《深入浅出Node.js》第6章 理解 Buffer
               </a>
             
           </div>
@@ -556,8 +577,8 @@ req.end();
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/30/第8章 构建Web应用/" rel="prev" title="第8章 构建Web应用">
-                第8章 构建Web应用 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/30/《深入浅出Node.js》第8章 构建Web应用/" rel="prev" title="《深入浅出Node.js》第8章 构建Web应用">
+                《深入浅出Node.js》第8章 构建Web应用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -645,10 +666,10 @@ req.end();
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">3</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -656,10 +677,10 @@ req.end();
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">5</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -690,7 +711,7 @@ req.end();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、构建-TCP-服务"><span class="nav-number">1.</span> <span class="nav-text">一、构建 TCP 服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、构建-UDP-服务"><span class="nav-number">2.</span> <span class="nav-text">二、构建 UDP 服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、构建-HTTP-服务"><span class="nav-number">3.</span> <span class="nav-text">三、构建 HTTP 服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、构建-WebSocket-服务"><span class="nav-number">4.</span> <span class="nav-text">四、构建 WebSocket 服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五、网络服务与安全"><span class="nav-number">5.</span> <span class="nav-text">五、网络服务与安全</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、构建-TCP-服务"><span class="nav-number">1.</span> <span class="nav-text">一、构建 TCP 服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、构建-UDP-服务"><span class="nav-number">2.</span> <span class="nav-text">二、构建 UDP 服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、构建-HTTP-服务"><span class="nav-number">3.</span> <span class="nav-text">三、构建 HTTP 服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、构建-WebSocket-服务"><span class="nav-number">4.</span> <span class="nav-text">四、构建 WebSocket 服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#五、网络服务与安全"><span class="nav-number">4.1.</span> <span class="nav-text">五、网络服务与安全</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -710,7 +731,8 @@ req.end();
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -720,15 +742,20 @@ req.end();
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+      本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>-->
 
 
 
-  <span class="post-meta-divider">|</span>
+  <!--<span class="post-meta-divider">|</span>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <!--<div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>-->
 
 
 

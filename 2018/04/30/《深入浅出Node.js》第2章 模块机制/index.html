@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Node.js,reading," />
+  <meta name="keywords" content="reading,Node.js," />
 
 
 
@@ -79,13 +79,13 @@
 
 
 
-<meta name="description" content="JavaScript 先天缺乏的功能：模块。 一、CommonJS 规范：JavaScript 规范的缺陷：1）没有模块系统；2）标准库较少；3）没有标准接口；4）缺乏包管理系统。 CommonJS 规范的提出，主要是为了弥补当前 JavaScript 没有标准的缺陷，使其具备开发大型应用的基础能力。  Node 借鉴 CommonJS 的 Modules 规范实现了一套非常易用的模块系统，NP">
-<meta name="keywords" content="Node.js,reading">
+<meta name="description" content="JavaScript 先天缺乏的功能：模块。">
+<meta name="keywords" content="reading,Node.js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第2章 模块机制">
-<meta property="og:url" content="http://yoursite.com/2018/04/30/第2章 模块机制/index.html">
-<meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="JavaScript 先天缺乏的功能：模块。 一、CommonJS 规范：JavaScript 规范的缺陷：1）没有模块系统；2）标准库较少；3）没有标准接口；4）缺乏包管理系统。 CommonJS 规范的提出，主要是为了弥补当前 JavaScript 没有标准的缺陷，使其具备开发大型应用的基础能力。  Node 借鉴 CommonJS 的 Modules 规范实现了一套非常易用的模块系统，NP">
+<meta property="og:title" content="《深入浅出Node.js》第2章 模块机制">
+<meta property="og:url" content="http://yoursite.com/2018/04/30/《深入浅出Node.js》第2章 模块机制/index.html">
+<meta property="og:site_name" content="一个笑点低的妹子">
+<meta property="og:description" content="JavaScript 先天缺乏的功能：模块。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-1%20JavaScript%E7%9A%84%E5%8F%98%E8%BF%81.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-2%20Node%E4%B8%8E%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A5%E5%8F%8AW3C%E7%BB%84%E7%BB%87%E3%80%81CommonJS%E7%BB%84%E7%BB%87%E3%80%81ECMAScript%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.png?raw=true">
@@ -95,10 +95,10 @@
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-6%20%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97%E4%B8%8D%E5%90%8C%E5%B9%B3%E5%8F%B0%E4%B8%8A%E7%9A%84%E7%BC%96%E8%AF%91%E5%92%8C%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-8%20%E6%A8%A1%E5%9D%97%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B0%83%E7%94%A8%E5%85%B3%E7%B3%BB.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-9%20%E5%8C%85%E7%BB%84%E7%BB%87%E6%A8%A1%E5%9D%97%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true">
-<meta property="og:updated_time" content="2018-04-29T20:44:51.000Z">
+<meta property="og:updated_time" content="2018-04-29T21:48:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第2章 模块机制">
-<meta name="twitter:description" content="JavaScript 先天缺乏的功能：模块。 一、CommonJS 规范：JavaScript 规范的缺陷：1）没有模块系统；2）标准库较少；3）没有标准接口；4）缺乏包管理系统。 CommonJS 规范的提出，主要是为了弥补当前 JavaScript 没有标准的缺陷，使其具备开发大型应用的基础能力。  Node 借鉴 CommonJS 的 Modules 规范实现了一套非常易用的模块系统，NP">
+<meta name="twitter:title" content="《深入浅出Node.js》第2章 模块机制">
+<meta name="twitter:description" content="JavaScript 先天缺乏的功能：模块。">
 <meta name="twitter:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-1%20JavaScript%E7%9A%84%E5%8F%98%E8%BF%81.png?raw=true">
 
 
@@ -107,7 +107,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/30/第2章 模块机制/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第2章 模块机制/"/>
 
 
 
 
 
-  <title>第2章 模块机制 | My Blog</title>
+  <title>《深入浅出Node.js》第2章 模块机制 | 一个笑点低的妹子</title>
   
 
 
@@ -165,12 +165,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">My Blog</span>
+        <span class="site-title">一个笑点低的妹子</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">love life</p>
+        <p class="site-subtitle">love life，把书读薄</p>
       
   </div>
 
@@ -196,6 +196,26 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -242,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第2章 模块机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第2章 模块机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lu Qian">
@@ -251,7 +271,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
+      <meta itemprop="name" content="一个笑点低的妹子">
     </span>
 
     
@@ -259,7 +279,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">第2章 模块机制</h1>
+          <h1 class="post-title" itemprop="name headline">《深入浅出Node.js》第2章 模块机制</h1>
         
 
         <div class="post-meta">
@@ -333,7 +353,8 @@
       
         <p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-1%20JavaScript%E7%9A%84%E5%8F%98%E8%BF%81.png?raw=true" alt="JavaScript 的变迁"></p>
 <p>JavaScript 先天缺乏的功能：模块。</p>
-<h4 id="一、CommonJS-规范："><a href="#一、CommonJS-规范：" class="headerlink" title="一、CommonJS 规范："></a><p style="background:orange;">一、CommonJS 规范：</p></h4><p>JavaScript 规范的缺陷：1）没有模块系统；2）标准库较少；3）没有标准接口；4）缺乏包管理系统。</p>
+<a id="more"></a>
+<h3 id="一、CommonJS-规范："><a href="#一、CommonJS-规范：" class="headerlink" title="一、CommonJS 规范："></a>一、CommonJS 规范：</h3><p>JavaScript 规范的缺陷：1）没有模块系统；2）标准库较少；3）没有标准接口；4）缺乏包管理系统。</p>
 <p>CommonJS 规范的提出，主要是为了弥补当前 JavaScript 没有标准的缺陷，使其具备开发大型应用的基础能力。</p>
 <p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-2%20Node%E4%B8%8E%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A5%E5%8F%8AW3C%E7%BB%84%E7%BB%87%E3%80%81CommonJS%E7%BB%84%E7%BB%87%E3%80%81ECMAScript%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.png?raw=true" alt="Node与浏览器以及W3C组织、CommonJS组织、ECMAScript之间的关系"></p>
 <p>Node 借鉴 CommonJS 的 Modules 规范实现了一套非常易用的模块系统，NPM 对 Packages 规范的完好支持使得 Node 应用在开发过程中事半功倍。</p>
@@ -355,7 +376,7 @@ exports.add = function() {};
 </li>
 </ol>
 <p>♫ 【<strong>优点</strong>】：CommonJS 构建的这套模块导出和引入机制使得用户完全不必考虑变量污染，命名空间等方案与之相比相形见绌。</p>
-<h4 id="二、Node-的模块实现"><a href="#二、Node-的模块实现" class="headerlink" title="二、Node 的模块实现"></a><p style="background:orange;">二、Node 的模块实现</p></h4><p>在 Node 中引入模块，需要经历：（1）路径分析；（2）文件定位；（3）编译执行。</p>
+<h3 id="二、Node-的模块实现"><a href="#二、Node-的模块实现" class="headerlink" title="二、Node 的模块实现"></a>二、Node 的模块实现</h3><p>在 Node 中引入模块，需要经历：（1）路径分析；（2）文件定位；（3）编译执行。</p>
 <p>Node 中的模块分为两类：</p>
 <p>（1）核心模块：在 Node 源代码编译过程中，编译进了二进制执行文件，所以在引入时，可以省略文件定位和编译执行，且在路径分析中优先判断，加载速度最快。</p>
 <p>（2）文件模块：在运行时动态加载，需要完整的3步过程，速度较慢。</p>
@@ -428,7 +449,7 @@ exports.add = function() {};
 </ul>
 </li>
 </ol>
-<h4 id="三、核心模块"><a href="#三、核心模块" class="headerlink" title="三、核心模块"></a><p style="background:orange;">三、核心模块</p></h4><p>核心模块分为两部分： c/C++ 编写的和 JavaScript 编写的。</p>
+<h3 id="三、核心模块"><a href="#三、核心模块" class="headerlink" title="三、核心模块"></a>三、核心模块</h3><p>核心模块分为两部分： c/C++ 编写的和 JavaScript 编写的。</p>
 <ol>
 <li><p><span style="color:#ac4a4a"><strong>JavaScript 核心模块的编译过程</strong></span></p>
 <p> ① 转存为 C/C++ 代码</p>
@@ -467,24 +488,24 @@ exports.add = function() {};
 </ul>
 </li>
 </ol>
-<h4 id="四、C-C-扩展模块"><a href="#四、C-C-扩展模块" class="headerlink" title="四、C/C++ 扩展模块"></a><p style="background:orange;">四、C/C++ 扩展模块</p></h4><p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-6%20%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97%E4%B8%8D%E5%90%8C%E5%B9%B3%E5%8F%B0%E4%B8%8A%E7%9A%84%E7%BC%96%E8%AF%91%E5%92%8C%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B.png?raw=true" alt="扩展模块不同平台上的编译和加载过程"></p>
+<h3 id="四、C-C-扩展模块"><a href="#四、C-C-扩展模块" class="headerlink" title="四、C/C++ 扩展模块"></a>四、C/C++ 扩展模块</h3><p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-6%20%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97%E4%B8%8D%E5%90%8C%E5%B9%B3%E5%8F%B0%E4%B8%8A%E7%9A%84%E7%BC%96%E8%AF%91%E5%92%8C%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B.png?raw=true" alt="扩展模块不同平台上的编译和加载过程"></p>
 <ul>
 <li>C/C++ 扩展模块与 JavaScript 模块的区别在于加载之后不需要编译，直接执行之后就可以被外部调用了，其加载速度比 JavaScript 模块略快。</li>
 <li>使用 C/C++ 扩展模块的好处：可更灵活和动态地加载它们，保持 Node 模块自身简单性的同时，给予 Node 无限的可扩展性。</li>
 </ul>
-<h4 id="五、模块调用栈"><a href="#五、模块调用栈" class="headerlink" title="五、模块调用栈"></a><p style="background:orange;">五、模块调用栈</p></h4><p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-8%20%E6%A8%A1%E5%9D%97%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B0%83%E7%94%A8%E5%85%B3%E7%B3%BB.png?raw=true" alt="模块之间的调用关系"></p>
+<h3 id="五、模块调用栈"><a href="#五、模块调用栈" class="headerlink" title="五、模块调用栈"></a>五、模块调用栈</h3><p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-8%20%E6%A8%A1%E5%9D%97%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B0%83%E7%94%A8%E5%85%B3%E7%B3%BB.png?raw=true" alt="模块之间的调用关系"></p>
 <ul>
 <li>C/C++ 内建模块属于最底层的模块，它属于核心模块，主要提供 API 给 JavaScript 核心模块和第三方JavaScript 文件模块调用。</li>
 <li>javaScript 核心模块属于的两类职责：1）作为C/C++内建模块的封装层和桥接层，供文件模块调用；2）纯粹的功能模块，它不需要跟底层打交道，但是又十分重要。</li>
 </ul>
-<h4 id="六、包与-NPM"><a href="#六、包与-NPM" class="headerlink" title="六、包与 NPM"></a><p style="background:orange;">六、包与 NPM</p></h4><p>在模块之外，包和 NPM 是将模块联系起来的一种机制。</p>
+<h3 id="六、包与-NPM"><a href="#六、包与-NPM" class="headerlink" title="六、包与 NPM"></a>六、包与 NPM</h3><p>在模块之外，包和 NPM 是将模块联系起来的一种机制。</p>
 <p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-9%20%E5%8C%85%E7%BB%84%E7%BB%87%E6%A8%A1%E5%9D%97%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="包组织模块示意图"></p>
 <ul>
 <li>CommonJS 的包规范由两部分组成：包结构、包描述文件。</li>
 <li>CommonJS 包规范是理论，NPM 是其中的一种实践。</li>
 </ul>
 <p>➹ <a href="http://www.runoob.com/nodejs/nodejs-npm.html" target="_blank" rel="noopener">NPM 常用功能</a></p>
-<h4 id="七、前后端共用模块"><a href="#七、前后端共用模块" class="headerlink" title="七、前后端共用模块"></a><p style="background:orange;">七、前后端共用模块</p></h4><ol>
+<h3 id="七、前后端共用模块"><a href="#七、前后端共用模块" class="headerlink" title="七、前后端共用模块"></a>七、前后端共用模块</h3><ol>
 <li><p><span style="color:#ac4a4a"><strong>模块的侧重点</strong></span></p>
 <ul>
 <li><p>浏览器端的 JavaScript：需要经历从同一个服务器端分发到多个客户端执行，瓶颈在于带宽，需要通过网络加载代码；</p>
@@ -568,9 +589,9 @@ define(function(require, exports, module) {
       
         <div class="post-tags">
           
-            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
-          
             <a href="/tags/reading/" rel="tag"># reading</a>
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
           
         </div>
       
@@ -583,8 +604,8 @@ define(function(require, exports, module) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/30/第1章 Node简介/" rel="next" title="第1章 Node简介">
-                <i class="fa fa-chevron-left"></i> 第1章 Node简介
+              <a href="/2018/04/30/《深入浅出Node.js》第1章 Node简介/" rel="next" title="《深入浅出Node.js》第1章 Node简介">
+                <i class="fa fa-chevron-left"></i> 《深入浅出Node.js》第1章 Node简介
               </a>
             
           </div>
@@ -593,8 +614,8 @@ define(function(require, exports, module) {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/30/第3章 异步IO/" rel="prev" title="第3章 异步I/O">
-                第3章 异步I/O <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/30/《深入浅出Node.js》第3章 异步IO/" rel="prev" title="《深入浅出Node.js》第3章 异步I/O">
+                《深入浅出Node.js》第3章 异步I/O <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -682,10 +703,10 @@ define(function(require, exports, module) {
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">3</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -693,10 +714,10 @@ define(function(require, exports, module) {
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">5</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -727,7 +748,7 @@ define(function(require, exports, module) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、CommonJS-规范："><span class="nav-number">1.</span> <span class="nav-text">一、CommonJS 规范：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、Node-的模块实现"><span class="nav-number">2.</span> <span class="nav-text">二、Node 的模块实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、核心模块"><span class="nav-number">3.</span> <span class="nav-text">三、核心模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、C-C-扩展模块"><span class="nav-number">4.</span> <span class="nav-text">四、C/C++ 扩展模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五、模块调用栈"><span class="nav-number">5.</span> <span class="nav-text">五、模块调用栈</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#六、包与-NPM"><span class="nav-number">6.</span> <span class="nav-text">六、包与 NPM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#七、前后端共用模块"><span class="nav-number">7.</span> <span class="nav-text">七、前后端共用模块</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、CommonJS-规范："><span class="nav-number">1.</span> <span class="nav-text">一、CommonJS 规范：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、Node-的模块实现"><span class="nav-number">2.</span> <span class="nav-text">二、Node 的模块实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、核心模块"><span class="nav-number">3.</span> <span class="nav-text">三、核心模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、C-C-扩展模块"><span class="nav-number">4.</span> <span class="nav-text">四、C/C++ 扩展模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、模块调用栈"><span class="nav-number">5.</span> <span class="nav-text">五、模块调用栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、包与-NPM"><span class="nav-number">6.</span> <span class="nav-text">六、包与 NPM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、前后端共用模块"><span class="nav-number">7.</span> <span class="nav-text">七、前后端共用模块</span></a></li></ol></div>
             
 
           </div>
@@ -747,7 +768,8 @@ define(function(require, exports, module) {
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -757,15 +779,20 @@ define(function(require, exports, module) {
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+      本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>-->
 
 
 
-  <span class="post-meta-divider">|</span>
+  <!--<span class="post-meta-divider">|</span>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <!--<div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>-->
 
 
 

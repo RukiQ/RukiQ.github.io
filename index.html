@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -80,12 +80,12 @@
 
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="My Blog">
+<meta property="og:title" content="一个笑点低的妹子">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="My Blog">
+<meta property="og:site_name" content="一个笑点低的妹子">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="My Blog">
+<meta name="twitter:title" content="一个笑点低的妹子">
 
 
 
@@ -93,7 +93,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -121,7 +121,7 @@
 
 
 
-  <title>My Blog</title>
+  <title>一个笑点低的妹子</title>
   
 
 
@@ -152,12 +152,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">My Blog</span>
+        <span class="site-title">一个笑点低的妹子</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">love life</p>
+        <p class="site-subtitle">love life，把书读薄</p>
       
   </div>
 
@@ -183,6 +183,26 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -229,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第8章 构建Web应用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第8章 构建Web应用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lu Qian">
@@ -238,7 +258,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
+      <meta itemprop="name" content="一个笑点低的妹子">
     </span>
 
     
@@ -248,7 +268,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/30/第8章 构建Web应用/" itemprop="url">第8章 构建Web应用</a></h1>
+                <a class="post-title-link" href="/2018/04/30/《深入浅出Node.js》第8章 构建Web应用/" itemprop="url">《深入浅出Node.js》第8章 构建Web应用</a></h1>
         
 
         <div class="post-meta">
@@ -321,92 +341,19 @@
 
       
         
-          
-            <h3 id="一、基础功能"><a href="#一、基础功能" class="headerlink" title="一、基础功能"></a>一、基础功能</h3><ol>
+          <h3 id="一、基础功能"><a href="#一、基础功能" class="headerlink" title="一、基础功能"></a>一、基础功能</h3><ol>
 <li><p><span style="color:#ac4a4a"><strong>请求方法</strong></span>：GET、POST、HEAD、DELETE、PUT、CONNECT</p>
 <pre><code>GET /path?foo=bar HTTP/1.1
 </code></pre><p> HTTP_Parser 在解析请求报文的时候，将报文头抽取出来，设置成 <code>req.method</code>。</p>
 </li>
-<li><p><span style="color:#ac4a4a"><strong>路径解析</strong></span></p>
-<pre><code>GET /path?foo=bar HTTP/1.1
-</code></pre><p> HTTP_Parser 将其解析为 <code>req.url</code></p>
-<p> 一个完整的URL地址：</p>
-<pre><code>http://user:pass@host.com:8080/p/a/t/h?query=string#hash
-</code></pre><p> 客户端代理（浏览器）会将这个地址解析成报文，将路径和查询部分放在报文第一行。hash 部分会被丢弃，不会存在于报文的任何地方。</p>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>查询字符串</strong></span></p>
-<pre><code>var query = url.parse(req.url, true).query;
-</code></pre></li>
-<li><p><span style="color:#ac4a4a"><strong>Cookie</strong></span></p>
-<p> HTTP是无状态的协议，现实中的业务却是需要一定的状态的，否则无法区分用户之间的身份。</p>
-<p> Cookie 能记录服务器与客户端之间的状态，最早的用处就是用来判断用户是否第一次访问网站。</p>
-<p> <strong>① 初识 Cookie</strong></p>
-<p> Cookie 的处理分为如下几步：</p>
-<ul>
-<li>服务器向客户端发送 Cookie;</li>
-<li>浏览器将 Cookie 保存；</li>
-<li><p>之后每次浏览器都会将 Cookie 发向服务器端。</p>
-<p><strong>② Cookie 的性能影响</strong></p>
-</li>
-<li><p>减少 Cookie 的大小</p>
-</li>
-<li>为静态组件使用不同的域名：不仅可以减少无效 Cookie 的传输，还可以突破浏览器下载线程数量的限制</li>
-<li><p>减少 DNS 查询</p>
-<blockquote>
-<p>减少 DNS 查询和使用不同的域名是冲突的两条规则，但好在现今的浏览器都会进行 DNS 缓存，以削弱这个副作用的影响。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>Session</strong></span></p>
-<p> Cookie 的 <span style="color:red;">缺点</span>：数据可以在前后端进行修改。</p>
-<p> 为了解决 Cookie 敏感数据的问题，Session 应运而生。Session 的数据只保留在服务器端，客户端无法修改，这样数据的安全性得到一定的保障，数据也无需再协议中每次都被传递。</p>
-<p> <strong>☛ 将每个客户和服务器中的数据一一对应起来的实现方式：</strong></p>
-<p>  第一种：基于 Cookie 来实现用户和数据的映射</p>
-<ul>
-<li>一旦服务器端启用了Session，它将随意约定一个键值作为Session的口令；</li>
-<li>一旦服务器检查到用户请求Cookie中没有携带该值，它就会为之生成一个唯一且不重复的值，并设定超时时间；</li>
-<li><p>每个请求到来时，检查Cookie中的口令与服务器端的数据，如果过期，就重新生成。</p>
-<blockquote>
-<p>这种实现方案依赖Cookie实现，也是目前大多数Web应用的方案。如果客户端禁止使用Cookie，这个世界上大多数的网站将无法实现登录等操作。</p>
-</blockquote>
-<p>第二种：通过查询字符串来实现浏览器端和服务器端数据的对应</p>
-</li>
-<li><p><span style="color:red;">原理</span>：检查请求的查询字符串，如果没有值，会先生成新的带值的URL</p>
-</li>
-<li><p>有的服务器在客户端禁用Cookie时，会采用该方案实现退化，但是风险远大于基于Cookie的实现。</p>
-<p><strong>① Session 与内存</strong></p>
-<p>为了解决性能问题和Session数据无法跨进程共享的问题，常用的方案是将Session集中化，将原本可能分散在多个进程里的数据，统一转移到集中的数据存储中。</p>
-<p>尽管采用专门的缓存服务会比直接在内存中访问慢，但其影响小之又小，带来的好处却远远大于直接在Node中保存数据。</p>
-<p><strong>② Session 与安全</strong></p>
-<p>方案1：将口令通过私钥加密进行签名，使得伪造的成本较高；</p>
-<p>方案2：将客户端的某些独有信息与口令作为原值，然后签名，这样攻击者一旦不在原始的客户端上进行访问，就会导致签名失败。这些独有信息包括用户IP和用户代理。</p>
-</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>缓存</strong></span></p>
-<p> 通常来说，POST、DELETE、PUT这类带行为性的请求操作一般不做任何缓存，大多数缓存只应用在GET请求中。</p>
-<p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE8-1%20%E4%BD%BF%E7%94%A8%E7%BC%93%E5%AD%98%E7%9A%84%E6%B5%81%E7%A8%8B%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="图8-1 使用缓存的流程示意图"></p>
-<p> ☛ <strong>条件请求</strong></p>
-<p> 在普通的 GET 请求报文中，附带 <strong>If-Mdified-Since</strong> 字段。采用时间戳的方式。</p>
-<p> <span style="color:red;">缺陷</span>：时间戳有一定缺陷 →（1）文件的时间戳改动但内容并不一定改动；（2）时间戳只能精确到秒级别，更新频繁的内容将无法生效。</p>
-<p> <span style="color:red;">解决</span>：HTTP1.1 中引入 <strong>Etag（Entity Tag）</strong> 用以解决上述缺陷，由服务器生成。如果根据文件内容生成散列值，那么条件请求将不会受到时间戳改动造成的带宽浪费。</p>
-<p> 与 <strong>If-Modified-Since/Last-Modified</strong> 不同的是，ETag 的请求和响应是 <strong>If-None-Match/ETag</strong>。</p>
-<blockquote>
-<p>尽管条件请求可以在文件内容没有修改的情况下节省带宽，但是它依然会发起一个HTTP请求，使得客户端依然会花一定时间来等待响应。</p>
-<p>可见最好的方案就是连条件请求都不用发起。</p>
-</blockquote>
-<p> 在响应里设置 <strong>Expires</strong> 或 <strong>Cache-Control</strong> 头，浏览器将根据该值进行缓存。</p>
-<p> ☛ <strong>清除缓存</strong>（更新机制）</p>
-<p> （1） 每次发布，路径中跟随 Web 应用的版本号；</p>
-<p> （2） 每次发布，路径中跟随该文件内容的 hash 值。（更高效，更精准）</p>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>Basic 认证</strong></span></p>
-</li>
 </ol>
-<h3 id="二、数据上传"><a href="#二、数据上传" class="headerlink" title="二、数据上传"></a>二、数据上传</h3><h3 id="三、路由解析"><a href="#三、路由解析" class="headerlink" title="三、路由解析"></a>三、路由解析</h3><h3 id="四、中间件"><a href="#四、中间件" class="headerlink" title="四、中间件"></a>四、中间件</h3><p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE8-4%20%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%9E%8B.png?raw=true" alt="图8-4 中间件的工作模型"></p>
-<h3 id="五、页面渲染"><a href="#五、页面渲染" class="headerlink" title="五、页面渲染"></a>五、页面渲染</h3>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/30/《深入浅出Node.js》第8章 构建Web应用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -453,7 +400,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第7章 网络编程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第7章 网络编程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lu Qian">
@@ -462,7 +409,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
+      <meta itemprop="name" content="一个笑点低的妹子">
     </span>
 
     
@@ -472,7 +419,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/30/第7章 网络编程/" itemprop="url">第7章 网络编程</a></h1>
+                <a class="post-title-link" href="/2018/04/30/《深入浅出Node.js》第7章 网络编程/" itemprop="url">《深入浅出Node.js》第7章 网络编程</a></h1>
         
 
         <div class="post-meta">
@@ -545,8 +492,7 @@
 
       
         
-          
-            <p>Node 只需要几行代码即可构建服务器，无需额外的容器。</p>
+          <p>Node 只需要几行代码即可构建服务器，无需额外的容器。</p>
 <p>Node 提供了以下4个模块（适用于服务器端和客户端）：</p>
 <ul>
 <li><code>net</code> -&gt; TCP</li>
@@ -554,189 +500,13 @@
 <li><code>http</code> -&gt; HTTP</li>
 <li><code>https</code> -&gt; HTTPS</li>
 </ul>
-<p>OSI 模型：由七层组成，分别为物理层、数据链路层、网络层、传输层、表示层、应用层。</p>
-<p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE7-1%20OSI%E6%A8%A1%E5%9E%8B%EF%BC%88%E4%B8%83%E5%B1%82%E5%8D%8F%E8%AE%AE%EF%BC%89.png?raw=true" alt="图7-1 OSI模型（七层协议）"></p>
-<h4 id="一、构建-TCP-服务"><a href="#一、构建-TCP-服务" class="headerlink" title="一、构建 TCP 服务"></a><p style="background:orange;">一、构建 TCP 服务</p></h4><ol>
-<li><p><span style="color:#ac4a4a"><strong>TCP</strong></span></p>
-<p> TCP（传输控制协议），属于传输层协议，是面向连接的协议。</p>
-<p> 许多应用层协议基于 TCP 构建，典型的是 HTTP、SMTP、IMAP 等协议。</p>
-<p> 【显著特征】：在传输之前需要3次握手形成会话。</p>
-<ul>
-<li><p>只有会话形成之后，服务器端和客户端之间才能互相发送数据</p>
-</li>
-<li><p>在创建会话的过程中，服务器端和客户端分别提供一个套接字，这两个套接字共同形成一个连接。</p>
-</li>
-<li><p>服务器端与客户端则通过套接字实现两者之间连接的操作。</p>
-</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>创建 TCP 服务器端</strong></span></p>
-<p> <strong>TCP-Server.js</strong></p>
-<pre><code>var net = require(&apos;net&apos;);
-
-var server = net.createServer(function(socket) {
-    // 新的连接
-    socket.on(&apos;data&apos;, function(data) {
-        socket.write(&apos;你好&apos;);
-    });
-
-    socket.on(&apos;end&apos;, function() {
-        console.log(&apos;连接断开&apos;);
-    });
-
-    socket.write(&apos;欢迎光临《深入浅出Node.js》示例：\n&apos;);
-});
-
-server.listen(8124, function() {
-    console.log(&apos;server bound&apos;);
-});
-</code></pre><p> 或者：</p>
-<pre><code>var server = net.createServer();
-server.on(&apos;connection&apos;, function(socket) {
-    // 新的连接
-});
-server.listen(8124);
-</code></pre><p> <strong>TCP-Client.js</strong>：</p>
-<p> 通过 net 模块自行构造客户端进行会话，测试上面构建的TCP服务</p>
-<pre><code>var client = net.connect({
-    port: 8124
-}, function() { // &apos;connect&apos; listener
-    console.log(&apos;client connected&apos;);
-    client.write(&apos;world!\r\n&apos;);
-});
-
-client.on(&apos;data&apos;, function(data) {
-    console.log(data.toString());
-    client.end();
-});
-
-client.on(&apos;end&apos;, function() {
-    console.log(&apos;client disconnected&apos;);
-});
-</code></pre><p> 输出：</p>
-<pre><code>client connected
-欢迎光临《深入浅出Node.js》示例：
-
-你好
-client disconnected
-</code></pre></li>
-</ol>
-<ol start="3">
-<li><p><span style="color:#ac4a4a"><strong>TCP 服务的事件</strong></span></p>
-<p> （1）服务器事件： <code>listening</code>、 <code>connection</code>、 <code>close</code> 、 <code>error</code></p>
-<p> （2）连接事件： <code>data</code>、 <code>end</code>、 <code>connect</code>、 <code>drain</code>、 <code>error</code>、 <code>close</code>、 <code>timeout</code></p>
-<blockquote>
-<p>注意，TCP针对网络中的小数据包有一定的优化策略：Nagle算法（默认），可以调用 <code>socket.setNoDelay(true)</code> 去掉 Nagle 算法，使得 write() 可以立即发送数据到网络中。</p>
-</blockquote>
-</li>
-</ol>
-<h4 id="二、构建-UDP-服务"><a href="#二、构建-UDP-服务" class="headerlink" title="二、构建 UDP 服务"></a><p style="background:orange;">二、构建 UDP 服务</p></h4><p><strong>UDP：</strong>用户数据包协议，与 TCP 一样同属于网络传输层。</p>
-<p><strong>UDP 与 TCP 的最大区别：</strong></p>
-<p>（1） TCP 中连接一旦建立，所有会话都基于连接完成，客户端如果要与另一个TCP服务通信，需要另创建一个套接字来完成连接；</p>
-<p>（2）UDP 不是面向连接的，可以与多个 UDP 服务通信，提供面向事务的简单不可靠信息传输服务。</p>
-<p><strong>缺点：</strong>在网络差的情况下丢包严重；</p>
-<p><strong>优点：</strong>无须连接，资源消耗低，处理快速且灵活；</p>
-<p><strong>应用：</strong>音频、视频等，及 DNS 服务。</p>
-<ol>
-<li><p><span style="color:#ac4a4a"><strong>创建 UDP 套接字</strong></span></p>
-<p> UDP 套接字一旦创建，既可以作为客户端发送数据，也可以作为服务端接收数据。</p>
-<pre><code>var dgram = require(&apos;dgram&apos;);
-var socket = dgram.createSocket(&apos;udp4&apos;);
-</code></pre></li>
-<li><p><span style="color:#ac4a4a"><strong>创建 UDP 服务器端</strong></span></p>
-<pre><code>var dgram = require(&apos;dgram&apos;);
-var server = dgram.createSocket(&apos;udp4&apos;);
-
-server.on(&apos;message&apos;, function(msg, rinfo) {
-    console.log(&apos;server got:&apos; + msg + &apos; from &apos; + rinfo.address + &apos;:&apos; + rinfo.port);
-});
-
-server.on(&apos;listening&apos;, function() {
-    var address = server.address();
-    console.log(&apos;Server listening &apos; + address.address + &apos;:&apos; + address.port);
-});
-
-// 调用 dgram.bind(port, [address]) 方法对网卡和端口进行绑定
-// 该套接字将接收所有网卡上 41234 端口上的消息
-server.bind(41234);
-</code></pre></li>
-<li><p><span style="color:#ac4a4a"><strong>创建 UDP 客户端</strong></span></p>
-<pre><code>var dgram = require(&apos;dgram&apos;);
-var message = new Buffer(&apos;深入浅出Node.js&apos;);
-var client = dgram.createSocket(&apos;udp4&apos;);
-
-// send() 方法：socket.send(buf, offset, length, port, address, [callback]);
-client.send(message, 0, message.length, 41234, &apos;localhost&apos;, function(err, bytes) {
-    client.close();
-});
-</code></pre></li>
-<li><p><span style="color:#ac4a4a"><strong>UDP 套接字事件</strong></span></p>
-<p> <code>message</code>、<code>listening</code>、<code>close</code>、<code>error</code></p>
-</li>
-</ol>
-<h4 id="三、构建-HTTP-服务"><a href="#三、构建-HTTP-服务" class="headerlink" title="三、构建 HTTP 服务"></a><p style="background:orange;">三、构建 HTTP 服务</p></h4><p>如果要构造高效的网络应用，应该从传输层（TCP/UDP）进行着手，但是对于经典的应用场景，应用层协议绰绰有余。</p>
-<pre><code>var http = require(&apos;http&apos;);
-
-http.createServer(function(req, res) {
-    res.writeHead(200, {
-        &apos;Content-Type&apos;: &apos;text/plain&apos;
-    });
-    res.end(&apos;Hello World\n&apos;);
-}).listen(1337, &apos;127.0.0.1&apos;);
-
-console.log(&apos;Server running at http://127.0.0.1:1337/&apos;);
-</code></pre><ol>
-<li><p><span style="color:#ac4a4a"><strong>HTTP</strong></span></p>
-<p> 浏览器，其实是一个 HTTP 的代理。</p>
-<p> HTTP 服务只做两件事情：处理 HTTP 请求和发送 HTTP 响应。</p>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>http 模块</strong></span></p>
-<p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE7-4%20http%E6%A8%A1%E5%9D%97%E4%BA%A7%E7%94%9F%E8%AF%B7%E6%B1%82%E7%9A%84%E6%B5%81%E7%A8%8B.png?raw=true" alt="图7-4 http模块产生请求的流程"></p>
-<p> http 模块将连接所有套接字的读写抽象为 <code>ServerRequest</code> 和 <code>ServerResponse</code> 对象，它们分别对应请求和响应操作。</p>
-<p> ① <strong>HTTP 请求：</strong></p>
-<p> 报文头部会通过 http_parser 进行解析。</p>
-<p> ② <strong>HTTP 响应：</strong></p>
-<p> 影响响应报文头部信息的 API：<code>res.setHeader()</code> 和 <code>res.writeHead()</code></p>
-<p> 报文体部分调用：<code>res.write()</code> 和 <code>res.end()</code></p>
-<blockquote>
-<p>注意：无论服务器端在处理业务逻辑时是否发生异常，务必在结束时调用 <code>res.end()</code> 结束请求，否则客户端将一直处于等待的状态。当然，也可以通过延迟 <code>res.end()</code> 的方式实现客户端与服务器端之间的长连接，但结束时务必关闭连接。</p>
-</blockquote>
-<p> ③ <strong>HTTP 服务的事件</strong></p>
-<p> <code>connection</code>、<code>request</code>、<code>close</code>、<code>checkContinue</code>、<code>connect</code>、<code>upgrade</code>、<code>clientError</code></p>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>HTTP 客户端</strong></span></p>
-<pre><code>var http = require(&apos;http&apos;);
-
-var options = {
-    hostname: &apos;127.0.0.1&apos;,
-    port: 1337,
-    path: &apos;/&apos;,
-    method: &apos;GET&apos;
-};
-
-var req = http.request(options, function(res) {
-    console.log(&apos;STATUS: &apos; + res.statusCode);
-    console.log(&apos;HEADERS: &apos; + JSON.stringify(res.headers));
-    res.setEncoding(&apos;utf8&apos;);
-    res.on(&apos;data&apos;, function(chunk) {
-        console.log(chunk);
-    });
-});
-
-req.end();
-</code></pre><p> ① <strong>HTTP 响应</strong></p>
-<p> ② <strong>HTTP 代理</strong>：</p>
-<p> 为了重用 TCP 连接，http 模块包含一个默认的客户端代理对象 http.globalAgent。</p>
-<p> 它对每个服务器端（host+port）创建的连接进行了管理，默认情况下，通过 http 提供的 <code>ClientRequest</code> 对象对同一个服务发起的 HTTP 请求最多可以创建5个连接。</p>
-<p> 可以在 options 中传递 <code>agent</code> 选项，更改连接数限制。</p>
-<p> ③ <strong>HTTP 客户端事件</strong></p>
-<p> <code>response</code>、<code>socket</code>、<code>connect</code>、<code>upgrade</code>、<code>continue</code></p>
-</li>
-</ol>
-<h4 id="四、构建-WebSocket-服务"><a href="#四、构建-WebSocket-服务" class="headerlink" title="四、构建 WebSocket 服务"></a><p style="background:orange;">四、构建 WebSocket 服务</p></h4><p>相比 HTTP，WebSocket 更接近于传输层协议，它并没有在 HTTP 的基础上模拟服务器端的推送，而是在 TCP 上定义独立的协议。</p>
-<p>WebSocket 协议主要分为两个部分：握手和数据传输。</p>
-<h4 id="五、网络服务与安全"><a href="#五、网络服务与安全" class="headerlink" title="五、网络服务与安全"></a><p style="background:orange;">五、网络服务与安全</p></h4>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/30/《深入浅出Node.js》第7章 网络编程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -783,7 +553,7 @@ req.end();
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第6章 理解Buffer/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第6章 理解Buffer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lu Qian">
@@ -792,7 +562,7 @@ req.end();
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
+      <meta itemprop="name" content="一个笑点低的妹子">
     </span>
 
     
@@ -802,7 +572,7 @@ req.end();
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/30/第6章 理解Buffer/" itemprop="url">第6章 理解 Buffer</a></h1>
+                <a class="post-title-link" href="/2018/04/30/《深入浅出Node.js》第6章 理解Buffer/" itemprop="url">《深入浅出Node.js》第6章 理解 Buffer</a></h1>
         
 
         <div class="post-meta">
@@ -875,206 +645,17 @@ req.end();
 
       
         
-          
-            <p><strong>✁ 为什么需要 <code>Buffer</code>？</strong></p>
+          <p><strong>✁ 为什么需要 <code>Buffer</code>？</strong></p>
 <p>在 Node 中，应用需要处理网络协议、操作数据库、处理图片、接收上传文件等，在网络流和文件的操作中，还要处理大量二进制数据，JavaScript 自由的字符串远远不能满足这些需求，于是 <code>Buffer</code> 对象应运而生。</p>
 <p><strong>✁ 字符串与 <code>Buffer</code> 的区别</strong></p>
 <p><code>Buffer</code> 是二进制数据，字符串与 <code>Buffer</code> 之间存在编码关系。</p>
-<h4 id="一、Buffer-结构"><a href="#一、Buffer-结构" class="headerlink" title="一、Buffer 结构"></a><p style="background:orange;">一、Buffer 结构</p></h4><p><code>Buffer</code> 是一个像 <code>Array</code> 的对象，但它主要用于操作字节。</p>
-<ol>
-<li><p><span style="color:#ac4a4a"><strong>模块结构</strong></span></p>
-<p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE6-1%20Buffer%E7%9A%84%E5%88%86%E5%B7%A5.png?raw=true" alt="图6-1 Buffer的分工"></p>
-<p> <code>Buffer</code> 所占用的内存不是通过 V8 分配的，属于堆外内存。</p>
-<p> 由于 <code>Buffer</code> 太过常见，Node 在进程启动时就已经加载了它，并将其放在全局对象（<code>global</code>）上。所以在使用 <code>Buffer</code> 时，无需通过 <code>require()</code> 即可直接使用。    </p>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>Buffer 对象</strong></span></p>
-<p> <code>Buffer</code> 对象类似于数组，它的元素为16进制的两位数，即 0-255 的数值。</p>
-<pre><code>var str = &apos;深入浅出Node.js&apos;;
-var buf = new Buffer(str, &apos;utf-8&apos;);
-
-// 不同的编码的字符串占用的元素个数各不相同
-// 中文字在 UTF-8 编码下占用3个元素，字母和半标点符号占用1个元素
-buf;  
-// =&gt; &lt;Buffer e6 b7 b1 e5 85 a5 e6 b5 85 e5 87 ba 6e 6f 64 65 2e 6a 73&gt;
-
-// Buffer 受 Array 类型的影响很大，
-// 可以访问 length 属性得到长度，也可以通过下标访问元素
-buf.length; // =&gt; 19
-buf[10];    // =&gt; 135
-
-var newBuf = new Buffer(100);
-newBuf.length; // =&gt; 100
-newBuf[10];    // =&gt; 88 (元素值是一个 0-255 的随机值)
-
-// 如果给元素赋值不是0-255的数时：
-// 给元素的赋值如果小于0，就讲该值逐次加256，直到得到0-255区间内的整数
-newBuf[20] = -100;
-newBuf[20]; // =&gt; 156
-
-// 给元素的赋值如果大于0，就逐次减256，直到得到0-255区间内的整数
-newBuf[21] = 300;
-newBuf[21]; // =&gt; 44
-
-// 如果是小数，舍弃小数部分，只保留整数部分
-newBuf[22] = 3.1415;
-newBuf[22]; // 3
-</code></pre></li>
-<li><p><span style="color:#ac4a4a"><strong>Buffer 内存分配</strong></span></p>
-<p> <code>Buffer</code> 对象的内存分配不是在 V8 的堆内存中，而是在 Node 的 C++ 层面实现内存的申请的。</p>
-<p> Node 在内存的使用上应用的是在 C++ 层面申请内存、在 JavaScript 中分配内存的策略。</p>
-<p> 【小结】：</p>
-<ul>
-<li>真正的内存是在 Node 的 C++ 层面提供的，JavaScript 层面只是使用它。</li>
-<li>当进行小而频繁的 <code>Buffer</code> 操作时，采用 slab 的机制进行预先申请和事后分配，使得 JavaScript 到操作系统之间不必有过多的内存申请方面的系统调用。</li>
-<li>对于大块的 <code>Buffer</code> 而言，则直接使用 C++ 层面提供的内存，而无需细腻的分配操作。</li>
-</ul>
-</li>
-</ol>
-<h4 id="二、Buffer-的转换"><a href="#二、Buffer-的转换" class="headerlink" title="二、Buffer 的转换"></a><p style="background:orange;">二、Buffer 的转换</p></h4><p><code>Buffer</code> 对象可以与字符串之间相互转换。目前支持的字符串编码类型有：ASCII、UTF-8、UTF-16LE/UCS-2、Base64、Binary、Hex。</p>
-<ol>
-<li><p><span style="color:#ac4a4a"><strong>字符串转 Buffer</strong></span></p>
-<p> 字符串转 <code>Buffer</code> 对象主要是通过 <strong><em>构造函数</em></strong> 完成的。</p>
-<pre><code>new Buffer(str, [encoding]);
-</code></pre><blockquote>
-<p>通过构造函数转换的 <code>Buffer</code> 对象，存储的只能是一种编码类型。<code>encoding</code> 参数不传递时，默认按 UTF-8 编码进行转码和存储。</p>
-</blockquote>
-<p> 一个 <code>Buffer</code> 对象可以存储不同编码类型的字符串转码的值，调用 <strong><code>write()</code></strong> 方法可以实现。</p>
-<pre><code>buf.write(string, [offset], [length], [encoding]);
-</code></pre><blockquote>
-<p>由于可以不断写入内容到 <code>Buffer</code> 对象中，并且每次写入可以指定编码，所以 <code>Buffer</code> 对象中可以存在多种编码转化后的内容。需要小心的是，每种编码所用的字节长度不同，将 <code>Buffer</code> 反转回字符串时需要谨慎处理。</p>
-</blockquote>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>Buffer 转字符串</strong></span></p>
-<p> <code>Buffer</code> 对象的 <strong><code>toString()</code></strong> 可以将 <code>Buffer</code> 对象转换为字符串。</p>
-<pre><code>buf.toString([encoding], [start], [end]);
-</code></pre></li>
-<li><p><span style="color:#ac4a4a"><strong>Buffer 不支持的编码类型</strong></span></p>
-<p> <strong><code>isEncoding()</code></strong> 方法：判断编码是否支持转换</p>
-<pre><code>Buffer.isEncoding(encoding);
-
-Buffer.isEncoding(&apos;utf-8&apos;);    // true
-Buffer.isEncoding(&apos;GBK&apos;);    // false
-</code></pre><p> 对于不支持的编码类型，可以借助 Node 生态圈中的模块完成转换。<strong><em>iconv</em></strong> 和 <strong><em>iconv-lite</em></strong> 两个模块可以支持更多的编码类型转换。</p>
-</li>
-</ol>
-<h4 id="三、Buffer-的拼接"><a href="#三、Buffer-的拼接" class="headerlink" title="三、Buffer 的拼接"></a><p style="background:orange;">三、Buffer 的拼接</p></h4><p><code>Buffer</code> 在使用场景中，通常是以一段一段的方式传输。</p>
-<pre><code>var fs = require(&apos;fs&apos;);
-var rs = fs.createReadStream(&apos;test.md&apos;);
-var data = &apos;&apos;;
-
-rs.on(&apos;data&apos;, function(chunk) {
-    // data 事件中获取的 chunk 对象即是 Buffer 对象
-    // 隐藏了 toString() 操作
-    // 等价于：data = data.toString() + chunk.toString();
-    data += chunk;
-});
-
-rs.on(&apos;end&apos;, function() {
-    console.log(data);
-});
-</code></pre><ol>
-<li><p><span style="color:#ac4a4a"><strong>乱码是如何产生的</strong></span></p>
-<p> <code>toString()</code> 默认以 UTF-8 编码，中文在该编码方式下占3个字节，因此，对于宽字节的中文，会形成问题。</p>
-<pre><code>// 将文件可读流的每次读取的 Buffer 长度限制为 11
-var rs = fs.createReadStream(&apos;test.md&apos;, {highWaterMark: 11});
-// =&gt; 窗前明◆◆◆光，疑◆◆◆地上霜
-</code></pre><blockquote>
-<p>✎ 第一个 Buffer 对象在输出时，只能显示3个字符，Buffer 中剩下的2个字节将会以乱码的形式显示。第二个Buffer对象的第一个字节也不能形成文字，只能显示乱码。</p>
-</blockquote>
-<p> ☁ 对于任意长度的 <code>Buffer</code> 而言，宽字节字符串都有可能存在被截断的情况，只不过 <code>Buffer</code> 的长度越大出现的概率越低而已。</p>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>setEncoding() 与 string_decoder()</strong></span>  ☛ 不能从根本上解决乱码问题</p>
-<p> ◐ <strong><code>setEncoding</code></strong> 方法：设置编码</p>
-<p> 【作用】：让 data 事件中传递的不再是一个 <code>Buffer</code> 对象，而是编码后的字符串。</p>
-<pre><code>readable.setEncoding(encoding);
-
-var rs = fs.createReadStream(&apos;test.md&apos;, {highWaterMark: 11});
-rs.setEncoding(&apos;utf8&apos;);
-// =&gt; 窗前明月光，疑是地上霜
-</code></pre><p> 如论如何设置编码，触发 data 事件的次数依旧相同，即意味着设置编码并未改变按段读取的基本方式。</p>
-<p> 在调用 <code>setEncoding()</code> 时，可读流对象在内部设置了一个 <code>decoder</code> 对象。</p>
-<p> ◑ <strong><code>decoder</code></strong> 对象：来自于 <code>string_decoder</code> 模块 <code>StringDecoder</code> 的实例对象，最终解决乱码问题。</p>
-<pre><code>// decoder 的神奇原理：
-var StringDecoder = require(&apos;string_decoder&apos;).StringDecoder;
-var decoder = new StringDecoder(&apos;utf8&apos;);
-
-var buf1 = new Buffer([0xE5, 0xBA, 0x8A, 0xE5, 0x89, 0x8D, 0xE6, 0x98, 0x8E, 0xE6, 0x9C]);
-console.log(decoder.write(buf1));   // =&gt; 床前明
-
-var buf2 = new Buffer([0x88, 0xE5, 0x85, 0x89, 0xEF, 0xBC, 0x8C, 0xE7, 0x96, 0x91, 0xE6]);
-console.log(decoder.write(buf2));   // =&gt; 月光，疑
-</code></pre><blockquote>
-<p>虽然 <code>string_decoder</code> 模块很奇妙，但是它也并非万能药，它目前只能处理 UTF8、Base64 和 UCS-2/UTF-16LE 这3种编码。所以，通过 <code>setEncoding()</code> 的方式不可否认能解决大部分的乱码问题，但并不能从根本上解决该问题。</p>
-</blockquote>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>正确拼接 Buffer</strong></span></p>
-<p> ① 用一个数组来存储接收到的所有 <code>Buffer</code> 片段并记录下所有片段的总长度；</p>
-<p> ② 调用 <code>Buffer.concat()</code> 方法生成一个合并的 <code>Buffer</code> 对象。</p>
-<pre><code>var chunks = [];
-var size = 0;
-
-rs.on(&apos;data&apos;, function(chunk) {
-    chunks.push(chunk);
-    size += chunk.length;
-});
-
-rs.on(&apos;end&apos;, function() {
-    var buf = Buffer.concat(chunks, size);
-    var str = iconv.decode(buf, &apos;utf8&apos;);
-    console.log(str);
-});
-</code></pre><p> <code>Buffer.concat()</code> 方法封装了从小 <code>Buffer</code> 对象向大 <code>Buffer</code> 对象的复制过程：</p>
-<pre><code>Buffer.concat = function(list, length) {
-    if (!Array.isArray(list)) {
-        throw new Error(&apos;Usage: Buffer.concat(list, [length]&apos;);
-    }
-
-    if (list.length === 0) {
-        return new Buffer(0);
-    } else if (list.length === 1) {
-        return list[0];
-    }
-
-    if (typeof length !== &apos;number&apos;) {
-        length = 0;
-        for (var i = 0; i &lt; list.length; i++) {
-            var buf = list[i];
-            length += buf.length;
-        }
-    }
-
-    var buffer = new Buffer(length);
-    var pos = 0;
-    for (var i = 0; i &lt; list.length; i++) {
-        var buf = list[i];
-        buf.copy(buffer, pos);
-        pos += buf.length;
-    }
-    return buffer;
-}
-</code></pre></li>
-</ol>
-<h4 id="四、Buffer-与性能"><a href="#四、Buffer-与性能" class="headerlink" title="四、Buffer 与性能"></a><p style="background:orange;">四、Buffer 与性能</p></h4><ul>
-<li><p><code>Buffer</code> 在文件 I/O 和网络 I/O 中运用广泛。</p>
-<ul>
-<li><p>在应用中：操作字符串；</p>
-</li>
-<li><p>在网络中传输：需要转换为 <code>Buffer</code>，以进行二进制数据传输。</p>
-</li>
-</ul>
-</li>
-<li><p>在 Web 应用中，字符串转换到 <code>Buffer</code> 是时时刻刻发生的，提高字符串到 <code>Buffer</code> 的转换效率，可以很大程度地提高网络吞吐率。</p>
-</li>
-<li><p><code>Buffer</code> 的使用除了与字符串的转换有性能损耗外，在文件的读取时，有一个 <code>highWaterMark</code> 设置对性能的影响至关重要。</p>
-<ul>
-<li>highWaterMark 设置对 <code>Buffer</code> 内存的分配和使用有一定影响；</li>
-<li>highWaterMark 设置过小，可能导致系统调用次数过多；</li>
-<li>highWaterMark 的值越大，读取速度越快。</li>
-</ul>
-</li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/30/《深入浅出Node.js》第6章 理解Buffer/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1121,7 +702,7 @@ rs.on(&apos;end&apos;, function() {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第5章 内存控制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第5章 内存控制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lu Qian">
@@ -1130,7 +711,7 @@ rs.on(&apos;end&apos;, function() {
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
+      <meta itemprop="name" content="一个笑点低的妹子">
     </span>
 
     
@@ -1140,7 +721,7 @@ rs.on(&apos;end&apos;, function() {
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/30/第5章 内存控制/" itemprop="url">第5章 内存控制</a></h1>
+                <a class="post-title-link" href="/2018/04/30/《深入浅出Node.js》第5章 内存控制/" itemprop="url">《深入浅出Node.js》第5章 内存控制</a></h1>
         
 
         <div class="post-meta">
@@ -1213,29 +794,21 @@ rs.on(&apos;end&apos;, function() {
 
       
         
-          
-            <p>基于无阻塞、事件驱动建立的 Node 服务，具有内存消耗低的优点，非常适合处理海量的网络请求。</p>
+          <p>基于无阻塞、事件驱动建立的 Node 服务，具有内存消耗低的优点，非常适合处理海量的网络请求。</p>
 <p>内存控制正是在海量请求和长时间运行的前提下进行探讨的。</p>
-<h4 id="一、V8-的垃圾回收机制与内存限制"><a href="#一、V8-的垃圾回收机制与内存限制" class="headerlink" title="一、V8 的垃圾回收机制与内存限制"></a><p style="background:orange;">一、V8 的垃圾回收机制与内存限制</p></h4><ol>
+<h3 id="一、V8-的垃圾回收机制与内存限制"><a href="#一、V8-的垃圾回收机制与内存限制" class="headerlink" title="一、V8 的垃圾回收机制与内存限制"></a>一、V8 的垃圾回收机制与内存限制</h3><ol>
 <li><p><span style="color:#ac4a4a"><strong>V8 的内存限制</strong></span></p>
 <p> 在一般的后端开发语言中，在基本的内存使用上没有什么限制，但在 Node 中通过 JavaScript 使用内存时，只能使用部分内存，这样，再单个 Node 进程的情况下，计算机的内存资源无法得到充足的使用。</p>
 <p> ☞ 主要原因：Node 基于 V8 构建，在 Node 中使用的 JavaScript 对象基本上都是通过 V8 自己的方式来进行分配和管理的。</p>
 </li>
-<li><p><span style="color:#ac4a4a"><strong>V8 的对象分配</strong></span></p>
-<p> 在 V8 中，所有的 JavaScript 对象都是通过堆来进行分配的。</p>
-<p> <strong>✔ V8 为何要限制堆的大小？</strong></p>
-<ul>
-<li><p>表层原因：V8 最初为浏览器而设计，不太可能遇到用大量内存的场景。对于网页来说，V8 的限制值已足够。</p>
-</li>
-<li><p>深层原因：V8 的垃圾回收机制的限制。</p>
-</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>V8 的垃圾回收机制</strong></span></p>
-</li>
 </ol>
-<h4 id="二、高效使用内存"><a href="#二、高效使用内存" class="headerlink" title="二、高效使用内存"></a><p style="background:orange;">二、高效使用内存</p></h4><h4 id="三、内存指标"><a href="#三、内存指标" class="headerlink" title="三、内存指标"></a><p style="background:orange;">三、内存指标</p></h4><h4 id="四、内存泄漏"><a href="#四、内存泄漏" class="headerlink" title="四、内存泄漏"></a><p style="background:orange;">四、内存泄漏</p></h4><h4 id="五、内存泄漏排查"><a href="#五、内存泄漏排查" class="headerlink" title="五、内存泄漏排查"></a><p style="background:orange;">五、内存泄漏排查</p></h4><h4 id="六、大内存应用"><a href="#六、大内存应用" class="headerlink" title="六、大内存应用"></a><p style="background:orange;">六、大内存应用</p></h4>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/30/《深入浅出Node.js》第5章 内存控制/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1282,7 +855,7 @@ rs.on(&apos;end&apos;, function() {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第4章 异步编程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第4章 异步编程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lu Qian">
@@ -1291,7 +864,7 @@ rs.on(&apos;end&apos;, function() {
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
+      <meta itemprop="name" content="一个笑点低的妹子">
     </span>
 
     
@@ -1301,7 +874,7 @@ rs.on(&apos;end&apos;, function() {
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/30/第4章 异步编程/" itemprop="url">第4章 异步编程</a></h1>
+                <a class="post-title-link" href="/2018/04/30/《深入浅出Node.js》第4章 异步编程/" itemprop="url">《深入浅出Node.js》第4章 异步编程</a></h1>
         
 
         <div class="post-meta">
@@ -1374,124 +947,24 @@ rs.on(&apos;end&apos;, function() {
 
       
         
-          
-            <p>Node 能够迅速成功并流行起来的原因：</p>
+          <p>Node 能够迅速成功并流行起来的原因：</p>
 <ul>
 <li>V8 和 异步 I/O 在性能上带来的提升；</li>
 <li>前后端 JavaScript 编程风格一致</li>
 </ul>
-<h4 id="一、函数式编程"><a href="#一、函数式编程" class="headerlink" title="一、函数式编程"></a><p style="background:orange;">一、函数式编程</p></h4><ol>
+<h3 id="一、函数式编程"><a href="#一、函数式编程" class="headerlink" title="一、函数式编程"></a>一、函数式编程</h3><ol>
 <li><p><span style="color:#ac4a4a"><strong>高阶函数</strong></span></p>
 <p> 定义：是指把函数作为参数，或是将函数作为返回值的函数。</p>
 <p> 应用：事件处理，数组的迭代和归并方法等。</p>
 </li>
-<li><p><span style="color:#ac4a4a"><strong>偏函数用法</strong></span></p>
-<p> 偏函数用法：是指创建一个调用另外一个部分（参数或变量已经预置的函数）的函数的用法。</p>
-<p> 偏函数：通过指定部分参数来产生一个新的定制函数的形式就是偏函数。</p>
-<p> var toString = Object.prototype.toString;</p>
-<pre><code>// 原来，可扩展性不高
-var isString = function(obj) {
-    return toString.call(obj) == &apos;[object String]&apos;;
-};
-
-var isFunction = function(obj) {
-    return toString.call(obj) == &apos;[object Function]&apos;;
-};
-
-// 偏函数用法
-var isType = function(type) {
-    return function(obj) {
-        return toString.call(obj) == &apos;[object&apos; + type + &apos;]&apos;;
-    };
-};
-
-var isString = isType(&apos;String&apos;);
-var isFunction = isType(&apos;Function&apos;);
-</code></pre></li>
 </ol>
-<h4 id="二、异步编程的优势与难点"><a href="#二、异步编程的优势与难点" class="headerlink" title="二、异步编程的优势与难点"></a><p style="background:orange;">二、异步编程的优势与难点</p></h4><ol>
-<li><p><span style="color:#ac4a4a"><strong>优势</strong></span></p>
-<p> 最大特点：基于事件驱动的非阻塞 I/O 模型。可以使 CPU 与 I/O 并不相互依赖等待，让资源得到更好的利用。</p>
-<p> Node 实现异步 I/O 的原理：利用事件循环的调度方式，JavaScript 线程像一个分配任务和处理结果的大管家，I/O 线程池里的各个 I/O 线程都是小二，负责完成分配来的任务，小二与管家之间互不依赖，所以可以保持整体的高效率。</p>
-<p> 事件循环模型的缺点：管家无法承担过多的细节性任务，否则，会影响任务的调度，从而降低整体效率。</p>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>难点</strong></span></p>
-<ul>
-<li>难点1：异常处理；</li>
-<li>难点2：函数嵌套过深；</li>
-<li>难点3：阻塞代码；</li>
-<li>难点4：多线程编程；</li>
-<li>难点5：异步转同步</li>
-</ul>
-</li>
-</ol>
-<h4 id="三、异步编程解决方案"><a href="#三、异步编程解决方案" class="headerlink" title="三、异步编程解决方案"></a><p style="background:orange;">三、异步编程解决方案</p></h4><ol>
-<li><p><span style="color:#ac4a4a"><strong>事件发布/订阅模式</strong></span></p>
-<p> 即事件监听器模式，被广泛用于异步编程的模式，是回调函数的事件化。</p>
-<p> ps：其本身并无同步和异步调用问题，只不过在 Node 中多半是伴随事件循环而异步触发的。</p>
-<pre><code>// 订阅：高阶函数的应用
-emitter.on(&apos;event1&apos;, function(message) {
-    console.log(message);
-});
-
-// 发布
-emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
-</code></pre><blockquote>
-<p>事件发布/订阅模式可以实现一个事件与多个回调函数（事件侦听器）的关联。</p>
-</blockquote>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>Promise/Deferred模式</strong></span>：包含 Promise 和 Deferred</p>
-<p> ☊ 使用事件的方式：执行流程需要被预先设定。</p>
-<pre><code>$.get(&apos;/api&apos;, {
-    success: onSuccess,
-    error: onError,
-    complete: onComplete
-});
-</code></pre><p> ♤ Promist/Deferred：可以先执行异步调用，延迟传递处理。这样即使不调用 <code>success()</code>、<code>error()</code>等方法，Ajax 也会执行。</p>
-<pre><code>$.get(&apos;/api&apos;)
-    .success(onSuccess)
-    .error(onError)
-    .complete(onComplete)
-</code></pre><p> ♧ 在原始的 API 中，一个事件只能处理一个回调，而通过 Defferred 对象，可以对事件加入任意的业务处理逻辑。</p>
-<pre><code>$.get(&apos;/api&apos;)
-    .success(onSuccess1)
-    .success(onSuccess2)
-</code></pre><p> ☛【<strong>Promises/A</strong>】</p>
-<p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-4%20Promise%E7%9A%84%E7%8A%B6%E6%80%81%E8%BD%AC%E5%8C%96%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="图4-4 Promise的状态转化示意图"></p>
-<p> 在 API 的定义上，一个 Promise 对象只要具备 <code>then()</code> 方法即可。要求如下：</p>
-<ul>
-<li>接受完成态、错误态的回调方法。在操作完成或出现错误时，将会调用对应方法。</li>
-<li>可选地支持 <code>progress</code> 事件回调作为第三个方法。</li>
-<li><code>then()</code> 方法只接受 <code>function</code> 对象，其余对象将被忽略。</li>
-<li><p><code>then()</code> 方法继续返回 <code>Promise</code> 对象，以实现链式调用。</p>
-<pre><code>then(fulfilledHandler, errorHandler, progressHandler)
-</code></pre><p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-5%20%E7%8A%B6%E6%80%81%E5%92%8C%E6%96%B9%E6%B3%95%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png?raw=true" alt="图4-5 状态和方法之间的对应关系"></p>
-<p>☛【<strong>Promises 和 Deferred 的差别</strong>】</p>
-<p>Deferred 主要是用于内部，用于维护异步模型的状态；Promise 则作用域外部，通过 <code>then()</code> 方法暴露给外部以添加自定义逻辑。</p>
-<p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-6%20Promise%E5%92%8CDeferred%E6%95%B4%E4%BD%93%E5%85%B3%E7%B3%BB%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="图4-6 Promise和Deferred整体关系示意图"></p>
-<blockquote>
-<p>与事件发布/订阅模式相比，Promise/Deferred 模式的 API 接口和抽象模型都十分简洁。它将业务中不可变的部分封装在了 Deferred 中，将可变的部分交给了 Promise。</p>
-</blockquote>
-<blockquote>
-<p>Promise 是高级接口，事件是低级接口。低级接口可以构成更多复杂的场景，高级接口一旦定义，不太容易变化，不再有低级接口的灵活性，但对于解决典型问题非常有效。</p>
-</blockquote>
-<p>☛【<strong>Promises 中的多异步协作</strong>】</p>
-<p><code>all()</code> 方法：将两个单独的 Promise 重新抽象组合成一个新的 Promise。</p>
-<blockquote>
-<p>只有所有异步操作成功，这个异步操作才算成功，否则有一个异步操作失败，整个异步操作就失败。</p>
-</blockquote>
-<p>☛【<strong>Promises 的进阶知识</strong>】</p>
-<p>要让 Promise 支持链式执行，主要通过以下两个步骤：</p>
-<p>（1）将所有的回调都存到队列中；</p>
-<p>（2）Promise 完成时，逐个执行回调，一旦检测到返回了新的 Promise 对象，停止执行，然后将当前 Deferre 对象的 promise 引用改变为新的 Promise 对象，并将队列中余下的回调转交给它。</p>
-</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>流程控制库</strong></span></p>
-</li>
-</ol>
-<h4 id="四、异步并发控制"><a href="#四、异步并发控制" class="headerlink" title="四、异步并发控制"></a><p style="background:orange;">四、异步并发控制</p></h4>
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/30/《深入浅出Node.js》第4章 异步编程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1538,7 +1011,7 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第3章 异步IO/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第3章 异步IO/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lu Qian">
@@ -1547,7 +1020,7 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
+      <meta itemprop="name" content="一个笑点低的妹子">
     </span>
 
     
@@ -1557,7 +1030,7 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/30/第3章 异步IO/" itemprop="url">第3章 异步I/O</a></h1>
+                <a class="post-title-link" href="/2018/04/30/《深入浅出Node.js》第3章 异步IO/" itemprop="url">《深入浅出Node.js》第3章 异步I/O</a></h1>
         
 
         <div class="post-meta">
@@ -1630,8 +1103,7 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
 
       
         
-          
-            <ul>
+          <ul>
 <li><p>Node 的基调：异步 I/O、事件驱动、单线程。</p>
 </li>
 <li><p>Node 不再是一个服务器，而是一个可以基于它构建各种高速、可伸缩网络应用的平台。</p>
@@ -1643,130 +1115,13 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
 <li><p>事件循环是异步实现的核心，它与浏览器中的执行模型基本保持了一致。Node 正是依靠构建了一套完善的高性能异步 I/O 框架，打破了 JavaScript 在服务器端止步不前的局面。</p>
 </li>
 </ul>
-<h4 id="一、为什么要异步-I-O"><a href="#一、为什么要异步-I-O" class="headerlink" title="一、为什么要异步 I/O"></a><p style="background:orange;">一、为什么要异步 I/O</p></h4><ol>
-<li><p><span style="color:#ac4a4a"><strong>用户体验</strong></span></p>
-<p> <strong>☋ 前端异步的必要性：</strong></p>
-<ul>
-<li>在浏览器中 JavaScript 在单线程上执行，且与 UI 渲染共用一个线程。即，JavaScript 在执行的时候 UI 渲染和响应是处于停滞状态的。</li>
-<li><p>而采用异步请求，如在下载资源期间，JavaScript 和 UI 的执行都不会处于等待状态，页面可以继续响应用户的交互行为。</p>
-<p><strong>☊ 后端异步的必要性：</strong></p>
-</li>
-<li><p>前端通过异步可以消除掉 UI 阻塞的现象，但是前端获取资源的速度也取决于后端的响应速度，I/O 很昂贵，因此异步 I/O 是必要的。</p>
-</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>资源分配</strong></span></p>
-<p> <strong>□ 单线程串行依次执行</strong></p>
-<ul>
-<li>缺点：性能问题，任意一个略慢的任务都会导致后续执行代码被阻塞，如 I/O 的进行会让后续任务等待，这种同步编程模型会导致资源不能被更好地利用。</li>
-<li><p>优点：易于表达，符合编程人员按顺序思考的思维方式。</p>
-<p><strong>□ 多线程并行完成</strong></p>
-</li>
-<li><p>缺点：（1）创建线程和执行期线程上下文切换的开销较大；（2）在复杂的业务中，多线程编程经常面临锁、状态同步等问题。</p>
-</li>
-<li><p>优点：在多核 CPU 上能够有效提升 CPU 的利用率。</p>
-<p><strong>☛ Node 在两者之间给出了解决方案：</strong></p>
-<p>（1）利用单线程，远离多线程死锁、状态同步等问题；</p>
-<p>（2）利用异步 I/O，当单线程远离阻塞，以更好地使用 CPU。</p>
-<p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE3-1%20%E5%BC%82%E6%AD%A5IO%E7%9A%84%E8%B0%83%E7%94%A8%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="图3-1 异步I/O的调用示意图"></p>
-</li>
-</ul>
-</li>
-</ol>
-<h4 id="二、异步-I-O-的实现现状"><a href="#二、异步-I-O-的实现现状" class="headerlink" title="二、异步 I/O 的实现现状"></a><p style="background:orange;">二、异步 I/O 的实现现状</p></h4><ol>
-<li><p><span style="color:#ac4a4a"><strong>异步 I/O 与非阻塞 I/O</strong></span></p>
-<p> 操作系统内核对于 I/O 只有两种方式：阻塞与非阻塞。</p>
-<p> ① 阻塞 I/O：调用之后一定等到系统内核层面完成所有操作后，调用才结束。</p>
-<ul>
-<li><p>缺点（CPU 等待浪费）：造成 CPU 等待 IO，浪费等待时间，且 CPU 的处理能力得不到充分利用；</p>
-<p>② 非阻塞 I/O：不带数据直接返回，要获取数据，还需要通过文件描述符再次读取。</p>
-</li>
-<li><p>缺点（CPU 资源浪费）：1）由于完整的 I/O 并没有完成，立即返回的并不是业务层期望的数据，而仅仅是当前调用的状态。2）然后需要轮询去确认是否完成数据获取，它会让 CPU 处理判断状态，是对 CPU 资源的浪费。</p>
-<p><strong>☛ 轮询：</strong>在非阻塞 I/O 中，为了获取完整的数据，应用程序需要重复调用 I/O 操作来确认是否完成。这种重复调用判断操作是否完成的技术就叫做轮询。</p>
-</li>
-<li><p>现存的轮询技术：1）read；2）select；3）poll；4）epoll（最佳）；5）kqueue</p>
-</li>
-<li><p>轮询技术不够好的原因：对于应用程序而言，仍然只能算是一种同步，因为应用程序仍然需要等待 I/O 完全返回，依旧花费了很多时间来等待。</p>
-<p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE3-2%20%E8%B0%83%E7%94%A8%E9%98%BB%E5%A1%9EIO%E7%9A%84%E8%BF%87%E7%A8%8B.png?raw=true" alt="图3-2 调用阻塞IO的过程"><br><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE3-3%20%E8%B0%83%E7%94%A8%E9%9D%9E%E9%98%BB%E5%A1%9EIO%E7%9A%84%E8%BF%87%E7%A8%8B.png?raw=true" alt="图3-3 调用非阻塞IO的过程"></p>
-</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>理想的非阻塞异步 I/O</strong></span></p>
-<p> <strong>☛ 理想的异步 I/O：</strong>在应用程序发起非阻塞调用，无须通过遍历或者事件唤醒等方式轮询，可以直接处理下一个任务，只需在 I/O 完成后通过信号或回调将数据传递给应用程序即可。</p>
-<p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE3-8%20%E7%90%86%E6%83%B3%E4%B8%AD%E7%9A%84%E5%BC%82%E6%AD%A5IO%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="图3-8 理想中的异步IO示意图"></p>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>现实的异步 I/O</strong></span></p>
-<p> <strong>☛ 现实的异步 I/O：</strong>（模拟）采用多线程方式，通过让部分线程进行阻塞 I/O 或非阻塞 I/O 加轮询技术来完成数据获取，让一个线程进行计算处理，通过线程之间的通信将 I/O 得到的数据进行传递。</p>
-<p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE3-9%20%E5%BC%82%E6%AD%A5IO.png?raw=true" alt="图3-9 异步IO"><br> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE3-10%20%E5%9F%BA%E4%BA%8Elibuv%E7%9A%84%E6%9E%B6%E6%9E%84%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="图3-10 基于libuv的架构示意图"></p>
-<blockquote>
-<p>注意：我们时常提到 Node 是单线程的，这里的单线程仅仅只是 JavaScript 执行在单线程中罢了。在 Node 中，无论是 *nix 还是 Windows 平台，内部完成 I/O 任务的另有线程池。</p>
-</blockquote>
-</li>
-</ol>
-<h4 id="三、Node-的异步-I-O"><a href="#三、Node-的异步-I-O" class="headerlink" title="三、Node 的异步 I/O"></a><p style="background:orange;">三、Node 的异步 I/O</p></h4><ol>
-<li><p><span style="color:#ac4a4a"><strong>事件循环</strong></span></p>
-<p> 事件循环是一个典型的 <code>生产者/消费者</code> 模型。异步I/O、网络请求等则是事件的生产者，源源不断为 Node 提供不同类型的事件，这些事件被传递到观察者那里，事件循环则从观察者那里取出事件并处理。</p>
-<p> <img alt="图3-11事件循环（Tick）示意图" src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE3-11%20%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF(Tick%EF%BC%89%E6%B5%81%E7%A8%8B%E5%9B%BE.png?raw=true"></p>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>观察者</strong></span></p>
-<ul>
-<li>一个观察者可能有多个事件；</li>
-<li>每个事件都有对应的观察者；</li>
-<li>观察者对事件进行了分类。</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>请求对象</strong></span></p>
-<ul>
-<li><p>请求对象：从 JavaScript 发起调用到内核执行完 I/O 操作的过渡过程中，存在的一种中间产物。</p>
-</li>
-<li><p>Node 的经典调用方式：从 JavaScript 调用 Node 的核心模块，核心模块调用 C++ 内建模块，内建模块通过 libuv 进行系统调用。</p>
-</li>
-<li><p>请求对象是异步 I/O 过程中的重要中间产物，所有状态都保存在这个对象中，包括送入线程池等待执行 I/O 操作后的回调处理。</p>
-<p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE3-12%20%E8%B0%83%E7%94%A8%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="图3-12调用示意图"></p>
-</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>执行回调</strong></span></p>
-<p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE3-13%20%E6%95%B4%E4%B8%AA%E5%BC%82%E6%AD%A5IO%E7%9A%84%E6%B5%81%E7%A8%8B.png?raw=true" alt="图3-13 整个异步IO的流程"></p>
-</li>
-</ol>
-<p>☛ <strong>小结：</strong></p>
-<blockquote>
-<p>构成 Node 异步 I/O 模型的四个基本要素：事件循环、观察者、请求对象、I/O线程池。</p>
-<p>除了 JavaScirpt 是单线程外，Node 自身其实是多线程的，只是 I/O 线程使用的 CPU 较少。</p>
-<p>注意：除了用户代码无法并行执行外，所有的 I/O （磁盘 I/O 和网络 I/O等）则是可以并行的。</p>
-</blockquote>
-<h4 id="四、非-I-O-的异步-API"><a href="#四、非-I-O-的异步-API" class="headerlink" title="四、非 I/O 的异步 API"></a><p style="background:orange;">四、非 I/O 的异步 API</p></h4><ol>
-<li><p>定时器：<code>setTimeout()</code>、<code>setInterval()</code></p>
-<p> 缺点：1）精确度不够；2）需要动用红黑树，创建定时器对象和迭代等操作；3）较为浪费性能。</p>
-</li>
-<li><p><code>process.nextTich()</code></p>
-<ul>
-<li>每次调用 <code>process.nextTich()</code> 方法，只会将回调函数放入队列中，在下一轮 Tick 时取出执行；</li>
-<li>与定时器相比，较为轻量，更高效。</li>
-</ul>
-</li>
-<li><p><code>setImmediate()</code></p>
-<ul>
-<li><code>process.nextTick()</code> 中的回调函数执行的优先级要高于 <code>setImmediate()</code><ul>
-<li>原因：时间循环对观察者的检查是有先后顺序的，在每一轮循环检查中，idle 观察者（<code>process.nextTick()</code>） &gt;  I/O 观察者 &gt; check 观察者（<code>setImmediate()</code>）</li>
-</ul>
-</li>
-<li>在具体实现上，<code>process.nextTick()</code> 的回调函数保存在一个数组中，<code>setImmediate()</code> 的结果保存在链表中；</li>
-<li>在行为上，<code>process.nextTick()</code> 在每轮循环中会将数组中的回调函数全部执行完，<code>setImmediate()</code> 在每轮循环中执行链表中的一个回调函数。</li>
-</ul>
-</li>
-</ol>
-<h4 id="五、事件驱动与高性能服务器"><a href="#五、事件驱动与高性能服务器" class="headerlink" title="五、事件驱动与高性能服务器"></a><p style="background:orange;">五、事件驱动与高性能服务器</p></h4><p>☛ <strong>事件驱动的实质：</strong>通过主循环加事件触发的方式来运行程序。</p>
-<p>☛ <strong>Node 高性能的原因：</strong></p>
-<ul>
-<li>Node 通过事件驱动的方式处理请求，无须为每一个请求创建额外的对应线程，可以省掉创建线程和销毁线程的开销；</li>
-<li>同时操作系统在调度任务时因为线程较少，上下文切换的代价很低。</li>
-<li>这使得服务器能够有条不紊地处理请求，即使在大量连接的情况下，也不受上下文切换开销的影响。</li>
-</ul>
-<p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE3-15%20%E5%88%A9%E7%94%A8Node%E6%9E%84%E5%BB%BAWeb%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%B5%81%E7%A8%8B%E5%9B%BE.png?raw=true" alt="图3-15 利用Node构建Web服务器的流程图"></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/30/《深入浅出Node.js》第3章 异步IO/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1813,7 +1168,7 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第2章 模块机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第2章 模块机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lu Qian">
@@ -1822,7 +1177,7 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
+      <meta itemprop="name" content="一个笑点低的妹子">
     </span>
 
     
@@ -1832,7 +1187,7 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/30/第2章 模块机制/" itemprop="url">第2章 模块机制</a></h1>
+                <a class="post-title-link" href="/2018/04/30/《深入浅出Node.js》第2章 模块机制/" itemprop="url">《深入浅出Node.js》第2章 模块机制</a></h1>
         
 
         <div class="post-meta">
@@ -1905,229 +1260,15 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
 
       
         
-          
-            <p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-1%20JavaScript%E7%9A%84%E5%8F%98%E8%BF%81.png?raw=true" alt="JavaScript 的变迁"></p>
+          <p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-1%20JavaScript%E7%9A%84%E5%8F%98%E8%BF%81.png?raw=true" alt="JavaScript 的变迁"></p>
 <p>JavaScript 先天缺乏的功能：模块。</p>
-<h4 id="一、CommonJS-规范："><a href="#一、CommonJS-规范：" class="headerlink" title="一、CommonJS 规范："></a><p style="background:orange;">一、CommonJS 规范：</p></h4><p>JavaScript 规范的缺陷：1）没有模块系统；2）标准库较少；3）没有标准接口；4）缺乏包管理系统。</p>
-<p>CommonJS 规范的提出，主要是为了弥补当前 JavaScript 没有标准的缺陷，使其具备开发大型应用的基础能力。</p>
-<p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-2%20Node%E4%B8%8E%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BB%A5%E5%8F%8AW3C%E7%BB%84%E7%BB%87%E3%80%81CommonJS%E7%BB%84%E7%BB%87%E3%80%81ECMAScript%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.png?raw=true" alt="Node与浏览器以及W3C组织、CommonJS组织、ECMAScript之间的关系"></p>
-<p>Node 借鉴 CommonJS 的 Modules 规范实现了一套非常易用的模块系统，NPM 对 Packages 规范的完好支持使得 Node 应用在开发过程中事半功倍。</p>
-<p>☛ 【<strong>CommonJS 对模块的定义</strong>】：</p>
-<ol>
-<li><p><span style="color:#ac4a4a"><strong>模块引用：</strong></span></p>
-<p> <code>require()</code> 方法：引入一个模块的 API 到当前上下文中。</p>
-<pre><code>var math = require(&apos;math&apos;);
-</code></pre></li>
-<li><p><span style="color:#ac4a4a"><strong>模块定义：</strong></span></p>
-<p> <code>module</code> 对象：代表模块自身。</p>
-<p> <code>exports</code> 对象：<code>module</code> 的属性，用于导出当前模块的方法或者变量，且它是唯一导出的出口。</p>
-<p> 在 Node 中，一个文件就是一个模块，将方法挂载在 <code>exports</code> 对象上作为属性即可定义导出的方式：</p>
-<pre><code>// math.js
-exports.add = function() {};
-</code></pre></li>
-<li><p><span style="color:#ac4a4a"><strong>模块标识：</strong></span>传递给 <code>require()</code> 方法的参数</p>
-<p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-3%20%E6%A8%A1%E5%9D%97%E5%AE%9A%E4%B9%89.png?raw=true" alt="模块定义"></p>
-</li>
-</ol>
-<p>♫ 【<strong>优点</strong>】：CommonJS 构建的这套模块导出和引入机制使得用户完全不必考虑变量污染，命名空间等方案与之相比相形见绌。</p>
-<h4 id="二、Node-的模块实现"><a href="#二、Node-的模块实现" class="headerlink" title="二、Node 的模块实现"></a><p style="background:orange;">二、Node 的模块实现</p></h4><p>在 Node 中引入模块，需要经历：（1）路径分析；（2）文件定位；（3）编译执行。</p>
-<p>Node 中的模块分为两类：</p>
-<p>（1）核心模块：在 Node 源代码编译过程中，编译进了二进制执行文件，所以在引入时，可以省略文件定位和编译执行，且在路径分析中优先判断，加载速度最快。</p>
-<p>（2）文件模块：在运行时动态加载，需要完整的3步过程，速度较慢。</p>
-<p>☛ 【<strong>详细的模块加载过程</strong>】：</p>
-<ol>
-<li><p><span style="color:#ac4a4a"><strong>优先从缓存加载（第一优先级）</strong></span></p>
-<p> ♫ 提高性能的方式比较：</p>
-<ul>
-<li>前端浏览器：缓存静态脚本文件，仅缓存文件。</li>
-<li><p>Node：对引入过的模块进行缓存，缓存的是编译和执行之后的对象。</p>
-<blockquote>
-<p>无论是核心模块还是文件模块，<code>require()</code> 方法对相同模块的二次加载都一律采用缓存优先的方式。</p>
-<p>核心模块的缓存检查先于文件模块。</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>路径分析与文件定位</strong></span></p>
-<p> ① 模块标识符分析：<code>require()</code> 方法的参数</p>
-<ul>
-<li>核心模块：如 http、fs、path 等。（最快）</li>
-<li>路径形式的文件模块：<code>.</code> 或 <code>..</code> 开始的相对路径文件模块 和 以 <code>/</code> 开始的绝对路径文件模块。</li>
-<li><p>自定义模块：特殊的文件模块，可能是一个文件或者包的形式。（最慢）</p>
-<ul>
-<li><code>模块路径</code>：Node 在定位文件模块的具体文件时指定的查找策略，具体表现为一个路径组成的<span style="background:yellow">数组</span>。</li>
-<li>当前文件的路径越深，模块查找越耗时，因此自定义模块加载速度最慢。</li>
-</ul>
-<p>② 文件定位</p>
-</li>
-<li><p>文件扩展名分析</p>
-<ul>
-<li><code>require()</code> 在分析标识符的过程中，会出现标识符不包含扩展名的情况；</li>
-<li>Node 会按 <code>.js</code>、<code>.json</code>、<code>.node</code> 的次序依次补足扩展名，调用 <code>fs</code> 模块同步阻塞式地依次尝试。</li>
-<li>缓解 Node 单线程中阻塞式调用的诀窍：(1) 带上扩展名；(2) 同步配合缓存。</li>
-</ul>
-</li>
-<li>目录分析和包<ul>
-<li>在分析标识符时，<code>require()</code> 通过分析文件扩展名之后，可能没有查找到对应文件，但却得到一个目录（经常出现在引入自定义模块和逐个模块路径进行查找时），此时 Node 会将目录当做一个包来处理。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>模块编译</strong></span></p>
-<p> 在 Node 中，每个文件模块都是一个对象，其定义如下：</p>
-<pre><code>function Module(id, parent) {
-    this.id = id;
-    this.exports = {};
-    this.parent = parent;
-    if (parent &amp;&amp; parent.children) {
-        parent.children.push(this);
-    }
-
-    this.filename = null;
-    this.loaded = false;
-    this.children = [];
-}
-</code></pre><ul>
-<li>定位到具体的文件后，Node 会新建一个模块对象，然后根据路径载入并编译。</li>
-<li><p>对于不同的文件扩展名，有不同的载入方法：</p>
-<ul>
-<li><code>.js</code> 文件：通过 <code>fs</code> 模块同步读取文件后编译执行；</li>
-<li><code>.node</code> 文件：这是用 <code>c/C++</code> 编写的扩展文件，通过 <code>dlopen()</code> 方法加在最后编译生成的文件；</li>
-<li><code>.json</code> 文件：通过 <code>fs</code> 模块同步读取文件后，用 <code>JSON.parse()</code> 解析返回结果；</li>
-<li>其余扩展名文件：它们都被当做 <code>.js</code> 文件载入。</li>
-</ul>
-</li>
-<li><p>每一次编译成功的模块都会将其文件路径作为索引缓存在 <code>Module._cache</code> 对象上，以提高二次引入的性能。</p>
-</li>
-<li><code>exports</code> 只能改变形参的引用，但不能改变作用域外的值；要达到 <code>require</code> 引入一个类的效果，请赋值给 <code>module.exports</code> 对象。</li>
-</ul>
-</li>
-</ol>
-<h4 id="三、核心模块"><a href="#三、核心模块" class="headerlink" title="三、核心模块"></a><p style="background:orange;">三、核心模块</p></h4><p>核心模块分为两部分： c/C++ 编写的和 JavaScript 编写的。</p>
-<ol>
-<li><p><span style="color:#ac4a4a"><strong>JavaScript 核心模块的编译过程</strong></span></p>
-<p> ① 转存为 C/C++ 代码</p>
-<p> ② 编译 JavaScript 核心模块</p>
-<blockquote>
-<p>与文件模块的区别：</p>
-<ul>
-<li>获取源代码的方式（核心模块是从内存中加载的）；</li>
-<li>缓存执行结果的位置：编译成功的模块缓存到 NativeModule._cache 对象上，文件模块则缓存到 Module._cache 对象上。</li>
-</ul>
-</blockquote>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>C/C++ 核心模块的编译过程</strong></span></p>
-<p> 内建模块：由纯 C/C++ 编写的部分，Node 的 <code>buffer</code>、<code>crypto</code>、<code>evals</code>、<code>fs</code>、<code>os</code> 等。</p>
-<p> 内建模块的优势：（1）性能上优于脚本语言；（2）在进行文件编译时，被编译进二进制文件，一旦 Node 开始执行，它们被直接加载进内存中，无须再做标识符定位、文件定位、编译等过程，直接就可执行。</p>
-<p> ➹ 【<strong>内建模块的导出</strong>】：</p>
-<ul>
-<li><p>在 Node 的所有模块类型中，存在着一种依赖层级关系：</p>
-<p>  <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-4%20%E4%BE%9D%E8%B5%96%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB.png?raw=true" alt="依赖层级关系"></p>
-<blockquote>
-<p>通常，不推荐文件模块直接调用内建模块。如需调用，直接调用核心模块即可，因为核心模块中基本都封装了内建模块。</p>
-</blockquote>
-</li>
-<li><p>Node 在启动时，会生成一个全局变量 <code>process()</code>，并提供 <code>Binding()</code> 方法来协助加载内建模块。</p>
-<p><br></p>
-</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>核心模块的引入流程</strong></span></p>
-<p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-5%20os%E5%8E%9F%E7%94%9F%E6%A8%A1%E5%9D%97%E7%9A%84%E5%BC%95%E5%85%A5%E6%B5%81%E7%A8%8B.png?raw=true" alt="os原生模块的引入流程"></p>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>编写核心模块</strong></span></p>
-<ul>
-<li>核心模块中的 JavaScript 部分几乎与文件模块的开发相同，遵循 CommonJS 规范，上下文中除了拥有 <code>require</code>、<code>module</code>、<code>exports</code> 外，还可以调用 Node 中的一些全局变量；</li>
-<li>内建模块的编写通常分成两步：编写头文件和编写 C/C++ 文件。</li>
-</ul>
-</li>
-</ol>
-<h4 id="四、C-C-扩展模块"><a href="#四、C-C-扩展模块" class="headerlink" title="四、C/C++ 扩展模块"></a><p style="background:orange;">四、C/C++ 扩展模块</p></h4><p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-6%20%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97%E4%B8%8D%E5%90%8C%E5%B9%B3%E5%8F%B0%E4%B8%8A%E7%9A%84%E7%BC%96%E8%AF%91%E5%92%8C%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B.png?raw=true" alt="扩展模块不同平台上的编译和加载过程"></p>
-<ul>
-<li>C/C++ 扩展模块与 JavaScript 模块的区别在于加载之后不需要编译，直接执行之后就可以被外部调用了，其加载速度比 JavaScript 模块略快。</li>
-<li>使用 C/C++ 扩展模块的好处：可更灵活和动态地加载它们，保持 Node 模块自身简单性的同时，给予 Node 无限的可扩展性。</li>
-</ul>
-<h4 id="五、模块调用栈"><a href="#五、模块调用栈" class="headerlink" title="五、模块调用栈"></a><p style="background:orange;">五、模块调用栈</p></h4><p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-8%20%E6%A8%A1%E5%9D%97%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B0%83%E7%94%A8%E5%85%B3%E7%B3%BB.png?raw=true" alt="模块之间的调用关系"></p>
-<ul>
-<li>C/C++ 内建模块属于最底层的模块，它属于核心模块，主要提供 API 给 JavaScript 核心模块和第三方JavaScript 文件模块调用。</li>
-<li>javaScript 核心模块属于的两类职责：1）作为C/C++内建模块的封装层和桥接层，供文件模块调用；2）纯粹的功能模块，它不需要跟底层打交道，但是又十分重要。</li>
-</ul>
-<h4 id="六、包与-NPM"><a href="#六、包与-NPM" class="headerlink" title="六、包与 NPM"></a><p style="background:orange;">六、包与 NPM</p></h4><p>在模块之外，包和 NPM 是将模块联系起来的一种机制。</p>
-<p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-9%20%E5%8C%85%E7%BB%84%E7%BB%87%E6%A8%A1%E5%9D%97%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="包组织模块示意图"></p>
-<ul>
-<li>CommonJS 的包规范由两部分组成：包结构、包描述文件。</li>
-<li>CommonJS 包规范是理论，NPM 是其中的一种实践。</li>
-</ul>
-<p>➹ <a href="http://www.runoob.com/nodejs/nodejs-npm.html" target="_blank" rel="noopener">NPM 常用功能</a></p>
-<h4 id="七、前后端共用模块"><a href="#七、前后端共用模块" class="headerlink" title="七、前后端共用模块"></a><p style="background:orange;">七、前后端共用模块</p></h4><ol>
-<li><p><span style="color:#ac4a4a"><strong>模块的侧重点</strong></span></p>
-<ul>
-<li><p>浏览器端的 JavaScript：需要经历从同一个服务器端分发到多个客户端执行，瓶颈在于带宽，需要通过网络加载代码；</p>
-</li>
-<li><p>服务器端的 javaScript：相同的代码需要多次执行，瓶颈在于 CPU 和内存等资源，从磁盘加载。</p>
-</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>AMD 规范</strong></span></p>
-<ul>
-<li><p>产生原因：鉴于网络的原因，CommonJS 为后端 JavaScript 制定的规范并不完全适合前端的应用场景。</p>
-</li>
-<li><p>AMD：Asynchronous Module Definition，异步模块定义，是 CommonJS 规范的一个延伸，适用于前端应用场景。</p>
-</li>
-<li><p>AMD 模块定义（id 和依赖是可选的）：</p>
-<pre><code>// 定义
-define(id?, dependencies?, factory);
-
-// 实现
-define(function() {
-    var exports = {};
-    exports.sayHello = function() {
-        alert(&apos;Hello from module: &apos; + module.id);
-    };
-    return exports;
-})
-</code></pre></li>
-<li><p>与 Node 的区别：1）AMD模块需要用 <code>define</code> 来明确定义模块，而在 Node 实现中是隐式包装的，目的都是进行作用域隔离；2）内容需要通过返回的方式实现导出。</p>
-</li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>CMD 规范</strong></span></p>
-<ul>
-<li><p>由国内的玉伯提出。</p>
-</li>
-<li><p>与 AMD 规范的主要区别：在于定义模块和依赖引入的部分。</p>
-<pre><code>/**
- * AMD 模块定义：
- * 在声明模块的时候需要制定所有的依赖，通过形参传递到模块内容中
- */
-define([&apos;dep1&apos;, &apos;dep2&apos;], function(dep1, dep2) {
-    return function () {};
-});
-
-/**
- * CMD 模块定义：
- * 更加接近于 Node 对 CommonJS 规范的定义
- */
-define(factory);
-
-// 在依赖部分，CMD 支持动态引入
-// require、exports 和 module 通过形参传递给模块
-// 在需要依赖模块时，随时调用 require() 引入即可
-define(function(require, exports, module) {
-    // The module code goes here
-});
-</code></pre></li>
-</ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>兼容多种模块规范</strong></span></p>
-<ul>
-<li>为了让同一个模块运行在前后端提出的解决方案；</li>
-<li>将类库代码包装在一个闭包内，兼容 Node、AMD、CMD 以及常见的浏览器环境。</li>
-</ul>
-</li>
-</ol>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/30/《深入浅出Node.js》第2章 模块机制/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2174,7 +1315,7 @@ define(function(require, exports, module) {
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第1章 Node简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第1章 Node简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lu Qian">
@@ -2183,7 +1324,7 @@ define(function(require, exports, module) {
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
+      <meta itemprop="name" content="一个笑点低的妹子">
     </span>
 
     
@@ -2193,7 +1334,7 @@ define(function(require, exports, module) {
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/30/第1章 Node简介/" itemprop="url">第1章 Node简介</a></h1>
+                <a class="post-title-link" href="/2018/04/30/《深入浅出Node.js》第1章 Node简介/" itemprop="url">《深入浅出Node.js》第1章 Node简介</a></h1>
         
 
         <div class="post-meta">
@@ -2266,8 +1407,7 @@ define(function(require, exports, module) {
 
       
         
-          
-            <h4 id="一、Node的起源"><a href="#一、Node的起源" class="headerlink" title="一、Node的起源"></a>一、Node的起源</h4><p>高性能Web服务器的要点：事件驱动、非阻塞I/O。</p>
+          <h3 id="一、Node的起源"><a href="#一、Node的起源" class="headerlink" title="一、Node的起源"></a>一、Node的起源</h3><p>高性能Web服务器的要点：事件驱动、非阻塞I/O。</p>
 <p>选择JavaScript的原因：高性能、符合事件驱动、没有历史包袱。</p>
 <ul>
 <li><code>JavaScript</code> 的开发门槛低；</li>
@@ -2275,50 +1415,13 @@ define(function(require, exports, module) {
 <li><code>JavaScript</code> 在浏览器中有广泛的事件驱动方面的应用，满足基于事件驱动的需求；</li>
 <li>Chrome 浏览器的 <code>JavaScript</code> 引擎 V8 性能最佳。</li>
 </ul>
-<p>Node与浏览器的对比：</p>
-<p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE1-1%20Chrome%E6%B5%8F%E8%A7%88%E5%99%A8%E5%92%8CNode%E7%9A%84%E7%BB%84%E4%BB%B6%E6%9E%84%E6%88%90.png?raw=true" alt="Chrome浏览器和Node的组件构成"></p>
-<blockquote>
-<p>除了 HTML、WebKit 和显卡这些 UI 相关技术没有支持外，Node 的结构与 Chrome 十分相似。</p>
-<p>它们都是基于事件驱动的异步架构，浏览器通过事件驱动来服务界面上的交互，Node 通过事件驱动来服务 I/O。</p>
-</blockquote>
-<h4 id="二、Node的特点"><a href="#二、Node的特点" class="headerlink" title="二、Node的特点"></a>二、Node的特点</h4><p>1) 异步 I/O</p>
-<ul>
-<li>在 Node 中，我们可以从语言层面很自然地进行并行 I/O 操作。</li>
-<li>每个调用之间无需等待之前的 I/O 调用结束。在编程模型上可以极大提升效率。</li>
-</ul>
-<p>2) 事件与回调函数</p>
-<ul>
-<li>回调函数式最好的接受异步调用返回数据的方式。</li>
-</ul>
-<p>3) 单线程</p>
-<p>Node 保持了 JavaScritp 在浏览器中单线程的特点。并且在 Node 中，JavaScript 与其余线程是无法共享任何状态的。</p>
-<ul>
-<li>单线程的最大好处：<ul>
-<li>不用像多线程编程那样处处在意状态的同步问题，这里没有死锁的存在，也没有线程上下文交换所带来的性能上的开销。</li>
-</ul>
-</li>
-<li>单线程的弱点：<ul>
-<li>无法利用多核 CPU；</li>
-<li>错误会引起整个应用退出，应用的健壮性值得考验；</li>
-<li>大量计算占用 CPU 导致无法继续调用异步 I/O。</li>
-</ul>
-</li>
-</ul>
-<p>浏览器中 JavaScript 与 UI 共用一个线程，JavaScript 长时间执行会导致 UI 的渲染和响应被中断。</p>
-<p>4) 跨平台</p>
-<p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE1-4%20Node%E5%9F%BA%E4%BA%8Elibuv%E5%AE%9E%E7%8E%B0%E8%B7%A8%E5%B9%B3%E5%8F%B0.png?raw=true" alt="Node基于libuv实现跨平台的架构示意图"></p>
-<blockquote>
-<p>目前，libuv 已经成为许多系统实现跨平台的基础组件。</p>
-</blockquote>
-<h4 id="三、Node-的应用场景"><a href="#三、Node-的应用场景" class="headerlink" title="三、Node 的应用场景"></a>三、Node 的应用场景</h4><p>1) I/O 密集型</p>
-<p>I/O 密集的优势：主要在于 Node 利用事件循环的处理能力，而不是启动每一个线程为每一个请求服务，资源占用极少。</p>
-<p>2) CPU 密集型：</p>
-<p>挑战：由于 JavaScript 单线程的原因，如果有长时间运行的计算（比如大循环），将会导致 CPU 时间片不能释放，使得后续 I/O 无法发起。</p>
-<p>是否适用？——&gt;只需做到合理调度或实现 C/C++ 扩展等</p>
-<p>4) 与遗留系统的和平共处</p>
-<p>5) 分布式应用：高效并行 I/O</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/30/《深入浅出Node.js》第1章 Node简介/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2374,7 +1477,7 @@ define(function(require, exports, module) {
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
+      <meta itemprop="name" content="一个笑点低的妹子">
     </span>
 
     
@@ -2440,6 +1543,8 @@ define(function(require, exports, module) {
 <li><p><a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">GitHub+Hexo 搭建个人网站详细教程</a></p>
 </li>
 <li><p><a href="https://segmentfault.com/a/1190000009544924" target="_blank" rel="noopener">hexo的next主题个性化配置教程</a></p>
+</li>
+<li><p><a href="https://www.zhihu.com/question/29017171" target="_blank" rel="noopener">hexo 下的分类和表签无法显示，怎么解决？</a></p>
 </li>
 </ul>
 
@@ -2533,10 +1638,10 @@ define(function(require, exports, module) {
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">3</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -2544,10 +1649,10 @@ define(function(require, exports, module) {
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">5</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -2582,7 +1687,8 @@ define(function(require, exports, module) {
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -2592,15 +1698,20 @@ define(function(require, exports, module) {
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+      本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>-->
 
 
 
-  <span class="post-meta-divider">|</span>
+  <!--<span class="post-meta-divider">|</span>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <!--<div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>-->
 
 
 

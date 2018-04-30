@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Node.js,reading," />
+  <meta name="keywords" content="reading,Node.js," />
 
 
 
@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="Node 能够迅速成功并流行起来的原因：  V8 和 异步 I/O 在性能上带来的提升； 前后端 JavaScript 编程风格一致  一、函数式编程 高阶函数  定义：是指把函数作为参数，或是将函数作为返回值的函数。  应用：事件处理，数组的迭代和归并方法等。  偏函数用法  偏函数用法：是指创建一个调用另外一个部分（参数或变量已经预置的函数）的函数的用法。  偏函数：通过指定部分参数来产生一个">
-<meta name="keywords" content="Node.js,reading">
+<meta name="description" content="Node 能够迅速成功并流行起来的原因：  V8 和 异步 I/O 在性能上带来的提升； 前后端 JavaScript 编程风格一致  一、函数式编程 高阶函数  定义：是指把函数作为参数，或是将函数作为返回值的函数。  应用：事件处理，数组的迭代和归并方法等。">
+<meta name="keywords" content="reading,Node.js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第4章 异步编程">
-<meta property="og:url" content="http://yoursite.com/2018/04/30/第4章 异步编程/index.html">
-<meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="Node 能够迅速成功并流行起来的原因：  V8 和 异步 I/O 在性能上带来的提升； 前后端 JavaScript 编程风格一致  一、函数式编程 高阶函数  定义：是指把函数作为参数，或是将函数作为返回值的函数。  应用：事件处理，数组的迭代和归并方法等。  偏函数用法  偏函数用法：是指创建一个调用另外一个部分（参数或变量已经预置的函数）的函数的用法。  偏函数：通过指定部分参数来产生一个">
+<meta property="og:title" content="《深入浅出Node.js》第4章 异步编程">
+<meta property="og:url" content="http://yoursite.com/2018/04/30/《深入浅出Node.js》第4章 异步编程/index.html">
+<meta property="og:site_name" content="一个笑点低的妹子">
+<meta property="og:description" content="Node 能够迅速成功并流行起来的原因：  V8 和 异步 I/O 在性能上带来的提升； 前后端 JavaScript 编程风格一致  一、函数式编程 高阶函数  定义：是指把函数作为参数，或是将函数作为返回值的函数。  应用：事件处理，数组的迭代和归并方法等。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-4%20Promise%E7%9A%84%E7%8A%B6%E6%80%81%E8%BD%AC%E5%8C%96%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-5%20%E7%8A%B6%E6%80%81%E5%92%8C%E6%96%B9%E6%B3%95%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-6%20Promise%E5%92%8CDeferred%E6%95%B4%E4%BD%93%E5%85%B3%E7%B3%BB%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true">
-<meta property="og:updated_time" content="2018-04-29T21:03:55.000Z">
+<meta property="og:updated_time" content="2018-04-29T21:48:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第4章 异步编程">
-<meta name="twitter:description" content="Node 能够迅速成功并流行起来的原因：  V8 和 异步 I/O 在性能上带来的提升； 前后端 JavaScript 编程风格一致  一、函数式编程 高阶函数  定义：是指把函数作为参数，或是将函数作为返回值的函数。  应用：事件处理，数组的迭代和归并方法等。  偏函数用法  偏函数用法：是指创建一个调用另外一个部分（参数或变量已经预置的函数）的函数的用法。  偏函数：通过指定部分参数来产生一个">
+<meta name="twitter:title" content="《深入浅出Node.js》第4章 异步编程">
+<meta name="twitter:description" content="Node 能够迅速成功并流行起来的原因：  V8 和 异步 I/O 在性能上带来的提升； 前后端 JavaScript 编程风格一致  一、函数式编程 高阶函数  定义：是指把函数作为参数，或是将函数作为返回值的函数。  应用：事件处理，数组的迭代和归并方法等。">
 <meta name="twitter:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-4%20Promise%E7%9A%84%E7%8A%B6%E6%80%81%E8%BD%AC%E5%8C%96%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true">
 
 
@@ -102,7 +102,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -124,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/30/第4章 异步编程/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第4章 异步编程/"/>
 
 
 
 
 
-  <title>第4章 异步编程 | My Blog</title>
+  <title>《深入浅出Node.js》第4章 异步编程 | 一个笑点低的妹子</title>
   
 
 
@@ -160,12 +160,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">My Blog</span>
+        <span class="site-title">一个笑点低的妹子</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">love life</p>
+        <p class="site-subtitle">love life，把书读薄</p>
       
   </div>
 
@@ -191,6 +191,26 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -237,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第4章 异步编程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第4章 异步编程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lu Qian">
@@ -246,7 +266,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
+      <meta itemprop="name" content="一个笑点低的妹子">
     </span>
 
     
@@ -254,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">第4章 异步编程</h1>
+          <h1 class="post-title" itemprop="name headline">《深入浅出Node.js》第4章 异步编程</h1>
         
 
         <div class="post-meta">
@@ -331,11 +351,14 @@
 <li>V8 和 异步 I/O 在性能上带来的提升；</li>
 <li>前后端 JavaScript 编程风格一致</li>
 </ul>
-<h4 id="一、函数式编程"><a href="#一、函数式编程" class="headerlink" title="一、函数式编程"></a><p style="background:orange;">一、函数式编程</p></h4><ol>
+<h3 id="一、函数式编程"><a href="#一、函数式编程" class="headerlink" title="一、函数式编程"></a>一、函数式编程</h3><ol>
 <li><p><span style="color:#ac4a4a"><strong>高阶函数</strong></span></p>
 <p> 定义：是指把函数作为参数，或是将函数作为返回值的函数。</p>
 <p> 应用：事件处理，数组的迭代和归并方法等。</p>
 </li>
+</ol>
+<a id="more"></a>
+<ol start="2">
 <li><p><span style="color:#ac4a4a"><strong>偏函数用法</strong></span></p>
 <p> 偏函数用法：是指创建一个调用另外一个部分（参数或变量已经预置的函数）的函数的用法。</p>
 <p> 偏函数：通过指定部分参数来产生一个新的定制函数的形式就是偏函数。</p>
@@ -360,7 +383,7 @@ var isString = isType(&apos;String&apos;);
 var isFunction = isType(&apos;Function&apos;);
 </code></pre></li>
 </ol>
-<h4 id="二、异步编程的优势与难点"><a href="#二、异步编程的优势与难点" class="headerlink" title="二、异步编程的优势与难点"></a><p style="background:orange;">二、异步编程的优势与难点</p></h4><ol>
+<h3 id="二、异步编程的优势与难点"><a href="#二、异步编程的优势与难点" class="headerlink" title="二、异步编程的优势与难点"></a>二、异步编程的优势与难点</h3><ol>
 <li><p><span style="color:#ac4a4a"><strong>优势</strong></span></p>
 <p> 最大特点：基于事件驱动的非阻塞 I/O 模型。可以使 CPU 与 I/O 并不相互依赖等待，让资源得到更好的利用。</p>
 <p> Node 实现异步 I/O 的原理：利用事件循环的调度方式，JavaScript 线程像一个分配任务和处理结果的大管家，I/O 线程池里的各个 I/O 线程都是小二，负责完成分配来的任务，小二与管家之间互不依赖，所以可以保持整体的高效率。</p>
@@ -376,7 +399,7 @@ var isFunction = isType(&apos;Function&apos;);
 </ul>
 </li>
 </ol>
-<h4 id="三、异步编程解决方案"><a href="#三、异步编程解决方案" class="headerlink" title="三、异步编程解决方案"></a><p style="background:orange;">三、异步编程解决方案</p></h4><ol>
+<h3 id="三、异步编程解决方案"><a href="#三、异步编程解决方案" class="headerlink" title="三、异步编程解决方案"></a>三、异步编程解决方案</h3><ol>
 <li><p><span style="color:#ac4a4a"><strong>事件发布/订阅模式</strong></span></p>
 <p> 即事件监听器模式，被广泛用于异步编程的模式，是回调函数的事件化。</p>
 <p> ps：其本身并无同步和异步调用问题，只不过在 Node 中多半是伴随事件循环而异步触发的。</p>
@@ -441,7 +464,7 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
 <li><p><span style="color:#ac4a4a"><strong>流程控制库</strong></span></p>
 </li>
 </ol>
-<h4 id="四、异步并发控制"><a href="#四、异步并发控制" class="headerlink" title="四、异步并发控制"></a><p style="background:orange;">四、异步并发控制</p></h4>
+<h3 id="四、异步并发控制"><a href="#四、异步并发控制" class="headerlink" title="四、异步并发控制"></a>四、异步并发控制</h3>
       
     </div>
     
@@ -458,9 +481,9 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
       
         <div class="post-tags">
           
-            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
-          
             <a href="/tags/reading/" rel="tag"># reading</a>
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
           
         </div>
       
@@ -473,8 +496,8 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/30/第3章 异步IO/" rel="next" title="第3章 异步I/O">
-                <i class="fa fa-chevron-left"></i> 第3章 异步I/O
+              <a href="/2018/04/30/《深入浅出Node.js》第3章 异步IO/" rel="next" title="《深入浅出Node.js》第3章 异步I/O">
+                <i class="fa fa-chevron-left"></i> 《深入浅出Node.js》第3章 异步I/O
               </a>
             
           </div>
@@ -483,8 +506,8 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/30/第5章 内存控制/" rel="prev" title="第5章 内存控制">
-                第5章 内存控制 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/30/《深入浅出Node.js》第5章 内存控制/" rel="prev" title="《深入浅出Node.js》第5章 内存控制">
+                《深入浅出Node.js》第5章 内存控制 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -572,10 +595,10 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">3</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -583,10 +606,10 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">5</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -617,7 +640,7 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、函数式编程"><span class="nav-number">1.</span> <span class="nav-text">一、函数式编程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、异步编程的优势与难点"><span class="nav-number">2.</span> <span class="nav-text">二、异步编程的优势与难点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、异步编程解决方案"><span class="nav-number">3.</span> <span class="nav-text">三、异步编程解决方案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、异步并发控制"><span class="nav-number">4.</span> <span class="nav-text">四、异步并发控制</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、函数式编程"><span class="nav-number">1.</span> <span class="nav-text">一、函数式编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、异步编程的优势与难点"><span class="nav-number">2.</span> <span class="nav-text">二、异步编程的优势与难点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、异步编程解决方案"><span class="nav-number">3.</span> <span class="nav-text">三、异步编程解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、异步并发控制"><span class="nav-number">4.</span> <span class="nav-text">四、异步并发控制</span></a></li></ol></div>
             
 
           </div>
@@ -637,7 +660,8 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -647,15 +671,20 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+      本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>-->
 
 
 
-  <span class="post-meta-divider">|</span>
+  <!--<span class="post-meta-divider">|</span>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <!--<div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>-->
 
 
 

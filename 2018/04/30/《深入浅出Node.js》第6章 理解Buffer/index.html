@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Node.js,reading," />
+  <meta name="keywords" content="reading,Node.js," />
 
 
 
@@ -79,19 +79,19 @@
 
 
 
-<meta name="description" content="✁ 为什么需要 Buffer？ 在 Node 中，应用需要处理网络协议、操作数据库、处理图片、接收上传文件等，在网络流和文件的操作中，还要处理大量二进制数据，JavaScript 自由的字符串远远不能满足这些需求，于是 Buffer 对象应运而生。 ✁ 字符串与 Buffer 的区别 Buffer 是二进制数据，字符串与 Buffer 之间存在编码关系。 一、Buffer 结构Buffer 是一个">
-<meta name="keywords" content="Node.js,reading">
+<meta name="description" content="✁ 为什么需要 Buffer？ 在 Node 中，应用需要处理网络协议、操作数据库、处理图片、接收上传文件等，在网络流和文件的操作中，还要处理大量二进制数据，JavaScript 自由的字符串远远不能满足这些需求，于是 Buffer 对象应运而生。 ✁ 字符串与 Buffer 的区别 Buffer 是二进制数据，字符串与 Buffer 之间存在编码关系。">
+<meta name="keywords" content="reading,Node.js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第6章 理解 Buffer">
-<meta property="og:url" content="http://yoursite.com/2018/04/30/第6章 理解Buffer/index.html">
-<meta property="og:site_name" content="My Blog">
-<meta property="og:description" content="✁ 为什么需要 Buffer？ 在 Node 中，应用需要处理网络协议、操作数据库、处理图片、接收上传文件等，在网络流和文件的操作中，还要处理大量二进制数据，JavaScript 自由的字符串远远不能满足这些需求，于是 Buffer 对象应运而生。 ✁ 字符串与 Buffer 的区别 Buffer 是二进制数据，字符串与 Buffer 之间存在编码关系。 一、Buffer 结构Buffer 是一个">
+<meta property="og:title" content="《深入浅出Node.js》第6章 理解 Buffer">
+<meta property="og:url" content="http://yoursite.com/2018/04/30/《深入浅出Node.js》第6章 理解Buffer/index.html">
+<meta property="og:site_name" content="一个笑点低的妹子">
+<meta property="og:description" content="✁ 为什么需要 Buffer？ 在 Node 中，应用需要处理网络协议、操作数据库、处理图片、接收上传文件等，在网络流和文件的操作中，还要处理大量二进制数据，JavaScript 自由的字符串远远不能满足这些需求，于是 Buffer 对象应运而生。 ✁ 字符串与 Buffer 的区别 Buffer 是二进制数据，字符串与 Buffer 之间存在编码关系。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE6-1%20Buffer%E7%9A%84%E5%88%86%E5%B7%A5.png?raw=true">
-<meta property="og:updated_time" content="2018-04-29T20:45:15.000Z">
+<meta property="og:updated_time" content="2018-04-29T21:47:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第6章 理解 Buffer">
-<meta name="twitter:description" content="✁ 为什么需要 Buffer？ 在 Node 中，应用需要处理网络协议、操作数据库、处理图片、接收上传文件等，在网络流和文件的操作中，还要处理大量二进制数据，JavaScript 自由的字符串远远不能满足这些需求，于是 Buffer 对象应运而生。 ✁ 字符串与 Buffer 的区别 Buffer 是二进制数据，字符串与 Buffer 之间存在编码关系。 一、Buffer 结构Buffer 是一个">
+<meta name="twitter:title" content="《深入浅出Node.js》第6章 理解 Buffer">
+<meta name="twitter:description" content="✁ 为什么需要 Buffer？ 在 Node 中，应用需要处理网络协议、操作数据库、处理图片、接收上传文件等，在网络流和文件的操作中，还要处理大量二进制数据，JavaScript 自由的字符串远远不能满足这些需求，于是 Buffer 对象应运而生。 ✁ 字符串与 Buffer 的区别 Buffer 是二进制数据，字符串与 Buffer 之间存在编码关系。">
 <meta name="twitter:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE6-1%20Buffer%E7%9A%84%E5%88%86%E5%B7%A5.png?raw=true">
 
 
@@ -100,7 +100,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Muse',
+    scheme: 'Mist',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/30/第6章 理解Buffer/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第6章 理解Buffer/"/>
 
 
 
 
 
-  <title>第6章 理解 Buffer | My Blog</title>
+  <title>《深入浅出Node.js》第6章 理解 Buffer | 一个笑点低的妹子</title>
   
 
 
@@ -158,12 +158,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">My Blog</span>
+        <span class="site-title">一个笑点低的妹子</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">love life</p>
+        <p class="site-subtitle">love life，把书读薄</p>
       
   </div>
 
@@ -189,6 +189,26 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
           </a>
         </li>
       
@@ -235,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/第6章 理解Buffer/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第6章 理解Buffer/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Lu Qian">
@@ -244,7 +264,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="My Blog">
+      <meta itemprop="name" content="一个笑点低的妹子">
     </span>
 
     
@@ -252,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">第6章 理解 Buffer</h1>
+          <h1 class="post-title" itemprop="name headline">《深入浅出Node.js》第6章 理解 Buffer</h1>
         
 
         <div class="post-meta">
@@ -328,7 +348,8 @@
 <p>在 Node 中，应用需要处理网络协议、操作数据库、处理图片、接收上传文件等，在网络流和文件的操作中，还要处理大量二进制数据，JavaScript 自由的字符串远远不能满足这些需求，于是 <code>Buffer</code> 对象应运而生。</p>
 <p><strong>✁ 字符串与 <code>Buffer</code> 的区别</strong></p>
 <p><code>Buffer</code> 是二进制数据，字符串与 <code>Buffer</code> 之间存在编码关系。</p>
-<h4 id="一、Buffer-结构"><a href="#一、Buffer-结构" class="headerlink" title="一、Buffer 结构"></a><p style="background:orange;">一、Buffer 结构</p></h4><p><code>Buffer</code> 是一个像 <code>Array</code> 的对象，但它主要用于操作字节。</p>
+<a id="more"></a>
+<h3 id="一、Buffer-结构"><a href="#一、Buffer-结构" class="headerlink" title="一、Buffer 结构"></a>一、Buffer 结构</h3><p><code>Buffer</code> 是一个像 <code>Array</code> 的对象，但它主要用于操作字节。</p>
 <ol>
 <li><p><span style="color:#ac4a4a"><strong>模块结构</strong></span></p>
 <p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE6-1%20Buffer%E7%9A%84%E5%88%86%E5%B7%A5.png?raw=true" alt="图6-1 Buffer的分工"></p>
@@ -378,7 +399,7 @@ newBuf[22]; // 3
 </ul>
 </li>
 </ol>
-<h4 id="二、Buffer-的转换"><a href="#二、Buffer-的转换" class="headerlink" title="二、Buffer 的转换"></a><p style="background:orange;">二、Buffer 的转换</p></h4><p><code>Buffer</code> 对象可以与字符串之间相互转换。目前支持的字符串编码类型有：ASCII、UTF-8、UTF-16LE/UCS-2、Base64、Binary、Hex。</p>
+<h3 id="二、Buffer-的转换"><a href="#二、Buffer-的转换" class="headerlink" title="二、Buffer 的转换"></a>二、Buffer 的转换</h3><p><code>Buffer</code> 对象可以与字符串之间相互转换。目前支持的字符串编码类型有：ASCII、UTF-8、UTF-16LE/UCS-2、Base64、Binary、Hex。</p>
 <ol>
 <li><p><span style="color:#ac4a4a"><strong>字符串转 Buffer</strong></span></p>
 <p> 字符串转 <code>Buffer</code> 对象主要是通过 <strong><em>构造函数</em></strong> 完成的。</p>
@@ -405,7 +426,7 @@ Buffer.isEncoding(&apos;GBK&apos;);    // false
 </code></pre><p> 对于不支持的编码类型，可以借助 Node 生态圈中的模块完成转换。<strong><em>iconv</em></strong> 和 <strong><em>iconv-lite</em></strong> 两个模块可以支持更多的编码类型转换。</p>
 </li>
 </ol>
-<h4 id="三、Buffer-的拼接"><a href="#三、Buffer-的拼接" class="headerlink" title="三、Buffer 的拼接"></a><p style="background:orange;">三、Buffer 的拼接</p></h4><p><code>Buffer</code> 在使用场景中，通常是以一段一段的方式传输。</p>
+<h3 id="三、Buffer-的拼接"><a href="#三、Buffer-的拼接" class="headerlink" title="三、Buffer 的拼接"></a>三、Buffer 的拼接</h3><p><code>Buffer</code> 在使用场景中，通常是以一段一段的方式传输。</p>
 <pre><code>var fs = require(&apos;fs&apos;);
 var rs = fs.createReadStream(&apos;test.md&apos;);
 var data = &apos;&apos;;
@@ -502,7 +523,7 @@ rs.on(&apos;end&apos;, function() {
 }
 </code></pre></li>
 </ol>
-<h4 id="四、Buffer-与性能"><a href="#四、Buffer-与性能" class="headerlink" title="四、Buffer 与性能"></a><p style="background:orange;">四、Buffer 与性能</p></h4><ul>
+<h3 id="四、Buffer-与性能"><a href="#四、Buffer-与性能" class="headerlink" title="四、Buffer 与性能"></a>四、Buffer 与性能</h3><ul>
 <li><p><code>Buffer</code> 在文件 I/O 和网络 I/O 中运用广泛。</p>
 <ul>
 <li><p>在应用中：操作字符串；</p>
@@ -538,9 +559,9 @@ rs.on(&apos;end&apos;, function() {
       
         <div class="post-tags">
           
-            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
-          
             <a href="/tags/reading/" rel="tag"># reading</a>
+          
+            <a href="/tags/Node-js/" rel="tag"># Node.js</a>
           
         </div>
       
@@ -553,8 +574,8 @@ rs.on(&apos;end&apos;, function() {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/30/第5章 内存控制/" rel="next" title="第5章 内存控制">
-                <i class="fa fa-chevron-left"></i> 第5章 内存控制
+              <a href="/2018/04/30/《深入浅出Node.js》第5章 内存控制/" rel="next" title="《深入浅出Node.js》第5章 内存控制">
+                <i class="fa fa-chevron-left"></i> 《深入浅出Node.js》第5章 内存控制
               </a>
             
           </div>
@@ -563,8 +584,8 @@ rs.on(&apos;end&apos;, function() {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/30/第7章 网络编程/" rel="prev" title="第7章 网络编程">
-                第7章 网络编程 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/04/30/《深入浅出Node.js》第7章 网络编程/" rel="prev" title="《深入浅出Node.js》第7章 网络编程">
+                《深入浅出Node.js》第7章 网络编程 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -652,10 +673,10 @@ rs.on(&apos;end&apos;, function() {
               
               
               <div class="site-state-item site-state-categories">
-                
-                  <span class="site-state-item-count">3</span>
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
-                
+                </a>
               </div>
             
 
@@ -663,10 +684,10 @@ rs.on(&apos;end&apos;, function() {
               
               
               <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">5</span>
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
-                
+                </a>
               </div>
             
 
@@ -697,7 +718,7 @@ rs.on(&apos;end&apos;, function() {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、Buffer-结构"><span class="nav-number">1.</span> <span class="nav-text">一、Buffer 结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、Buffer-的转换"><span class="nav-number">2.</span> <span class="nav-text">二、Buffer 的转换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、Buffer-的拼接"><span class="nav-number">3.</span> <span class="nav-text">三、Buffer 的拼接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#四、Buffer-与性能"><span class="nav-number">4.</span> <span class="nav-text">四、Buffer 与性能</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、Buffer-结构"><span class="nav-number">1.</span> <span class="nav-text">一、Buffer 结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、Buffer-的转换"><span class="nav-number">2.</span> <span class="nav-text">二、Buffer 的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、Buffer-的拼接"><span class="nav-number">3.</span> <span class="nav-text">三、Buffer 的拼接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、Buffer-与性能"><span class="nav-number">4.</span> <span class="nav-text">四、Buffer 与性能</span></a></li></ol></div>
             
 
           </div>
@@ -717,7 +738,8 @@ rs.on(&apos;end&apos;, function() {
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -727,15 +749,20 @@ rs.on(&apos;end&apos;, function() {
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+      本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>
+  <!--<div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>-->
 
 
 
-  <span class="post-meta-divider">|</span>
+  <!--<span class="post-meta-divider">|</span>-->
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <!--<div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>-->
 
 
 
