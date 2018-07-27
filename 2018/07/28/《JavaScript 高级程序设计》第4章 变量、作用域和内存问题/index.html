@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="一、基本类型和引用类型的值ECMAScript 变量可能包含两种不同数据类型的值：基本类型值和引用类型值。 创建方式类似：创建一个变量并为其赋值。 ####（1）基本类型值和引用类型值比较    基本类型值 引用类型值     简单的数据段 可能由多个值构成的对象   值源自5种基本数据类型：    Undefined、Null、Boolean、Number 和 String | 值是保存在内存中">
+<meta name="description" content="一、基本类型和引用类型的值ECMAScript 变量可能包含两种不同数据类型的值：基本类型值和引用类型值。 创建方式类似：创建一个变量并为其赋值。 ####（1）基本类型值和引用类型值比较    基本类型值 引用类型值     简单的数据段 可能由多个值构成的对象   值源自5种基本数据类型：Undefined、Null、Boolean、Number 和 String 值是保存在内存中的对象">
 <meta name="keywords" content="reading,JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《JavaScript高级程序设计》第4章 变量、作用域和内存问题">
 <meta property="og:url" content="http://yoursite.com/2018/07/28/《JavaScript 高级程序设计》第4章 变量、作用域和内存问题/index.html">
 <meta property="og:site_name" content="一个笑点低的妹纸">
-<meta property="og:description" content="一、基本类型和引用类型的值ECMAScript 变量可能包含两种不同数据类型的值：基本类型值和引用类型值。 创建方式类似：创建一个变量并为其赋值。 ####（1）基本类型值和引用类型值比较    基本类型值 引用类型值     简单的数据段 可能由多个值构成的对象   值源自5种基本数据类型：    Undefined、Null、Boolean、Number 和 String | 值是保存在内存中">
+<meta property="og:description" content="一、基本类型和引用类型的值ECMAScript 变量可能包含两种不同数据类型的值：基本类型值和引用类型值。 创建方式类似：创建一个变量并为其赋值。 ####（1）基本类型值和引用类型值比较    基本类型值 引用类型值     简单的数据段 可能由多个值构成的对象   值源自5种基本数据类型：Undefined、Null、Boolean、Number 和 String 值是保存在内存中的对象">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images2015.cnblogs.com/blog/894254/201603/894254-20160313102403960-526328441.png">
 <meta property="og:image" content="https://images2015.cnblogs.com/blog/894254/201603/894254-20160313102422475-2092612005.png">
-<meta property="og:updated_time" content="2018-07-27T15:05:19.000Z">
+<meta property="og:updated_time" content="2018-07-27T15:18:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript高级程序设计》第4章 变量、作用域和内存问题">
-<meta name="twitter:description" content="一、基本类型和引用类型的值ECMAScript 变量可能包含两种不同数据类型的值：基本类型值和引用类型值。 创建方式类似：创建一个变量并为其赋值。 ####（1）基本类型值和引用类型值比较    基本类型值 引用类型值     简单的数据段 可能由多个值构成的对象   值源自5种基本数据类型：    Undefined、Null、Boolean、Number 和 String | 值是保存在内存中">
+<meta name="twitter:description" content="一、基本类型和引用类型的值ECMAScript 变量可能包含两种不同数据类型的值：基本类型值和引用类型值。 创建方式类似：创建一个变量并为其赋值。 ####（1）基本类型值和引用类型值比较    基本类型值 引用类型值     简单的数据段 可能由多个值构成的对象   值源自5种基本数据类型：Undefined、Null、Boolean、Number 和 String 值是保存在内存中的对象">
 <meta name="twitter:image" content="https://images2015.cnblogs.com/blog/894254/201603/894254-20160313102403960-526328441.png">
 
 
@@ -361,11 +361,31 @@
 <td>可能由多个值构成的对象</td>
 </tr>
 <tr>
-<td>值源自5种基本数据类型：</td>
+<td>值源自5种基本数据类型：Undefined、Null、Boolean、Number 和 String</td>
+<td>值是保存在内存中的对象</td>
+</tr>
+<tr>
+<td>在内存中占据固定大小的空间，保存在栈内存中</td>
+<td>保存在堆内存中</td>
+</tr>
+<tr>
+<td>按值访问</td>
+<td>按引用访问</td>
+</tr>
+<tr>
+<td>不能添加属性</td>
+<td>能动态地添加和删除属性</td>
+</tr>
+<tr>
+<td>复制变量值时，创建一个新值（副本)</td>
+<td>值的副本是一个指针，指向存储在堆中的一个对象</td>
+</tr>
+<tr>
+<td>确定一个值是哪种基本类型：typeof 操作符</td>
+<td>确定一个值是哪种引用类型：instanceof 操作符</td>
 </tr>
 </tbody>
 </table>
-<p>Undefined、Null、Boolean、Number 和 String | 值是保存在内存中的对象 |<br>| 在内存中占据固定大小的空间，保存在栈内存中 | 保存在堆内存中 |<br>| 按值访问 | 按引用访问 |<br>| 不能添加属性 | 能动态地添加和删除属性 |<br>| 复制变量值时，创建一个新值（副本) | 值的副本是一个指针，指向存储在堆中的一个对象 |<br>| 确定一个值是哪种基本类型：typeof 操作符 | 确定一个值是哪种引用类型：instanceof 操作符 |</p>
 <p>####（2）复制变量值</p>
 <p>I. 复制类型值的过程：</p>
 <p>　如果从一个变量向另一个变量复制基本类型的值，会在变量对象上创建一个新值，然后把该值复制到为新变量分配的位置上。</p>
