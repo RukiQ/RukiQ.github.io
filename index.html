@@ -249,6 +249,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/《JavaScript 高级程序设计》第4章 变量、作用域和内存问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lu Qian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个笑点低的妹纸">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/28/《JavaScript 高级程序设计》第4章 变量、作用域和内存问题/" itemprop="url">《JavaScript高级程序设计》第4章 变量、作用域和内存问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-28T10:50:53+08:00">
+                2018-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/《JavaScript高级程序设计》/" itemprop="url" rel="index">
+                    <span itemprop="name">《JavaScript高级程序设计》</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="一、基本类型和引用类型的值"><a href="#一、基本类型和引用类型的值" class="headerlink" title="一、基本类型和引用类型的值"></a>一、基本类型和引用类型的值</h3><p>ECMAScript 变量可能包含两种不同数据类型的值：基本类型值和引用类型值。</p>
+<p>创建方式类似：创建一个变量并为其赋值。</p>
+<p>####（1）基本类型值和引用类型值比较</p>
+<table>
+<thead>
+<tr>
+<th>基本类型值</th>
+<th>引用类型值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>简单的数据段</td>
+<td>可能由多个值构成的对象</td>
+</tr>
+<tr>
+<td>值源自5种基本数据类型：</td>
+</tr>
+</tbody>
+</table>
+<p>Undefined、Null、Boolean、Number 和 String | 值是保存在内存中的对象 |<br>| 在内存中占据固定大小的空间，保存在栈内存中 | 保存在堆内存中 |<br>| 按值访问 | 按引用访问 |<br>| 不能添加属性 | 能动态地添加和删除属性 |<br>| 复制变量值时，创建一个新值（副本) | 值的副本是一个指针，指向存储在堆中的一个对象 |<br>| 确定一个值是哪种基本类型：typeof 操作符 | 确定一个值是哪种引用类型：instanceof 操作符 |</p>
+<p>####（2）复制变量值</p>
+<p>I. 复制类型值的过程：</p>
+<p>　如果从一个变量向另一个变量复制基本类型的值，会在变量对象上创建一个新值，然后把该值复制到为新变量分配的位置上。</p>
+<p><img src="https://images2015.cnblogs.com/blog/894254/201603/894254-20160313102403960-526328441.png" alt=""></p>
+<p>II. 复制引用类型值的过程：</p>
+<p>　当从一个变量向另一个变量复制引用类型的值时，同样也会将存储在变量对象中的值复制一份放到为新变量分配的空间中。不同的是，这个值的副本实际上是一个指针，而这个指针指向存储在堆中的一个对象。</p>
+<p><img src="https://images2015.cnblogs.com/blog/894254/201603/894254-20160313102422475-2092612005.png" alt=""></p>
+<p>####（3）参数传递</p>
+<p>　ECMAScript 中所有函数的参数都是按值传递的。即，基本类型值的传递如同基本类型变量的复制一样，而引用类型值的传递，则如同引用类型变量的复制一样。</p>
+<p>####（4）检测类型</p>
+<p>　<strong>检测基本数据类型</strong>：typeof 操作符是确定一个变量是字符串、数值、布尔值，还是 undefined 的最佳工具。<br>　<br>　<strong>检测引用类型的值/对象的类型</strong>：instanceof 操作符<br>　<br>　在检测一个引用类型值和 Object 构造函数时，instanceof 操作符始终会返回 true，如果使用 instanceof 操作符检测基本类型的值，则该操作符会始终返回 false，因为基本类型不是对象。<br>　<br>　*ECMA-262 规定任何在内部实现 [[call]] 方法的对象都应该在应用 typeof 操作符时返回“function”。在不同的浏览器中对正则表达式应用 typeof 返回不同值，function 或 object。</p>
+<h3 id="二、执行环境及作用域"><a href="#二、执行环境及作用域" class="headerlink" title="二、执行环境及作用域"></a>二、执行环境及作用域</h3><h3 id="三、垃圾收集"><a href="#三、垃圾收集" class="headerlink" title="三、垃圾收集"></a>三、垃圾收集</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第8章 构建Web应用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1625,7 +1798,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1636,7 +1809,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1647,7 +1820,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
