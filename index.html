@@ -249,6 +249,1444 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/29/JavaScript高级程序设计》第6章 实现继承的6种方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lu Qian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个笑点低的妹纸">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/29/JavaScript高级程序设计》第6章 实现继承的6种方式/" itemprop="url">《JavaScript高级程序设计》第6章 实现继承的6种方式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-29T16:35:23+08:00">
+                2018-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/《JavaScript高级程序设计》/" itemprop="url" rel="index">
+                    <span itemprop="name">《JavaScript高级程序设计》</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>许多OO语言都支持 <strong>两种继承方式</strong>：</p>
+<p>（1）接口继承：只继承方法签名；</p>
+<p>（2）实现继承：继承实际的方法。</p>
+<p><code>ECMAScript</code> 由于函数没有签名，无法实现接口继承，因此<strong>只支持实现继承</strong>，而且主要是<strong>依靠原型链</strong>来实现的。</p>
+<h3 id="1-原型链-——-实现继承的主要方法，但是由于其问题，实践中很少会单独使用"><a href="#1-原型链-——-实现继承的主要方法，但是由于其问题，实践中很少会单独使用" class="headerlink" title="1. 原型链 —— 实现继承的主要方法，但是由于其问题，实践中很少会单独使用"></a><p style="background: orange">1. 原型链 —— 实现继承的主要方法，但是由于其问题，实践中很少会单独使用</p></h3><p><span style="color:red">基本思想：</span>利用原型让一个引用类型继承另一个引用类型的属性和方法。</p>
+<p><span style="background:yellow">原型链的实现</span>：让原型对象等于另一个类型的实例，层层递进，构成实例与原型的链条。</p>
+<p><span style="color:red">实现本质</span>：重写原型对象，代之以一个新类型的实例</p>
+<h5 id="实现原型链的基本模式："><a href="#实现原型链的基本模式：" class="headerlink" title="实现原型链的基本模式："></a>实现原型链的基本模式：</h5><pre><code>// 原型链继承--基本模式
+function SuperType() {
+    this.property = true;
+}
+
+SuperType.prototype.getSuperValue = function() {
+    return this.property;
+};
+
+function SubType() {
+    this.subproperty = false;
+}
+
+/*
+ * 继承实现方式：通过创建 SuperType 的实例，并将该实例赋给 SubType.prototype
+ * 实现本质：重写原型对象，代之以一个新类型的实例
+ */
+SubType.prototype = new SuperType();
+
+// 添加新方法
+SubType.prototype.getSubValue = function() {
+    return this.subproperty;
+}
+
+// 创建实例并操作
+var instance = new SubType();
+
+alert(instance.getSuperValue());    // true
+
+// instance.constructor 现在指向的是 SuperType
+alert(instance.constructor);    // SuperType
+
+/*
+ * 所有函数的默认原型都是 Object 的实例，因此默认原型都会包含一个内部指针，指向 Object.prototype
+ */
+// SuperType 继承了 Object，能够调用保存在 Object.prototype 中的那个方法
+alert(intance.toString());    //&quot;[object Object]&quot;
+
+/*
+ * 确定原型和实例的关系
+ */
+// 方法1：使用 instanceof 操作符
+alert(instance instanceof Object);    // true
+alert(instance instanceof SuperType);    // true
+alert(instance instanceof SubType);    // true
+
+// 方法2：使用 isPrototypeOf() 方法
+alert(Object.prototype.isPrototypeOf(instance));    // true
+alert(SuperType.prototype.isPrototypeOf(instance));    // true
+alert(SubType.prototype.isPrototypeOf(instance));    // true
+</code></pre><p><img src="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&amp;%E5%8E%9F%E5%9E%8B/%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%BB%A7%E6%89%BF.png?raw=true" alt="原型链继承"></p>
+<p><span style="color:red">注意点</span>：</p>
+<blockquote>
+<p>（1）图中，<code>getSuperValue()</code> 方法仍然还在 <code>SuperType.prototype</code> 中，但 <code>property</code> 则位于 <code>SubType.ptototype</code> 中。这是因为 <code>property</code> 是一个实例属性，而 <code>getSuperValue()</code> 则是一个原型方法。</p>
+</blockquote>
+<blockquote>
+<p>（2）<code>instance.constructor</code> 现在指向的是 <code>SuperType</code>，这是因为原来 <code>SubType.prototype</code> 中的 <code>constructor</code> 指向了 <code>SuperType</code> 的原型，而这个原型对象的 <code>contructor</code> 属性指向的是 <code>SuperType</code>。 </p>
+</blockquote>
+<p>通过实现原型链，本质上扩展了原型搜索机制。</p>
+<ul>
+<li>例：调用 instance.getSuperValue() 会经历三个搜索步骤：1）搜索实例；2）搜索 SubType.prototype；3）搜索 SuperType.prototype，最后一步才会找到该方法。</li>
+</ul>
+<h5 id="别忘记默认的原型"><a href="#别忘记默认的原型" class="headerlink" title="别忘记默认的原型"></a><span style="background:yellow">别忘记默认的原型</span></h5><ul>
+<li><p>所有引用类型默认都继承了 <code>Object</code></p>
+</li>
+<li><p>所有函数的默认原型都是 <code>Object</code> 的实例，因此默认原型都会包含一个内部指针，指向 <code>Object.prototype</code>。</p>
+</li>
+<li><p>因此，所有自定义类型都会继承 <code>toString()</code>、<code>valueOf()</code> 等默认方法。</p>
+</li>
+</ul>
+<p><img src="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&amp;%E5%8E%9F%E5%9E%8B/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%8E%9F%E5%9E%8B%E9%93%BE.png?raw=true" alt="完整的原型链"></p>
+<h5 id="确定实例与原型的关系：1）instanceof-操作符；2）isPrototypeOf-方法"><a href="#确定实例与原型的关系：1）instanceof-操作符；2）isPrototypeOf-方法" class="headerlink" title="确定实例与原型的关系：1）instanceof 操作符；2）isPrototypeOf() 方法"></a><span style="background:yellow">确定实例与原型的关系</span>：1）<code>instanceof</code> 操作符；2）<code>isPrototypeOf()</code> 方法</h5><h5 id="谨慎地定义方法：给原型添加方法的代码一定要放在替换原型的语句之后"><a href="#谨慎地定义方法：给原型添加方法的代码一定要放在替换原型的语句之后" class="headerlink" title="谨慎地定义方法：给原型添加方法的代码一定要放在替换原型的语句之后"></a><span style="background:yellow">谨慎地定义方法</span>：给原型添加方法的代码一定要放在替换原型的语句之后</h5><pre><code>/*
+ * 谨慎地定义方法：给原型添加方法的代码一定要放在替换原型的语句之后
+ */
+function SuperType() {
+    this.property = true;
+}
+
+SuperType.prototype.getSuperValue = function() {
+    return this.property;
+};
+
+function SubType() {
+    this.subproperty = false;
+}
+
+// 继承了 SuperType
+SubType.prototype = new SuperType();
+
+// 添加新方法
+SubType.prototype.getSubValue = function() {
+    return this.subproperty;
+}
+
+// 重写超类型中的方法，会屏蔽原来的那个方法
+SubType.prototype.getSuperValue = function() {
+    return false;
+}
+
+var instance = new SubType();
+alert(instance.getSuperValue());    // false
+</code></pre><p><span style="color:red">注意：</span>在通过原型链实现继承时，<span style="background:yellow">不能使用对象字面量创建原型方法</span>。因为这样会重写原型链。</p>
+<pre><code>/*
+ * 不能使用对象字面量创建原型方法，因为这样会重写原型链
+ */
+function SuperType() {
+    this.property = true;
+}
+
+SuperType.prototype.getSuperValue = function() {
+    return this.property;
+};
+
+function SubType() {
+    this.subproperty = false;
+}
+
+// 继承了 SuperType
+SubType.prototype = new SuperType();
+
+/*
+ * 使用字面量添加新方法，会导致上一行代码无效
+ * 现在 SubType.prototype 是一个 Object 的实例
+ */
+SubType.prototype = {
+    getSubValue : function() {
+        return this.subproperty;
+    },
+
+    someOtherMethod : function() {
+        return false;
+    }
+}
+
+var instance = new SubType();
+console.log(SubType.prototype);    // Object {}
+alert(instance.getSuperValue());    // error!
+</code></pre><h5 id="原型链的问题："><a href="#原型链的问题：" class="headerlink" title="原型链的问题："></a><span style="background:yellow">原型链的问题</span>：</h5><p><span style="color:red">主要问题：</span>来自包含引用类型值的原型。</p>
+<p>—— 在通过实例来实现继承时，原型实际上会变成另一个类型的实例。于是，原先的实例属性也就顺理成章地变成了现在的原型属性了。</p>
+<p><span style="color:red">问题2：</span>在创建子类型的实例时，不能向超类型的构造函数中传递参数（在不影响所有对象实例的情况下）。</p>
+<pre><code>/*
+ * 原型链的问题
+ */
+function SuperType() {
+    this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];
+}
+
+function SubType() {
+}
+
+// 继承了 SuperType
+SubType.prototype = new SuperType();
+
+var instance1 = new SubType();
+instance1.colors.push(&quot;black&quot;);
+console.log(instance1.colors);    // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;black&quot;]
+
+var instance2 = new SubType();
+console.log(instance2.colors);    // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;black&quot;]
+</code></pre><h3 id="2-借用构造函数（伪造对象或经典继承）——-实践中很少单独使用"><a href="#2-借用构造函数（伪造对象或经典继承）——-实践中很少单独使用" class="headerlink" title="2. 借用构造函数（伪造对象或经典继承）—— 实践中很少单独使用"></a><p style="background: orange">2. 借用构造函数（伪造对象或经典继承）—— 实践中很少单独使用</p></h3><p><span style="color:red">优点</span>：</p>
+<ul>
+<li><p>解决原型中包含引用类型值所带来的问题。</p>
+</li>
+<li><p>可以在子类型构造函数中向超类型构造函数传递参数。</p>
+</li>
+</ul>
+<p><span style="color:red">基本思想：</span>在子类型构造函数的内部调用超类型构造函数。</p>
+<pre><code>// 借用构造函数实现继承
+function SuperType() {
+    this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];
+}
+
+function SubType() {
+    // 继承了 SuperType
+    SuperType.call(this);    // 在新创建的对象上执行构造函数
+}
+
+var instance1 = new SubType();
+
+instance1.colors.push(&quot;black&quot;);
+console.log(instance1.colors);    // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;black&quot;]
+
+var instance2 = new SubType();
+console.log(instance2.colors);    // [red&quot;, &quot;blue&quot;, &quot;green&quot;]
+</code></pre><blockquote>
+<p>通过 <code>call()</code> 方法或 <code>apply()</code> 方法，实际上是在（未来将要）新创建的 SubType 的实例的环境下调用了 SuperType 构造函数。</p>
+</blockquote>
+<blockquote>
+<p>这样一来，会在新 SubType 对象上执行 SuperType() 函数中定义的所有对象初始化代码</p>
+</blockquote>
+<blockquote>
+<p>结果，SubType 的每个实例都会有自己的 colors 属性的副本了</p>
+</blockquote>
+<h5 id="传递参数："><a href="#传递参数：" class="headerlink" title="传递参数："></a><span style="background:yellow">传递参数</span>：</h5><pre><code>// 传递参数
+function SuperType(name) {
+    this.name = name;
+}
+
+function SubType() {
+    // 继承了 SuperType，同时还传递了参数
+    SuperType.call(this, &quot;Nicholas&quot;);
+
+    // 实例属性
+    this.age = 29;
+}
+
+var instance = new SubType();
+
+alert(instance.name);    // &quot;Nicholas&quot;
+alert(instance.age);    // 29
+
+// 实例的 constructor 属性指向 SubType，因此无法使用原型中定义的方法
+console.log(instance.constructor);    // function SubType() {}
+</code></pre><h5 id="借用构造函数的问题："><a href="#借用构造函数的问题：" class="headerlink" title="借用构造函数的问题："></a><span style="background:yellow">借用构造函数的问题：<p></p></span></h5><p>1）无法避免构造函数模式存在的问题——方法都在构造函数中定义，无法实现函数复用。</p>
+<p>2）在超类型的原型中定义的方法，对子类型而言是不可见的，结果所有类型都只能使用构造函数模式。</p>
+<h3 id="3-组合继承（伪经典继承）——-最常用的继承模式"><a href="#3-组合继承（伪经典继承）——-最常用的继承模式" class="headerlink" title="3. 组合继承（伪经典继承）—— 最常用的继承模式"></a><p style="background: orange">3. 组合继承（伪经典继承）—— 最常用的继承模式</p></h3><p><span style="color:red">优点</span>：将原型链和借用构造函数的技术组合到一块，发挥二者之长。</p>
+<p><span style="color:red">基本思想：</span>使用原型链实现对原型属性和方法的继承，通过借用构造函数实现对实例属性的继承。</p>
+<p><span style="color:red">不足</span>：无论什么情况下，都会调用两次超类型构造函数，一次是在创建子类型原型的时候，另一次是在子类型构造函数内部。——&gt;子类型最终会包含超类型对象的全部实例属性，我们不得不在调用子类型构造函数时重写这些属性。</p>
+<pre><code>// 组合继承
+function SuperType(name) {
+    this.name = name;
+    this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];
+}
+
+SuperType.prototype.sayName = function() {
+    alert(this.name);
+}
+
+function SubType(name, age) {
+
+    // 继承属性
+    SuperType.call(this, name);    // 第二次调用 SuperType()，子类型构造函数内部调用
+
+    this.age = age;
+}
+
+// 继承方法
+SubType.prototype = new SuperType();    // 第一次调用 SuperType()，创建子类型原型时调用
+SubType.prototype.constructor = SubType;
+SubType.prototype.sayAge = function() {
+    alert(this.age);
+}
+
+var instance1 = new SubType(&quot;Nicholas&quot;, 29);
+
+instance1.colors.push(&quot;black&quot;);
+console.log(instance1.colors);    // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;black&quot;]
+instance1.sayName();    // &quot;Nicholas&quot;
+instance1.sayAge();    // 29
+
+var instance2 = new SubType(&quot;Greg&quot;, 27);
+console.log(instance2.colors);    // [red&quot;, &quot;blue&quot;, &quot;green&quot;]
+instance2.sayName();    // &quot;Greg&quot;
+instance2.sayAge();    // 27
+
+// 只是改变了 constructor 的指向，__proto__ 的指向没有变，还是通过原型链进行连接
+alert(instance1 instanceof Object);    // true
+alert(instance1 instanceof SuperType);    // true
+alert(instance1 instanceof SubType);    // true
+
+alert(Object.prototype.isPrototypeOf(instance1));    // true
+alert(SuperType.prototype.isPrototypeOf(instance1));    // true
+alert(SubType.prototype.isPrototypeOf(instance1));    // true    
+</code></pre><blockquote>
+<p><code>instnceof</code> 和 <code>isPrototypeOf()</code> 方法能够用于识别基于组合继承创建的对象</p>
+</blockquote>
+<blockquote>
+<p>第一次调用 <code>SuperType</code> 构造函数时，<code>SubType.ptototype</code> 会得到两个属性：<code>name</code> 和 <code>colors</code>；它们都是 SuperType 的实例属性，只不过现在位于 SubType 的原型中。</p>
+</blockquote>
+<blockquote>
+<p>当调用 <code>SubType</code> 构造函数时，又会调用一次 <code>SuperType</code> 构造函数，这一次又在新对象上创建了实例属性 <code>name</code> 和 <code>colors</code>。于是，这两个属性就屏蔽了原型中的两个同名属性。</p>
+</blockquote>
+<p><img src="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&amp;%E5%8E%9F%E5%9E%8B/%E7%BB%84%E5%90%88%E5%BC%8F%E7%BB%A7%E6%89%BF.png?raw=true" alt="组合式继承"></p>
+<h3 id="4-原型式继承"><a href="#4-原型式继承" class="headerlink" title="4. 原型式继承"></a><p style="background: orange">4. 原型式继承</p></h3><ul>
+<li>没有严格意义上的构造函数</li>
+<li><p>借助原型可以基于已有的对象创建新对象，同时还不必因此创建自定义类型。</p>
+<pre><code>// 原型式继承
+function object(o) {
+    // 先创建一个临时性的构造函数
+    function F() {};
+
+    // 将传入的对象作为这个构造函数的原型
+    F.prototype = o;
+
+    // 返回这个临时类型的新实例
+    return new F();
+}
+
+// 本质上来讲，object() 对其中的对象执行了一次浅复制
+var person = {
+    name : &quot;Nicholas&quot;,    // 基本类型值属性
+    friends : [&quot;Shelby&quot;, &quot;Court&quot;]    // 引用类型值属性
+};
+
+var person1 = object(person);
+person1.name = &quot;Greg&quot;;
+person1.friends.push(&quot;Rob&quot;);
+
+var person2 = object(person);
+person2.name = &quot;Linda&quot;;
+person2.friends.push(&quot;Barbie&quot;);
+
+console.log(person.friends);    // [&quot;Shelby&quot;, &quot;Court&quot;, &quot;Rob&quot;, &quot;Barbie&quot;]
+</code></pre></li>
+</ul>
+<pre><code>/*
+ * Object.create() 方法：规范化了原型式继承
+ */
+var person3 = Object.create(person);
+person3.name = &quot;Allie&quot;;
+person3.friends.push(&quot;Anna&quot;);
+
+var person4 = Object.create(person);
+person4.name = &quot;John&quot;;
+person4.friends.push(&quot;Mark&quot;);    
+
+console.log(person.friends);    // [&quot;Shelby&quot;, &quot;Court&quot;, &quot;Rob&quot;, &quot;Barbie&quot;, &quot;Anna&quot;, &quot;Mark&quot;]
+
+// Object.create() 传入第二个参数，会覆盖原型对象上的同名属性
+var person5 = Object.create(person, {
+    name: {
+        value: &quot;Don&quot;
+    }
+})
+
+console.log(person5.name);    // Don
+</code></pre><blockquote>
+<p>这种原型式继承，必须要有一个对象可以作为另一个对象的基础。如果有一个对象的话，可以把它传递给 <code>object()</code> 函数，然后再根据具体需求对得到的对象加以修改即可。</p>
+<p>在没有必要兴师动众地创建构造函数，而只想让一个对象与另一个对象保持类似的情况下，原型式继承是完全可以胜任的。</p>
+</blockquote>
+<p><span style="color:red">注意</span>：同使用原型模式一样，包含<code>引用类型值的属性</code>始终都会共享相应的值。</p>
+<h5 id="ECMAScript-5-通过新增的-Object-create-方法-规范化了原型式继承："><a href="#ECMAScript-5-通过新增的-Object-create-方法-规范化了原型式继承：" class="headerlink" title="ECMAScript 5 通过新增的 Object.create() 方法 规范化了原型式继承："></a>ECMAScript 5 通过新增的 <span style="color:red"><code>Object.create()</code> 方法</span> 规范化了原型式继承：</h5><p><span style="background:yellow">两个参数</span>：1）用作新对象原型的对象；2）为新对象定义额外属性的对象（可选）。</p>
+<ul>
+<li>在传入一个参数的情况下，<code>Object.create()</code> 与 <code>object()</code> 方法的行为相同。</li>
+<li>第二个参数与 <code>Object.defineProperties()</code> 方法的第二个参数格式相同：每个属性都是通过自己的描述符定义的。<span style="background:yellow">以这种方式指定的任何属性都会覆盖原型对象上的同名属性。</span></li>
+</ul>
+<h3 id="5-寄生式继承"><a href="#5-寄生式继承" class="headerlink" title="5. 寄生式继承"></a><p style="background: orange">5. 寄生式继承</p></h3><p><span style="color:red">思路</span>：与寄生构造函数和工厂模式类似，即创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来增强对象，最后再像真的是它做了所有工作一样返回对象。</p>
+<p><span style="color:red">用处</span>：在主要考虑对象而不是自定义类型和构造函数的情况下，寄生式继承也是一种有用的模式</p>
+<p><span style="color:red">不足</span>：类似构造函数模式，使用寄生式继承来为对象添加函数，会由于不能做到函数复用而降低效率</p>
+<pre><code>// 寄生式继承
+function object(o) {
+    function F() {};    // 先创建一个临时性的构造函数
+    F.prototype = o;    // 将传入的对象作为这个构造函数的原型
+    return new F();    // 返回这个临时类型的新实例
+}
+
+/*
+ * 利用原型式继承所创建的 object() 函数，但不是必须的
+ * 任何能够返回新对象的函数都是用于此模式
+ */
+function createAnother(original) {
+    var clone = object(original);    // 通过调用函数创建一个新对象
+    clone.sayHi = function() {    // 以某种方式来增强这个对象
+        alert(&quot;hi&quot;);
+    };
+    return clone;    // 返回这个对象
+}
+
+// 使用
+var person = {
+    name : &quot;Nicholas&quot;,
+    friends : [&quot;Shelby&quot;, &quot;Court&quot;]
+};
+
+var anotherPerson = createAnother(person);
+anotherPerson.sayHi();    // hi
+</code></pre><h3 id="6-寄生组合式继承-——-实现基于类型继承的最有效方式"><a href="#6-寄生组合式继承-——-实现基于类型继承的最有效方式" class="headerlink" title="6. 寄生组合式继承 —— 实现基于类型继承的最有效方式"></a><p style="background: orange">6. 寄生组合式继承 —— 实现基于类型继承的最有效方式</p></h3><p><span style="color:red">寄生组合式继承</span>：通过借用构造函数来继承属性，通过原型链的混成形式来继承方法。</p>
+<p><span style="color:red">基本思路</span>：不必为了指定子类型的原型二调用超类型的构造函数。我们所需要的无非就是超类型原型的一个副本而已。</p>
+<p><span style="color:red">本质</span>：就是使用寄生式继承来继承超类型的原型，然后将结果指定给子类型的原型。</p>
+<p><span style="color:red">优点</span>：解决组合式继承两次调用超类型构造函数的问题。</p>
+<pre><code>// 寄生组合式继承
+function object(o) {
+    function F() {};    // 先创建一个临时性的构造函数
+    F.prototype = o;    // 将传入的对象作为这个构造函数的原型
+    return new F();    // 返回这个临时类型的新实例
+}
+
+function inheritPrototype(subType, superType) {
+    var prototype = object(superType.prototype);    // 创建对象，即创建超类型原型的副本
+    prototype.constructor = subType;    // 增强对象，即为创建的副本添加 contructor 属性
+    subType.prototype = prototype;    // 指定对象，即将新创建的对象（副本）赋值给子类型的原型
+}
+
+function SuperType(name) {
+    this.name = name;
+    this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];
+}
+
+SuperType.prototype.sayName = function() {
+    alert(this.name);
+}
+
+function SubType(name, age) {
+    SuperType.call(this, name);
+
+    this.age = age;
+}
+
+inheritPrototype(SubType, SuperType);
+
+SubType.prototype.sayAge = function() {
+    alert(this.age);
+}
+
+var instance = new SubType(&quot;Nicholas&quot;, 29);
+instance.sayName();    // &quot;Nicholas&quot;
+instance.sayAge();    // 29
+</code></pre><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a><p style="background: orange">小结</p></h3><ul>
+<li><p>JavaScript 主要通过<strong>原型链</strong>实现继承。</p>
+</li>
+<li><p><strong>原型链的构建</strong>：通过将一个类型的实例赋值给另一个构造函数的原型实现的。这样子，子类型就能够访问超类型的所有属性和方法，这一点与基于类的继承很相似。</p>
+</li>
+<li><p><strong>原型链的问题</strong>：对象实例共享所有继承的属性和方法，因此不适宜单独使用。</p>
+</li>
+<li><p><strong>解决技术</strong>：借用构造函数，即在子类型构造函数的内部调用超类型构造函数。这样可以做到每个实例都具有自己的属性，同时还能保证只使用构造函数模式来定义类型。</p>
+</li>
+<li><p>使用最多的继承模式是<strong>组合继承</strong>，这种模式使用原型链继承共享的属性和方法，而通过借用构造函数继承实例属性。</p>
+</li>
+</ul>
+<p>此外，还存在下列可供选择的继承模式：</p>
+<ul>
+<li><p><span style="color:#b01c57">原型式继承</span>，可以在不必预先定义构造函数的情况下实现继承，其<span style="color:#b01c57">本质</span>是执行对给定对象的浅复制。而复制得到的副本还可以得到进一步改造。</p>
+</li>
+<li><p><span style="color:#b01c57">寄生式继承</span>，与原型式继承非常相似，也是基于某个对象或某些信息创建一个对象，然后增强对象，最后返回对象。为了解决组合继承模式由于多次调用超类型构造函数而导致的低效率问题，可以将这个模式与组合继承一起使用。</p>
+</li>
+<li><p><span style="color:#b01c57">寄生组合式继承</span>，集寄生式继承和组合继承的优点与一身，是实现基于类型继承的最有效方式。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/29/《JavaScript高级程序设计》第6章 创建对的7种方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lu Qian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个笑点低的妹纸">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/29/《JavaScript高级程序设计》第6章 创建对的7种方式/" itemprop="url">《JavaScript高级程序设计》第6章 创建对的7种方式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-29T16:20:40+08:00">
+                2018-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/《JavaScript高级程序设计》/" itemprop="url" rel="index">
+                    <span itemprop="name">《JavaScript高级程序设计》</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="一、创建对象"><a href="#一、创建对象" class="headerlink" title="一、创建对象"></a><p style="background: orange">一、创建对象</p></h3><h4 id="（1）工厂模式"><a href="#（1）工厂模式" class="headerlink" title="（1）工厂模式"></a><p style="background: #cfc9fa">（1）工厂模式</p></h4><blockquote>
+<p>这种模式抽象了创建具体对象的过程。</p>
+<p>考虑到 ECMAScript 中无法创建类，开发人员就发明了一种函数，用函数来封装特定接口创建对象的细节。</p>
+</blockquote>
+<pre><code>// 工厂模式
+function createPerson(name, age, job) {
+    var o = new Object();    // 显示创建对象
+    o.name = name;
+    o.age = age;
+    o.job = job;
+    o.sayName = function() {
+        alert(this.name);
+    }
+    return o;    // 注意返回值
+}
+
+// 使用
+var person1 = createPerson(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);
+</code></pre><ul>
+<li>工厂模式虽然解决了<span style="background:yellow">创建多个相似对象</span>的问题，但却没有解决<span style="background:yellow">对象识别</span>的问题。</li>
+</ul>
+<h3 id="（2）构造函数模式"><a href="#（2）构造函数模式" class="headerlink" title="（2）构造函数模式"></a><p style="background: #cfc9fa">（2）构造函数模式</p></h3><blockquote>
+<p>ECMAScript 中的构造函数可用来创建特定类型的对象。</p>
+<p>像 Object 和 Array 这样的原生构造函数，在运行时会自动出现在执行环境中。此外，也可以创建自定义的构造函数，从而定义自定义对象类型的属性和方法。</p>
+</blockquote>
+<pre><code>// 构造函数模式
+function Person(name, age, job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.sayName = function() {
+        alert(this.name);
+    }
+}
+
+// 当作构造函数使用，使用 new 操作符，this 指向新创建的实例对象
+var person1 = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);
+var person2 = new Person(&quot;Greg&quot;, 27, &quot;Doctor&quot;);
+person1.sayName();    // &quot;Nicholas&quot;
+person2.sayName();    // &quot;Greg&quot;
+
+// 作为普通函数使用，this 指向全局 window 对象
+Person(&quot;Greg&quot;, 27, &quot;Doctor&quot;);
+wondow.sayName();    // &quot;Greg&quot;
+
+// 在另一个对象的作用域中调用，this 指向 o
+var o = new Object();
+Person.call(o, &quot;Kristen&quot;, 25, &quot;Nurse&quot;);
+o.sayName();
+</code></pre><h5 id="与工厂模式的区别："><a href="#与工厂模式的区别：" class="headerlink" title="与工厂模式的区别："></a><span style="background:yellow">与工厂模式的区别：</span></h5><ul>
+<li>没有显式地创建对象；</li>
+<li>直接将属性和方法赋给了 <code>this</code> 对象</li>
+<li>没有 <code>return</code> 语句</li>
+</ul>
+<blockquote>
+<p>使用 <span style="color:red"><strong><code>new</code> 操作符</strong></span> 调用构造函数创建实例实际上会经历以下4个步骤：</p>
+<p>(1) 创建一个新对象；</p>
+<p>(2) 将构造函数的作用域赋给新对象（因此 this 就指向了这个新对象）；</p>
+<p>(3) 执行构造函数中的代码（为这个新对象添加属性）；</p>
+<p>(4) 返回新对象。</p>
+</blockquote>
+<p><strong>构造函数与其他函数的<span style="color:red"> 唯一区别</span></strong>：调用方式不同——&gt;使用<span style="color:red"> <code>new</code> </span>操作符进行调用。</p>
+<blockquote>
+<p>任何函数，只要通过 <code>new</code> 操作符来调用，那它就可以作为构造函数；而任何函数，如果不通过 <code>new</code> 操作符来调用，那它跟普通函数也不会有什么两样。</p>
+</blockquote>
+<h5 id="构造函数的问题："><a href="#构造函数的问题：" class="headerlink" title="构造函数的问题："></a><span style="background:yellow">构造函数的问题：</span></h5><ul>
+<li><p><span style="color:red">主要问题</span>：每个方法都要在每个实例上重新创建一遍。</p>
+<blockquote>
+<p>不要忘了，ECMAScript中的函数是对象，因此每定义一个函数，也就是实例化了一个对象。从逻辑角度讲，此时的构造函数也可以这样定义：</p>
+</blockquote>
+<pre><code>/* 
+ * 以这种方式创建函数，会导致不同的作用域链和标识符解析，但创建Function新实例的机制仍然是相同的
+ * 因此，不同实例上的同名函数是不想等的
+ */
+function Person(name, age, job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.sayName = new Function(&quot;alert(this.name)&quot;);
+}
+
+var person1 = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);
+var person2 = new Person(&quot;Greg&quot;, 27, &quot;Doctor&quot;);        
+
+alert(person1.sayName == person2.sayName);    // false，如果person1的name和person2的name相同，则为 true
+</code></pre></li>
+</ul>
+<blockquote>
+<p>创建两个完成同样任务的 Function 的实例的确没有必要，而且有 <code>this</code> 对象在，根本不用在执行代码前就把函数绑定到特定对象上面。可以把<strong>函数定义转移到构造函数外部</strong>来解决这个问题：</p>
+</blockquote>
+<pre><code>function Person(name, age, job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.sayName = sayName;    // sayName 包含的是一个指向函数的指针
+                            // 因此,person1 和 person2 对象就共享了在全局作用域中定义的同一个 sayName() 函数
+}
+
+function sayName() {
+    alert(this,name);
+}
+</code></pre><ul>
+<li><span style="color:red">新问题</span>：上面的做法，<span style="color:#b01c57">在全局作用域中定义的函数只能被某个对象调用</span>，这让全局作用域有点名不副实。而且，如果对象需要定义很多方法，那么就要定义很多个全局函数，那么我们这个自定义的引用类型就丝毫<span style="color:#b01c57">没有封装性</span>可言了。</li>
+</ul>
+<h3 id="（3）原型模式"><a href="#（3）原型模式" class="headerlink" title="（3）原型模式"></a><p style="background: #cfc9fa">（3）原型模式</p></h3><blockquote>
+<p>我们创建的每个函数都有一个<span style="color:red"> <code>prototype</code> </span>（原型）属性，这个属性是一个指针，指向一个对象。</p>
+<p>原型对象的 <span style="color:red"><em>用途</em> </span>是包含可以由特定类型的所有实例共享的属性和方法。</p>
+<p><span style="background:yellow">按照字面意思来理解：</span> <span style="color:red"> <code>prototype</code> </span> 就是通过调用构造函数而创建的那个对象实例的原型对象。使用原型对象的 <span style="color:red"><em>好处</em> </span>是可以让所有对象实例共享它所包含的属性和方法。</p>
+</blockquote>
+<pre><code>// 原型模式--示例1
+function Person() {
+}
+
+Person.prototype.name = &quot;Nicholas&quot;;
+Person.prototype.age = 29;
+Person.prototype.job = &quot;Software Engineer&quot;;
+Person.prototype.sayName = function() {
+    alert(this.name);
+}
+
+// 使用
+var person1 = new Person();
+person1.sayName(); // &quot;Nicholas&quot;
+
+var person2 = new Person();
+person2.sayName();     // &quot;Nicholas&quot;
+
+alert(person1.sayName == person2.sayName); // true
+
+// Person 的原型对象的 constructor 属性指向 Person
+alert(Person.ptototype.constructor == Person);    //true
+
+// 原型最初指包含 constructor 属性，而该属性也是共享的，因此可以通过对象实例访问
+alert(preson1.constructor == Person);    // true
+
+// isPrototypeOf() 方法：确定实例与原型对象之间的关系（实例中存在隐藏的[[__proto__]]属性，指向原型对象）
+alert(Person.prototype.isPrototypeOf(person1));    // true;
+
+// Object.getPrototypeOf() 方法：获取实例的原型对象
+alert(Object.getPrototyepOf(person1) == Person.prototype);    // true
+alert(Object.getPrototypeOf(person1).name);    // &quot;Nicholas&quot;
+
+/* 
+ * 当为对象实例添加一个属性时，这个属性就会屏蔽原型对象中保存的同名属性    
+ * hasOwnProperty() 方法：判断对象属性是存在于实例还是原型中
+ * in 操作符：在通过对象能够访问给定属性时返回 true，无论该属性存在于实例中还是原型中
+ */
+person1.name = &quot;Greg&quot;;
+alert(person1.name);    // &quot;Greg&quot;——来自实例
+alert(person1.hasOwnProperty(&quot;name&quot;));    // true
+alert(&quot;name&quot; in person1);    // true
+
+alert(person2.name);    // &quot;Nicholas&quot;——来自原型
+alert(person2.hasOwnProperty(&quot;name&quot;));    // false    
+alert(&quot;name&quot; in person2);    // true
+
+/*
+ * hasOwnProperty() 方法与 in 操作符结合，可以确定该属性是原型中的属性
+ * 自定义 hasOwnPrototypeProperty() 方法：
+ */
+ function hasOwnPrototypeProperty(object, name) {
+     return !object.hasOwnProperty(name) &amp;&amp; (name in object);
+ }
+
+alert(hasOwnPrototypeProperty(person1, &quot;name&quot;));    // false;
+alert(hasOwnPrototypeProperty(person2, &quot;name&quot;));    // true
+
+
+// Object.getOwnPropertyDescriptor() 方法：取得对象属性的描述符
+alert(Object.getOwnPropertyDescriptor(person1, &quot;name&quot;));    // 取得实例属性描述符
+alert(Object.getOwnPropertyDescriptor(Person.prototype, &quot;name&quot;));    // 取得原型属性描述符
+
+/* 
+ * 添加实例属性只会阻止我们访问原型中的那个属性，但不会修改那个属性
+ * 即使将实例属性设置为 null，也只会在实例中设置这个属性，而不会恢复其指向原型的连接
+ */
+person1.name = null;
+alert(person1.name);    // null
+
+// 使用 delete 操作符可以完全删除实例属性，从而让我们能够重新访问原型中的属性
+delete person1.name;
+alert(person1.name);    // &quot;Nicholas&quot;——来自原型
+</code></pre><h5 id="补充说明："><a href="#补充说明：" class="headerlink" title="补充说明："></a>补充说明：</h5><ul>
+<li>创建了自定义的构造函数之后，其原型对象<span style="color:red">默认只会取得 <code>constructor</code> 属性</span>；至于其他方法，则都是<span style="color:red">从 <code>Object</code> 继承而来</span>的。</li>
+<li>当调用构造函数创建一个新实例后，该实例的内部将包含一个指针（<span style="color:red"><code>[[Prototype]]</code></span>，内部属性），指向构造函数的原型对象。</li>
+<li><em>注意：</em> 这个<span style="color:red"> <code>[[Prototype]]</code> </span>的连接存在于 <span style="background:yellow"><em>实例与构造函数的原型对象</em> </span>之间，而不是存在于实例与构造函数之间。</li>
+</ul>
+<p><img src="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&amp;%E5%8E%9F%E5%9E%8B/%E5%8E%9F%E5%9E%8B.png?raw=true" alt="Prototype"></p>
+<blockquote>
+<p>每当代码读取某个对象的某个属性时，都会执行一次搜索，目标是具有给定名字的属性：</p>
+<ol>
+<li><p>搜索从<span style="color:red">对象实例本身</span>开始，如果在实例中找到了具有给定名字的属性，则返回该属性的值；</p>
+</li>
+<li><p>如果没有找到，则继续<span style="color:red">搜索指针指向的原型对象</span>，在原型对象中查找具有给定名字的属性。如果在原型对象中招到了这个属性，则返回该属性的值。</p>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li>Person 的原型对象的 <span style="color:red"> <code>constructor</code> </span>属性指向 Person</li>
+<li>原型最初指包含 <span style="color:red"><code>constructor</code></span> 属性，而该属性也是共享的，因此<span style="background:yellow">可以通过对象实例访问</span></li>
+<li><span style="color:red"><code>isPrototypeOf()</code> 方法</span>：确定实例与原型对象之间的关系（实例中存在隐藏的<span style="color:red"><code>[[__proto__]]</code></span>属性，指向原型对象）</li>
+<li><span style="color:red"><code>Object.getPrototypeOf()</code> 方法</span>：获取实例的原型对象</li>
+<li><span style="color:red"><code>hasOwnProperty()</code> 方法</span>：判断对象属性是存在于实例还是原型中</li>
+<li><span style="color:red"><code>in</code></span> 操作符：在通过对象能够访问给定属性时返回 true，无论该属性存在于实例中还是原型中</li>
+<li><span style="color:red"><code>hasOwnProperty()</code></span> 方法与 <span style="color:red"><code>in</code></span> 操作符结合，可以确定该属性到底是存在于实例中，还是存在于原型中</li>
+<li><span style="color:red"><code>Object.getOwnPropertyDescriptor()</code> 方法</span>：取得对象属性的描述符</li>
+<li>使用 <span style="color:red"><code>delete</code></span> 操作符可以完全删除实例属性，从而让我们能够重新访问原型中的属性</li>
+</ul>
+<h5 id="–-原型与-in-操作符之-for-in-循环"><a href="#–-原型与-in-操作符之-for-in-循环" class="headerlink" title="– 原型与 in 操作符之 for-in 循环"></a><span style="background:yellow">– 原型与 in 操作符之 for-in 循环</span></h5><p><strong>两种使用方式：</strong>单独使用（前面例子）和在 <span style="color:red"><code>for-in</code></span> 循环中使用</p>
+<blockquote>
+<p>在使用 <span style="color:red"><code>for-in</code></span> 循环时，返回的是能够通过对象访问的、可枚举的属性，其中既包括存在于实例中的属性，也包括存在于原型中的属性。根据规定，所有开发人员定义的属性都是可枚举的——只有在IE8及更早版本中例外。</p>
+<p>IE早期版本的实现中存在一个bug，即屏蔽不可枚举属性的实例不会出现在 for-in 循环中。</p>
+</blockquote>
+<pre><code>// for-in 循环
+var o = {
+    toString: function() {    // 该自定义方法屏蔽了原型中（不可枚举）的 toString() 方法
+        return &quot;My Object&quot;;
+    }
+};
+
+for (var prop in o) {
+    if (prop == &quot;toString&quot;) {
+        alert(&quot;Found toString&quot;);    // IE 中不会显示
+    }
+}
+</code></pre><ul>
+<li>默认不可枚举的所有属性和方法，包括：<span style="color:#b01c57"><code>hasOwnProperty()</code>、<code>propertyIsEnumerable()</code>、<code>toLocaleStrig()</code>、<code>toString()</code>、<code>valueOf()</code></span>，ECMAScript也将 <span style="color:#b01c57"><code>constructor</code> 和 <code>prototype</code> 属性</span>的 [[Enumerable]] 特性设置为 false，但并不是所有浏览器都照此实现</li>
+</ul>
+<p><strong>原型模式示例2：</strong><br>（1）取得对象上所有可枚举的实例属性（<code>Object.keys()</code> 方法）<br>（2）得到所有实例属性、无论它是否可枚举（<code>Object.getOwnPropertyNames()</code> 方法）</p>
+<pre><code>// 原型模式--示例2
+function Person() {
+}
+
+Person.prototype.name = &quot;Nicholas&quot;;
+Person.prototype.age = 29;
+Person.prototype.job = &quot;Software Engineer&quot;;
+Person.prototype.sayName = function() {
+    alert(this.name);
+}
+
+/*
+ * Object.keys() 方法：取得对象上所有可枚举的实例属性
+ * 该方法将返回一个字符串数组，数组中字符串出现的顺序也是它们在 for-in 循环中出现的顺序
+ */
+var keys = Object.keys(Person.prototype);
+console.log(keys);    // [&quot;name&quot;, &quot;age&quot;, &quot;job&quot;, &quot;sayName&quot;]
+
+var p1 = new Person();
+p1.name = &quot;Rob&quot;;
+p1.age = 31;
+var p1keys = Object.keys(p1);
+console.log(p1keys);    // [&quot;name&quot;, &quot;age&quot;]
+
+// Object.getOwnPropertyNames() 方法：得到所有实例属性，无论它是否可枚举
+var keys = Object.getOwnPropertyNames(Person.prototype);
+console.log(keys);    // [&quot;constructor&quot;, &quot;name&quot;, &quot;age&quot;, &quot;job&quot;, &quot;sayName&quot;]
+</code></pre><blockquote>
+<p><code>Object.keys()</code> 和 <code>Object.getOwnPropertyNames()</code> 方法都可以用来替代 <code>for-in</code> 循环。</p>
+</blockquote>
+<h5 id="–-更简单的原型语法——为了减少不必要的输入，也为了从视觉上更好地封装原型的功能。"><a href="#–-更简单的原型语法——为了减少不必要的输入，也为了从视觉上更好地封装原型的功能。" class="headerlink" title="– 更简单的原型语法——为了减少不必要的输入，也为了从视觉上更好地封装原型的功能。"></a><span style="background:yellow">– 更简单的原型语法</span>——为了减少不必要的输入，也为了从视觉上更好地封装原型的功能。</h5><pre><code>// 更简单的原型语法
+function Person() {
+}
+
+Person.prototype = {
+    name : &quot;Nicholas&quot;,
+    age : 29,
+    job : &quot;Software Engineer&quot;,
+    sayName : function() {
+        alert(this.name);
+    }
+}
+
+var friend = new Person();
+alert(friend instanceof Object);    // true
+alert(friend instanceof Person);    // true
+alert(friend.constructor == Person);    // false
+alert(friend.constructor == Object);    // true
+</code></pre><blockquote>
+<p>每创建一个函数，就会同时创建它的 <code>prototype</code> 对象，这个对象也会自动获得 <code>constructor</code> 属性</p>
+<p>这种写法，本质上完全重写了默认的 <code>prototype</code> 对象</p>
+<p>constructor 属性也就变成了新对象的 <code>constructor</code> 属性（指向 <code>Object</code> 构造函数）</p>
+</blockquote>
+<p><span style="color:#b01c57">可以像下面这样设置：</span></p>
+<ul>
+<li><p><span style="color:red">注意：</span>以这种方式重设 <code>constructor</code> 属性会导致它的 <code>[[Enumerable]]</code> 特性被设置为 true。默认情况下，原生的 <code>constructor</code> 属性是不可枚举的。</p>
+<pre><code>function Person() {
+}
+
+Person.prototype = {
+    constructor : Person,
+    name : &quot;Nicholas&quot;,
+    age : 29,
+    job : &quot;Software Engineer&quot;,
+    sayName : function() {
+        alert(this.name);
+    }
+}
+
+// 重设构造函数（修改属性默认的特性），只适用于 ECMAScript5 兼容的浏览器
+Object.defineProperty(Person.prototype, &quot;constructor&quot;, {
+    enumerable: false,
+    value: Person
+})
+</code></pre></li>
+</ul>
+<h5 id="–-原型的动态性——可以随时为原型添加属性和方法"><a href="#–-原型的动态性——可以随时为原型添加属性和方法" class="headerlink" title="– 原型的动态性——可以随时为原型添加属性和方法"></a><span style="background:yellow">– 原型的动态性</span>——可以随时为原型添加属性和方法</h5><blockquote>
+<p>由于在原型中查找值的过程是一次搜索，因此我们对原型对象所做的任何修改都能立即从实例上反映出来——即使是先创建了实例后修改原型也照样如此。</p>
+<p><span style="color:red">原因：</span>实例与原型之间存在<span style="color:red">松散连接关系</span>。</p>
+<p>实例与原型之间的连接只不过是一个指针，而非一个副本。</p>
+</blockquote>
+<pre><code>var friend = new Person();    // 先创建实例
+
+Person.prototype.sayHi = function() {    // 于实例创建后添加
+    alert(&quot;hi&quot;);
+}
+
+friend.sayHi();    // &quot;hi&quot;，可以访问原型中的方法
+</code></pre><ul>
+<li><p>尽管可以随时为原型添加属性和方法，并且修改能够立即在所有对象实例中反映出来，但如果是重写整个原型对象，那么情况就不一样了。</p>
+</li>
+<li><p>我们知道，调用构造函数时会为实例添加一个指向最初原型 <code>[[Prototype]]</code> 的指针，而把原型修改为另一个对象就等于切断了构造函数与最初原型之间的联系。</p>
+</li>
+<li><p><span style="color:red">注意</span>：实例中的指针仅指向原型，而不指向构造函数</p>
+<pre><code>function Person() {    
+}
+
+var friend = new Person();
+// 重写原型对象
+Person.prototype = {
+    constructor : Person,    // 设置 constructor
+    name : &quot;Nicholas&quot;,
+    age : 29,
+    job : &quot;Software Engineer&quot;,
+    sayName : function() {
+        alert(this.name);
+    }
+}
+
+friend.sayName(); // error
+</code></pre></li>
+</ul>
+<p><em>过程如下：</em></p>
+<p><img src="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&amp;%E5%8E%9F%E5%9E%8B/%E5%8E%9F%E5%9E%8B3.png?raw=true" alt="Prototype-3"></p>
+<h5 id="–-原生对象的原型"><a href="#–-原生对象的原型" class="headerlink" title="– 原生对象的原型"></a><span style="background:yellow">– 原生对象的原型</span></h5><blockquote>
+<p>原型模式的重要性不仅体现在创建自定义类型的方面，就连所有原生的引用类型，都是采用这种模式创建的。</p>
+<p>通过原生对象的原型，不仅可以取得所有默认方法的引用，而且也可以自动亿新方法</p>
+</blockquote>
+<pre><code>alert(typeof String.prototype.startsWitht);    // &quot;function&quot;
+// 重写原型方法
+String.prototype.startsWidth = function(text) {
+    return this.indexOf(text) == 0;
+}
+</code></pre><ul>
+<li>不推荐在产品化的程序中修改原生对象的原型。</li>
+</ul>
+<h5 id="–-原型对象的问题——实例一般都要有自己的全部属性的"><a href="#–-原型对象的问题——实例一般都要有自己的全部属性的" class="headerlink" title="– 原型对象的问题——实例一般都要有自己的全部属性的"></a><span style="background:yellow">– 原型对象的问题</span>——实例一般都要有自己的全部属性的</h5><p>（1）省略了为构造函数传递初始化参数这一环节，结果所有实例在默认情况下都将取得相同的属性值</p>
+<p>（2）最大问题：由其共享本质导致，对于包含引用类型值的属性来说，问题比较突出</p>
+<pre><code>function Person() {    
+}
+
+Person.prototype = {
+    constructor : Person,
+    name : &quot;Nicholas&quot;,
+    age : 29,
+    job : &quot;Software Engineer&quot;,
+    friends : [&quot;Shelby&quot;, &quot;Court&quot;],
+    sayName : function() {
+        alert(this.name);
+    }
+};
+
+var person1 = new Person();
+var person2 = new Person();
+
+// 会通过原型共享 friends
+person1.friends.push(&quot;Van&quot;);
+
+alert(person1.friends);    //[&quot;Shelby&quot;, &quot;Court&quot;, &quot;Van&quot;]
+alert(person2.friends);    //[&quot;Shelby&quot;, &quot;Court&quot;, &quot;Van&quot;]
+alert(person1.friends === person2.friends);    // true
+</code></pre><h3 id="（4）组合使用构造函数模式和原型模式——创建自定义类型的最常见方式"><a href="#（4）组合使用构造函数模式和原型模式——创建自定义类型的最常见方式" class="headerlink" title="（4）组合使用构造函数模式和原型模式——创建自定义类型的最常见方式"></a><p style="background: #cfc9fa">（4）组合使用构造函数模式和原型模式——创建自定义类型的最常见方式</p></h3><ul>
+<li><p><strong>构造函数模式</strong>：定义实例属性；</p>
+</li>
+<li><p><strong>原型模式</strong>：定义方法和共享的属性。</p>
+</li>
+</ul>
+<p><span style="color:red"><strong>好处：</strong></span>（1）每个实例都会有自己的一份实例属性的副本，但同时又共享着对方法的引用，最大限度地节省了内存。（2）支持向构造函数传递参数。</p>
+<pre><code>// 组合使用构造函数模式和原型模式
+function Person(name, age, job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.friends = [&quot;Shelby&quot;, &quot;Court&quot;];
+}
+
+Person.prototype = {
+    constructor : Person,
+    sayName : function() {
+        alert(this.name);
+    }
+}
+
+var person1 = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);
+var person2 = new Person(&quot;Greg&quot;, 27, &quot;Doctor&quot;);
+
+person1.friends.push(&quot;Van&quot;);
+alert(person1.friends);    // [&quot;Shelby&quot;, &quot;Court&quot;, &quot;Van&quot;]
+alert(person2.friends); // [&quot;Shelby&quot;, &quot;Court&quot;]
+alert(person1.friends === person2.friends);    // false
+alert(person1.sayName === person2.sayName);    // true
+</code></pre><p><span style="color:red"><strong>价值：</strong></span>这种构造函数与原型混成的模式，是目前在 ECMAScript 中使用<span style="background:yellow">最广泛、认同度最高</span>的一种创建自定义类型的方法。可以说，这是<span style="background:yellow">用来定义引用类型的一种默认模式。</span></p>
+<h3 id="（5）动态原型模式"><a href="#（5）动态原型模式" class="headerlink" title="（5）动态原型模式"></a><p style="background: #cfc9fa">（5）动态原型模式</p></h3><ul>
+<li><p>解决独立的构造函数和原型问题；</p>
+</li>
+<li><p>把所有信息都封装在了构造函数中，通过在构造函数初始化原型（仅在必要的情况下）；</p>
+</li>
+<li><p>保持了同时使用构造函数和原型的优点。</p>
+</li>
+<li><p>不能使用对象字面量重写原型，重写会切断先有实例与新原型之间的联系。</p>
+<pre><code>// 动态原型模式
+// 可以通过检查某个应该存在的方法是否有效，来决定是否需要初始化原型
+function Person(name, age, job) {
+
+    // 属性
+    this.name = name;
+    this.age = age;
+    this.job = job;
+
+    // 方法
+    /* 只有在 sayName() 方法不存在的情况下，才会将它添加到原型中
+     * 这段代码只会在初次调用构造函数时才会执行。此后，原型已经完成初始化，不需要再做什么修改了
+     * 这里对原型所做的修改，能够立即在所有实例中得到反映
+     */
+    if (typeof this.sayName != &quot;function&quot;) {
+        Person.prototype.sayName = function() {
+            alert(this.name);
+        }
+    }
+}
+
+var friend = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);
+alert(friend.prototype);    // undefined
+alert(friend);    // Person {name: &quot;Nicholas&quot;, age: 29, job: &quot;Software Engineer&quot;}
+
+friend.sayName();    // &quot;Nicholas&quot;
+
+// 重写原型方法
+Person.prototype.sayName = function() { console.log(&quot;Greg&quot;); }
+
+friend.sayName();    // &quot;Greg&quot;
+</code></pre></li>
+</ul>
+<h3 id="（6）-寄生构造函数模式"><a href="#（6）-寄生构造函数模式" class="headerlink" title="（6）*寄生构造函数模式"></a><p style="background: #cfc9fa">（6）*寄生构造函数模式</p></h3><p><span style="color:red">基本思想：</span>创建一个函数——&gt;仅用于封装创建对象的代码，然后再返回新创建的对象。（这个函数很像是典型的构造函数）</p>
+<pre><code>// 寄生构造函数模式
+function Person(name, age, job) {
+
+    var o = new Object();    // 创建一个新对象
+    o.name = name;
+    o.age = age;
+    o.job = job;
+
+    o.sayName = function() {
+        alert(this.name);
+    }
+
+    return o;    // 返回该对象
+}
+
+var friend = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);    // 作为构造函数调用
+friend.sayName();    // &quot;Nicholas&quot;
+</code></pre><p><span style="background:yellow">与工厂模式的区别</span>：使用 <code>new</code> 操作符并把使用的包装函数叫做构造函数。</p>
+<p><span style="background:yellow">与构造函数模式的区别</span>：在函数内部创建新对象，并返回该对象。</p>
+<ul>
+<li>构造函数在不返回值的情况下，默认会返回新对象实例。而通过在构造函数末尾添加一个 <code>return</code> 语句，可以重写调用构造函数时返回的值。</li>
+</ul>
+<h5 id="应用特殊场景："><a href="#应用特殊场景：" class="headerlink" title="应用特殊场景："></a>应用特殊场景：</h5><pre><code>/* 
+ * 在特殊情况下为对象创建构造函数
+ * 假设想创建一个具有额外方法的特殊数组
+ * 由于不能直接修改 Array 构造函数，可以使用这个模式
+ */
+function SpecialArray() {
+
+    // 创建数组
+    var values = new Array();
+
+    // 添加值
+    values.push.apply(values, arguments);
+
+    // 添加方法
+    values.toPipedString = function() {
+        return this.join(&quot;|&quot;);
+    }
+
+    // 返回数组
+    return values;
+}
+
+var colors = new SpecialArray(&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;);
+console.log(colors);     // [red&quot;, &quot;blue&quot;, &quot;green&quot;]
+console.log(colors.toPipedString());    // &quot;red|blue|green&quot;
+</code></pre><p>但是完全可以通过在 Array 的原型上挂载自定义方法来实现：</p>
+<pre><code>var arr = new Array(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;);
+Array.prototype.toPipedString = function() { return this.join(&quot;|&quot;); }
+arr.toPipedString();    // &quot;a|b|c&quot;
+</code></pre><h5 id="说明："><a href="#说明：" class="headerlink" title="说明："></a><span style="color:red">说明：</span></h5><p>（1）<span style="background:yellow">返回的对象与构造函数或者与构造函数的原型属性之间没有关系</span>；即，构造函数返回的对象与在构造函数外部创建的对象没有什么不同。</p>
+<p>（2）因此，<span style="background:yellow">不能依赖 <code>instanceof</code> 操作符来确定对象类型。</span></p>
+<pre><code>alert(colors instanceof SpeciaArray);    // false
+alert(arr instanceof Array);    // true
+</code></pre><h3 id="（7）-稳妥构造函数模式"><a href="#（7）-稳妥构造函数模式" class="headerlink" title="（7）*稳妥构造函数模式"></a><p style="background: #cfc9fa">（7）*稳妥构造函数模式</p></h3><blockquote>
+<p><span style="color:red"><code>稳妥对象</code></span>：指没有公共属性，而且其方法也不引用 <code>this</code> 的对象。</p>
+<p><span style="color:#b01c57"><em>稳妥对象</em></span> 最适合在一些安全的环境中（这些环境中会禁止使用 <code>this</code> 和 <code>new</code>），或者在防止数据被其他应用程序改动时使用。</p>
+</blockquote>
+<pre><code>// 稳妥构造函数模式
+function Person(name, age, job) {
+
+    // 创建要返回的对象
+    var o = new Object();
+
+    // 可以在这里定义私有变量和函数
+
+    // 添加方法
+    // 只有该方法可以访问 name 属性（数据成员）
+    o.sayName = function() {
+        alert(name);    // 没有引用 this
+    }
+
+    // 返回对象
+    return o;
+}
+
+var friend = Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);
+friend.sayName();    // &quot;Nicholas&quot;
+</code></pre><p>稳妥构造函数遵循与寄生构造函数类似的模式，但有<span style="color:#b01c57">两点不同</span>：</p>
+<p>（1）新创建对象的实例方法不引用 <code>this</code>；<br>（2）不使用 <code>new</code> 操作符调用构造函数。</p>
+<h3 id="二、小结"><a href="#二、小结" class="headerlink" title="二、小结"></a><p style="background: orange">二、小结</p></h3><ul>
+<li><p><strong>工厂模式</strong>，使用简单的函数创建对象，为对象添加属性和方法，然后返回对象。这个模式后来被构造函数模式所取代。</p>
+</li>
+<li><p><strong>构造函数模式</strong>，可以自定义引用类型，可以像创建内置对象实例一样使用 <code>new</code> 操作符。不过，构造函数模式也有缺点，即它的每个成员都无法得到复用，包括函数。由于函数可以不局限于任何对象（即与对象具有松散耦合的特点），因此没有理由不在多个对象间共享函数。</p>
+</li>
+<li><p><strong>原型模式</strong>，使用构造函数的 <code>prototype</code> 属性来指定那些应该共享的属性和方法。组合使用构造函数模式和原型模式时，使用构造函数定义实例属性，而是用原型定义共享的属性和方法。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/29/《JavaScript高级程序设计》第6章 理解对象:原型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Lu Qian">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一个笑点低的妹纸">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/29/《JavaScript高级程序设计》第6章 理解对象:原型/" itemprop="url">《JavaScript高级程序设计》第6章 理解对象/原型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-29T16:00:23+08:00">
+                2018-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/《JavaScript高级程序设计》/" itemprop="url" rel="index">
+                    <span itemprop="name">《JavaScript高级程序设计》</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="https://images2015.cnblogs.com/blog/894254/201603/894254-20160323150144401-1985826373.png" alt=""></p>
+<blockquote>
+<p>ECMA-262定义对象：无序属性的集合，其属性可以包含基本值、对象或者属性。</p>
+<p>我们可以把 ECMAScript 的对象想象成 <code>散列表</code>：无非就是一组 <code>名值对</code>，其中<span style="background:yellow">值可以是数据或函数。</span></p>
+</blockquote>
+<h5 id="创建自定义对象的2种方式："><a href="#创建自定义对象的2种方式：" class="headerlink" title="创建自定义对象的2种方式："></a><span style="color:red">创建自定义对象的2种方式：</span></h5><p>（1）创建一个 <code>Object</code> 的实例，然后为其添加属性和方法</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——最简单（早期开发人员的选择）</p>
+<pre><code>// 创建一个 Object() 的实例，为其添加属性和方法
+var person = new Object();
+person.name = &quot;Nicholas&quot;;
+person.age = 29;
+person.job = &quot;Software Engineer&quot;;
+
+person.sayName = function() {
+    alert(this.name);
+};
+
+// 使用
+person.age; // 29
+</code></pre><p>（2）对象字面量</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——几年后的首选模式</p>
+<pre><code>// 对象字面量
+var person = {
+    name: &quot;Nicholas&quot;,
+    age: 29,
+    job: &quot;Software Engineer&quot;,
+
+    sayName: function() {
+        alert(this.name);
+    }
+};
+
+// 使用
+person.sayName(); // Nicholas
+</code></pre><blockquote>
+<p>虽然 <code>Object</code> 构造函数或字面量都可以用来创建对象，但这些方式有个明显的 <span style="color:red">缺点</span>：使用同一个接口创建很多对象，会产生大量的重复代码。</p>
+</blockquote>
+<p>属性类型及方法参考：<a href="http://www.cnblogs.com/Ruth92/p/5301342.html" target="_blank" rel="noopener">《JS高程》对象&amp;原型学习笔记</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/《JavaScript高级程序设计》第5章 引用类型/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1288,463 +2726,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第3章 异步IO/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lu Qian">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个笑点低的妹纸">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/30/《深入浅出Node.js》第3章 异步IO/" itemprop="url">《深入浅出Node.js》第3章 异步I/O</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-30T04:38:20+08:00">
-                2018-04-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/《深入浅出Node-js》/" itemprop="url" rel="index">
-                    <span itemprop="name">《深入浅出Node.js》</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <ul>
-<li><p>Node 的基调：异步 I/O、事件驱动、单线程。</p>
-</li>
-<li><p>Node 不再是一个服务器，而是一个可以基于它构建各种高速、可伸缩网络应用的平台。</p>
-</li>
-<li><p>Node 是全方位的，既可以作为服务端去处理客户带来的大量并发请求，也能作为客户端向网络中的各个应用进行并发请求。</p>
-</li>
-<li><p>Web → 网，Node → 网络中灵活的节点</p>
-</li>
-<li><p>事件循环是异步实现的核心，它与浏览器中的执行模型基本保持了一致。Node 正是依靠构建了一套完善的高性能异步 I/O 框架，打破了 JavaScript 在服务器端止步不前的局面。</p>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/30/《深入浅出Node.js》第3章 异步IO/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第2章 模块机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lu Qian">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个笑点低的妹纸">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/30/《深入浅出Node.js》第2章 模块机制/" itemprop="url">《深入浅出Node.js》第2章 模块机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-30T04:37:10+08:00">
-                2018-04-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/《深入浅出Node-js》/" itemprop="url" rel="index">
-                    <span itemprop="name">《深入浅出Node.js》</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-1%20JavaScript%E7%9A%84%E5%8F%98%E8%BF%81.png?raw=true" alt="JavaScript 的变迁"></p>
-<p>JavaScript 先天缺乏的功能：模块。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/30/《深入浅出Node.js》第2章 模块机制/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/30/《深入浅出Node.js》第1章 Node简介/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lu Qian">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="一个笑点低的妹纸">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/30/《深入浅出Node.js》第1章 Node简介/" itemprop="url">《深入浅出Node.js》第1章 Node简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-30T04:19:53+08:00">
-                2018-04-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/《深入浅出Node-js》/" itemprop="url" rel="index">
-                    <span itemprop="name">《深入浅出Node.js》</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="一、Node的起源"><a href="#一、Node的起源" class="headerlink" title="一、Node的起源"></a>一、Node的起源</h3><p>高性能Web服务器的要点：事件驱动、非阻塞I/O。</p>
-<p>选择JavaScript的原因：高性能、符合事件驱动、没有历史包袱。</p>
-<ul>
-<li><code>JavaScript</code> 的开发门槛低；</li>
-<li><code>JavaScritp</code> 无历史包袱，导入非阻塞I/O库没有额外阻力;</li>
-<li><code>JavaScript</code> 在浏览器中有广泛的事件驱动方面的应用，满足基于事件驱动的需求；</li>
-<li>Chrome 浏览器的 <code>JavaScript</code> 引擎 V8 性能最佳。</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/30/《深入浅出Node.js》第1章 Node简介/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1795,7 +2776,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
