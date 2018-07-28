@@ -397,7 +397,7 @@
 </code></pre><p>some() 方法测试数组中的某些元素是否通过了指定函数的测试，如果该函数中对任一项返回 true，则返回 true。</p>
 <h4 id="（9）归并方法"><a href="#（9）归并方法" class="headerlink" title="（9）归并方法"></a>（9）归并方法</h4><ol>
 <li>归并方法都接收两个参数：一个在每一项上调用的函数和（可选的）作为归并基础的初始值。</li>
-<li>callback 接收4个参数，前一个值，当前值，项的索引和数组对象。<br>—&gt;callback(prev, cur, index, array)</li>
+<li>callback 接收4个参数，前一个值，当前值，项的索引和数组对象。<br>—&gt; <code>callback(prev, cur, index, array)</code></li>
 <li>这个函数返回的任何值都会作为第一个参数自动传给下一项。</li>
 </ol>
 <h5 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h5><pre><code>arr.reduce(callback,[initialValue])
@@ -406,8 +406,58 @@
 <h3 id="3、Date-类型"><a href="#3、Date-类型" class="headerlink" title="3、Date 类型"></a>3、Date 类型</h3><p><img src="https://images2015.cnblogs.com/blog/894254/201604/894254-20160404173244625-125303478.png" alt="Date"></p>
 <h3 id="4、RegExp-类型"><a href="#4、RegExp-类型" class="headerlink" title="4、RegExp 类型"></a>4、RegExp 类型</h3><p><img src="https://images2015.cnblogs.com/blog/894254/201602/894254-20160229162239251-828515132.png" alt="RegExp"></p>
 <h3 id="5、Function-类型"><a href="#5、Function-类型" class="headerlink" title="5、Function 类型"></a>5、Function 类型</h3><p><img src="https://images2015.cnblogs.com/blog/894254/201602/894254-20160229162249923-591632333.png" alt="Function"></p>
-<h3 id="6、基本包装类型"><a href="#6、基本包装类型" class="headerlink" title="6、基本包装类型"></a>6、基本包装类型</h3><p><img src="https://images2015.cnblogs.com/blog/894254/201604/894254-20160404174835718-2062626207.png" alt="基本包装类型"></p>
+<p>函数实际上是对象。每个函数都是 Function 的实例，而且都与其他引用类型一样具有属性和方法。<br>“函数是对象，函数名是指针。”</p>
+<blockquote>
+<p>使用不带圆括号的函数名是访问函数指针，而非调用函数。</p>
+</blockquote>
+<h4 id="函数内部属性"><a href="#函数内部属性" class="headerlink" title="函数内部属性"></a>函数内部属性</h4><p>在函数内部，有两个特殊对象：<code>arguments</code> 和 <code>this</code>。</p>
+<h5 id="arguments"><a href="#arguments" class="headerlink" title="arguments"></a>arguments</h5><p>类数组对象，包含着传入函数中的所有参数。<br>主要用途：保存函数参数。</p>
+<p><code>callee</code>：指针，指向拥有这个 arguments 对象的函数。可以消除函数名的紧耦合。</p>
+<p><code>caller</code>：严格模式下访问 <code>arguments.caller</code> 属性会导致错误，非严格模式下这个属性始终是 <code>undefined</code>。</p>
+<h4 id="this"><a href="#this" class="headerlink" title="this"></a>this</h4><p>引用的是函数据以执行的环境对象。</p>
+<h4 id="caller"><a href="#caller" class="headerlink" title="caller"></a>caller</h4><p>caller 属性保存着调用当前函数的函数的引用，如果是在全局作用域中调用当前函数，它的值为 null。为了实现更松散的耦合，也可以通过 <code>arguments.callee.caller</code> 来访问相同的信息。</p>
+<h4 id="函数方法"><a href="#函数方法" class="headerlink" title="函数方法"></a>函数方法</h4><h5 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h5><pre><code>fun.apply(thisArg[, argsArray])
+</code></pre><p>apply() 方法在指定 this 值和参数（参数以数组或类数组对象的形式存在）的情况下调用某个函数。</p>
+<h5 id="call"><a href="#call" class="headerlink" title="call"></a>call</h5><pre><code>fun.call(thisArg[, arg1[, arg2[, ...]]])
+</code></pre><p>call() 方法在使用一个指定的this值和若干个指定的参数值的前提下调用某个函数或方法。</p>
+<h5 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h5><pre><code>fun.bind(thisArg[, arg1[, arg2[, ...]]])
+</code></pre><p>bind()方法会创建一个函数的实例，其 this 值会被绑定到传给 bind() 函数的值。</p>
+<blockquote>
+<p><code>call()</code> 和 <code>apply()</code> 方法的作用相同，它们的区别仅在于接收参数的方法不同。并且，它们真正强大的地方在于能够扩充函数赖以运行的作用域。</p>
+</blockquote>
+<h3 id="6、基本包装类型"><a href="#6、基本包装类型" class="headerlink" title="6、基本包装类型"></a>6、基本包装类型</h3><p><img src="https://images2015.cnblogs.com/blog/894254/201602/894254-20160229162308314-1124002773.png" alt="基本包装类型"></p>
+<p><img src="https://images2015.cnblogs.com/blog/894254/201604/894254-20160404174835718-2062626207.png" alt="基本包装类型"></p>
+<p>引用类型与基本包装类型的主要区别就是对象的生存期。使用 new 操作符创建的引用类型的实例，在执行流离开当前作用域之前一直保存在内存中。而自动创建的基本包装类型的对象，则只存在于一行代码的执行瞬间，然后立即被销毁。</p>
+<h4 id="Number-方法"><a href="#Number-方法" class="headerlink" title="Number 方法"></a>Number 方法</h4><h5 id="toFixed"><a href="#toFixed" class="headerlink" title="toFixed"></a>toFixed</h5><pre><code>numObj.toFixed(digits)
+</code></pre><p>toFixed() 会按照指定的小数位返回数值的字符串表示。</p>
+<h5 id="toExponential"><a href="#toExponential" class="headerlink" title="toExponential"></a>toExponential</h5><pre><code>numObj.toExponential(fractionDigits)
+</code></pre><p>返回以指数表示法（e 表示法）表示的数值的字符串形式。</p>
+<h5 id="toPrecision"><a href="#toPrecision" class="headerlink" title="toPrecision"></a>toPrecision</h5><pre><code>numObj.toPrecision(precision)
+</code></pre><p>toPrecision() 方法以指定的精度返回该数值对象的字符串表示。<br>实际上，toPrecision() 会根据要处理的数值决定到底是调用 toFixed() 还是调用 toExponential()</p>
+<h4 id="字符方法"><a href="#字符方法" class="headerlink" title="字符方法"></a>字符方法</h4><h5 id="charAt"><a href="#charAt" class="headerlink" title="charAt"></a>charAt</h5><p>charAt() 方法以单字符串的形式返回给定位置的那个字符。</p>
+<h5 id="charCodeAt"><a href="#charCodeAt" class="headerlink" title="charCodeAt"></a>charCodeAt</h5><p>返回字符编码。</p>
+<h4 id="字符串操作方法"><a href="#字符串操作方法" class="headerlink" title="字符串操作方法"></a>字符串操作方法</h4><h5 id="concat-1"><a href="#concat-1" class="headerlink" title="concat"></a>concat</h5><p>拼接字符串，返回拼接得到的新字符串，原字符串不变。</p>
+<h5 id="slice-1"><a href="#slice-1" class="headerlink" title="slice"></a>slice</h5><pre><code>str.slice(beginSlice[, endSlice])
+</code></pre><p>slice() 方法提取字符串中的一部分，并返回这个新的字符串。<br>若传入负值，则把所有的负值都与字符串的长度相加。</p>
+<h5 id="substr"><a href="#substr" class="headerlink" title="substr"></a>substr</h5><pre><code>str.substr(start[, length])
+</code></pre><p>substr() 方法返回字符串中从指定位置开始的指定数量的字符。<br>若传入负值，则负的第一个参数加上字符串的长度，负的第二个参数转换为 0。</p>
+<h5 id="substring"><a href="#substring" class="headerlink" title="substring"></a>substring</h5><pre><code>str.substring(indexA[, indexB])
+</code></pre><p>substring() 返回字符串两个索引之间（或到字符串末尾）的子串。<br>若传入负值，则把所有的负值参数都转为为 0。</p>
+<blockquote>
+<p>注意：改方法会将较小的数作为开始位置，较大的数作为结束位置。</p>
+</blockquote>
+<h4 id="字符串位置方法"><a href="#字符串位置方法" class="headerlink" title="字符串位置方法"></a>字符串位置方法</h4><h5 id="indexOf-1"><a href="#indexOf-1" class="headerlink" title="indexOf"></a>indexOf</h5><pre><code>str.indexOf(searchValue[, fromIndex])
+</code></pre><h5 id="lastIndexOf-1"><a href="#lastIndexOf-1" class="headerlink" title="lastIndexOf"></a>lastIndexOf</h5><pre><code>str.lastIndexOf(searchValue[, fromIndex])
+</code></pre><blockquote>
+<p>这两个方法都是从一个字符串中搜索给定的字符串，然后返子字符串的位置（如果没有找到该字符串，则返回 -1 ）</p>
+</blockquote>
 <h3 id="7、单体内置对象"><a href="#7、单体内置对象" class="headerlink" title="7、单体内置对象"></a>7、单体内置对象</h3><p><img src="https://images2015.cnblogs.com/blog/894254/201602/894254-20160229162334970-1319210695.png" alt="单体内置对象"></p>
+<p>定义：由 ECMAScript 实现提供的、不依赖于宿主环境的对象，这些对象在 ECMAscript 程序执行之前就已经存在了。</p>
+<p>即开发人员 不必显式地实例化内置对象，因为它们已经实例化了。</p>
+<h5 id="encodeURI"><a href="#encodeURI" class="headerlink" title="encodeURI()"></a>encodeURI()</h5><p>主要用于整个 URI，不会对本身属于 URI 的特殊字符进行编码。</p>
+<h5 id="encodeURIComponent"><a href="#encodeURIComponent" class="headerlink" title="encodeURIComponent()"></a>encodeURIComponent()</h5><p>主要用于对 URI 中的某一段进行编码，会对它发现的任何非标准字符进行编码。</p>
+<h5 id="decodeURI"><a href="#decodeURI" class="headerlink" title="decodeURI()"></a>decodeURI()</h5><p>只能对使用 encodeURI() 替换的字符进行解码。</p>
+<h5 id="decodeURIComponent"><a href="#decodeURIComponent" class="headerlink" title="decodeURIComponent()"></a>decodeURIComponent()</h5><p>只能对使用 encodeURIComponent() 替换的字符进行解码。</p>
 
           
         
