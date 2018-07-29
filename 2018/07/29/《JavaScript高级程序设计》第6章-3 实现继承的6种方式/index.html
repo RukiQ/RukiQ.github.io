@@ -79,21 +79,21 @@
 
 
 
-<meta name="description" content="许多OO语言都支持 两种继承方式： （1）接口继承：只继承方法签名； （2）实现继承：继承实际的方法。 ECMAScript 由于函数没有签名，无法实现接口继承，因此只支持实现继承，而且主要是依靠原型链来实现的。 原型链 实现继承的主要方法，但是由于其问题，实践中很少会单独使用  基本思想：利用原型让一个引用类型继承另一个引用类型的属性和方法。 原型链的实现：让原型对象等于另一个类型的实例，层层递">
+<meta name="description" content="许多OO语言都支持 两种继承方式： （1）接口继承：只继承方法签名； （2）实现继承：继承实际的方法。 ECMAScript 由于函数没有签名，无法实现接口继承，因此只支持实现继承，而且主要是依靠原型链来实现的。">
 <meta name="keywords" content="reading,JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《JavaScript高级程序设计》第6章 实现继承的6种方式">
 <meta property="og:url" content="http://yoursite.com/2018/07/29/《JavaScript高级程序设计》第6章-3 实现继承的6种方式/index.html">
 <meta property="og:site_name" content="一个笑点低的妹纸">
-<meta property="og:description" content="许多OO语言都支持 两种继承方式： （1）接口继承：只继承方法签名； （2）实现继承：继承实际的方法。 ECMAScript 由于函数没有签名，无法实现接口继承，因此只支持实现继承，而且主要是依靠原型链来实现的。 原型链 实现继承的主要方法，但是由于其问题，实践中很少会单独使用  基本思想：利用原型让一个引用类型继承另一个引用类型的属性和方法。 原型链的实现：让原型对象等于另一个类型的实例，层层递">
+<meta property="og:description" content="许多OO语言都支持 两种继承方式： （1）接口继承：只继承方法签名； （2）实现继承：继承实际的方法。 ECMAScript 由于函数没有签名，无法实现接口继承，因此只支持实现继承，而且主要是依靠原型链来实现的。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&%E5%8E%9F%E5%9E%8B/%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%BB%A7%E6%89%BF.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&%E5%8E%9F%E5%9E%8B/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%8E%9F%E5%9E%8B%E9%93%BE.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&%E5%8E%9F%E5%9E%8B/%E7%BB%84%E5%90%88%E5%BC%8F%E7%BB%A7%E6%89%BF.png?raw=true">
-<meta property="og:updated_time" content="2018-07-29T03:11:45.000Z">
+<meta property="og:updated_time" content="2018-07-29T03:16:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript高级程序设计》第6章 实现继承的6种方式">
-<meta name="twitter:description" content="许多OO语言都支持 两种继承方式： （1）接口继承：只继承方法签名； （2）实现继承：继承实际的方法。 ECMAScript 由于函数没有签名，无法实现接口继承，因此只支持实现继承，而且主要是依靠原型链来实现的。 原型链 实现继承的主要方法，但是由于其问题，实践中很少会单独使用  基本思想：利用原型让一个引用类型继承另一个引用类型的属性和方法。 原型链的实现：让原型对象等于另一个类型的实例，层层递">
+<meta name="twitter:description" content="许多OO语言都支持 两种继承方式： （1）接口继承：只继承方法签名； （2）实现继承：继承实际的方法。 ECMAScript 由于函数没有签名，无法实现接口继承，因此只支持实现继承，而且主要是依靠原型链来实现的。">
 <meta name="twitter:image" content="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&%E5%8E%9F%E5%9E%8B/%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%BB%A7%E6%89%BF.png?raw=true">
 
 
@@ -350,6 +350,7 @@
 <p>（1）接口继承：只继承方法签名；</p>
 <p>（2）实现继承：继承实际的方法。</p>
 <p><code>ECMAScript</code> 由于函数没有签名，无法实现接口继承，因此<strong>只支持实现继承</strong>，而且主要是<strong>依靠原型链</strong>来实现的。</p>
+<a id="more"></a>
 <h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><blockquote>
 <p>实现继承的主要方法，但是由于其问题，实践中很少会单独使用</p>
 </blockquote>

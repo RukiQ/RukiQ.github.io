@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&%E5%8E%9F%E5%9E%8B/%E5%8E%9F%E5%9E%8B.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&%E5%8E%9F%E5%9E%8B/%E5%8E%9F%E5%9E%8B3.png?raw=true">
-<meta property="og:updated_time" content="2018-07-29T03:11:57.000Z">
+<meta property="og:updated_time" content="2018-07-29T03:16:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript高级程序设计》第6章 创建对的7种方式">
 <meta name="twitter:description" content="创建对象（1）工厂模式 这种模式抽象了创建具体对象的过程。 考虑到 ECMAScript 中无法创建类，开发人员就发明了一种函数，用函数来封装特定接口创建对象的细节。  // 工厂模式 function createPerson(name, age, job) {     var o = new Object();    // 显示创建对象     o.name = name;     o.age">
@@ -366,6 +366,7 @@ var person1 = createPerson(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quo
 </code></pre><ul>
 <li>工厂模式虽然解决了<span style="background:yellow">创建多个相似对象</span>的问题，但却没有解决<span style="background:yellow">对象识别</span>的问题。</li>
 </ul>
+<a id="more"></a>
 <h3 id="（2）构造函数模式"><a href="#（2）构造函数模式" class="headerlink" title="（2）构造函数模式"></a>（2）构造函数模式</h3><blockquote>
 <p>ECMAScript 中的构造函数可用来创建特定类型的对象。</p>
 <p>像 Object 和 Array 这样的原生构造函数，在运行时会自动出现在执行环境中。此外，也可以创建自定义的构造函数，从而定义自定义对象类型的属性和方法。</p>
