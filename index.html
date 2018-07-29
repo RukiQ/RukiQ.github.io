@@ -346,7 +346,7 @@
 <p>（1）接口继承：只继承方法签名；</p>
 <p>（2）实现继承：继承实际的方法。</p>
 <p><code>ECMAScript</code> 由于函数没有签名，无法实现接口继承，因此<strong>只支持实现继承</strong>，而且主要是<strong>依靠原型链</strong>来实现的。</p>
-<h3 id="1-原型链-——-实现继承的主要方法，但是由于其问题，实践中很少会单独使用"><a href="#1-原型链-——-实现继承的主要方法，但是由于其问题，实践中很少会单独使用" class="headerlink" title="1. 原型链 —— 实现继承的主要方法，但是由于其问题，实践中很少会单独使用"></a><p style="background: orange">1. 原型链 —— 实现继承的主要方法，但是由于其问题，实践中很少会单独使用</p></h3><p><span style="color:red">基本思想：</span>利用原型让一个引用类型继承另一个引用类型的属性和方法。</p>
+<h3 id="1-原型链-——-实现继承的主要方法，但是由于其问题，实践中很少会单独使用"><a href="#1-原型链-——-实现继承的主要方法，但是由于其问题，实践中很少会单独使用" class="headerlink" title="1. 原型链 —— 实现继承的主要方法，但是由于其问题，实践中很少会单独使用"></a>1. 原型链 —— 实现继承的主要方法，但是由于其问题，实践中很少会单独使用</h3><p><span style="color:red">基本思想：</span>利用原型让一个引用类型继承另一个引用类型的属性和方法。</p>
 <p><span style="background:yellow">原型链的实现</span>：让原型对象等于另一个类型的实例，层层递进，构成实例与原型的链条。</p>
 <p><span style="color:red">实现本质</span>：重写原型对象，代之以一个新类型的实例</p>
 <h5 id="实现原型链的基本模式："><a href="#实现原型链的基本模式：" class="headerlink" title="实现原型链的基本模式："></a>实现原型链的基本模式：</h5><pre><code>// 原型链继承--基本模式
@@ -508,7 +508,7 @@ console.log(instance1.colors);    // [&quot;red&quot;, &quot;blue&quot;, &quot;g
 
 var instance2 = new SubType();
 console.log(instance2.colors);    // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;black&quot;]
-</code></pre><h3 id="2-借用构造函数（伪造对象或经典继承）——-实践中很少单独使用"><a href="#2-借用构造函数（伪造对象或经典继承）——-实践中很少单独使用" class="headerlink" title="2. 借用构造函数（伪造对象或经典继承）—— 实践中很少单独使用"></a><p style="background: orange">2. 借用构造函数（伪造对象或经典继承）—— 实践中很少单独使用</p></h3><p><span style="color:red">优点</span>：</p>
+</code></pre><h3 id="2-借用构造函数（伪造对象或经典继承）——-实践中很少单独使用"><a href="#2-借用构造函数（伪造对象或经典继承）——-实践中很少单独使用" class="headerlink" title="2. 借用构造函数（伪造对象或经典继承）—— 实践中很少单独使用"></a>2. 借用构造函数（伪造对象或经典继承）—— 实践中很少单独使用</h3><p><span style="color:red">优点</span>：</p>
 <ul>
 <li><p>解决原型中包含引用类型值所带来的问题。</p>
 </li>
@@ -564,7 +564,7 @@ alert(instance.age);    // 29
 console.log(instance.constructor);    // function SubType() {}
 </code></pre><h5 id="借用构造函数的问题："><a href="#借用构造函数的问题：" class="headerlink" title="借用构造函数的问题："></a><span style="background:yellow">借用构造函数的问题：<p></p></span></h5><p>1）无法避免构造函数模式存在的问题——方法都在构造函数中定义，无法实现函数复用。</p>
 <p>2）在超类型的原型中定义的方法，对子类型而言是不可见的，结果所有类型都只能使用构造函数模式。</p>
-<h3 id="3-组合继承（伪经典继承）——-最常用的继承模式"><a href="#3-组合继承（伪经典继承）——-最常用的继承模式" class="headerlink" title="3. 组合继承（伪经典继承）—— 最常用的继承模式"></a><p style="background: orange">3. 组合继承（伪经典继承）—— 最常用的继承模式</p></h3><p><span style="color:red">优点</span>：将原型链和借用构造函数的技术组合到一块，发挥二者之长。</p>
+<h3 id="3-组合继承（伪经典继承）——-最常用的继承模式"><a href="#3-组合继承（伪经典继承）——-最常用的继承模式" class="headerlink" title="3. 组合继承（伪经典继承）—— 最常用的继承模式"></a>3. 组合继承（伪经典继承）—— 最常用的继承模式</h3><p><span style="color:red">优点</span>：将原型链和借用构造函数的技术组合到一块，发挥二者之长。</p>
 <p><span style="color:red">基本思想：</span>使用原型链实现对原型属性和方法的继承，通过借用构造函数实现对实例属性的继承。</p>
 <p><span style="color:red">不足</span>：无论什么情况下，都会调用两次超类型构造函数，一次是在创建子类型原型的时候，另一次是在子类型构造函数内部。——&gt;子类型最终会包含超类型对象的全部实例属性，我们不得不在调用子类型构造函数时重写这些属性。</p>
 <pre><code>// 组合继承
@@ -622,7 +622,7 @@ alert(SubType.prototype.isPrototypeOf(instance1));    // true
 <p>当调用 <code>SubType</code> 构造函数时，又会调用一次 <code>SuperType</code> 构造函数，这一次又在新对象上创建了实例属性 <code>name</code> 和 <code>colors</code>。于是，这两个属性就屏蔽了原型中的两个同名属性。</p>
 </blockquote>
 <p><img src="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&amp;%E5%8E%9F%E5%9E%8B/%E7%BB%84%E5%90%88%E5%BC%8F%E7%BB%A7%E6%89%BF.png?raw=true" alt="组合式继承"></p>
-<h3 id="4-原型式继承"><a href="#4-原型式继承" class="headerlink" title="4. 原型式继承"></a><p style="background: orange">4. 原型式继承</p></h3><ul>
+<h3 id="4-原型式继承"><a href="#4-原型式继承" class="headerlink" title="4. 原型式继承"></a>4. 原型式继承</h3><ul>
 <li>没有严格意义上的构造函数</li>
 <li><p>借助原型可以基于已有的对象创建新对象，同时还不必因此创建自定义类型。</p>
 <pre><code>// 原型式继承
@@ -685,7 +685,7 @@ console.log(person5.name);    // Don
 <li>在传入一个参数的情况下，<code>Object.create()</code> 与 <code>object()</code> 方法的行为相同。</li>
 <li>第二个参数与 <code>Object.defineProperties()</code> 方法的第二个参数格式相同：每个属性都是通过自己的描述符定义的。<span style="background:yellow">以这种方式指定的任何属性都会覆盖原型对象上的同名属性。</span></li>
 </ul>
-<h3 id="5-寄生式继承"><a href="#5-寄生式继承" class="headerlink" title="5. 寄生式继承"></a><p style="background: orange">5. 寄生式继承</p></h3><p><span style="color:red">思路</span>：与寄生构造函数和工厂模式类似，即创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来增强对象，最后再像真的是它做了所有工作一样返回对象。</p>
+<h3 id="5-寄生式继承"><a href="#5-寄生式继承" class="headerlink" title="5. 寄生式继承"></a>5. 寄生式继承</h3><p><span style="color:red">思路</span>：与寄生构造函数和工厂模式类似，即创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来增强对象，最后再像真的是它做了所有工作一样返回对象。</p>
 <p><span style="color:red">用处</span>：在主要考虑对象而不是自定义类型和构造函数的情况下，寄生式继承也是一种有用的模式</p>
 <p><span style="color:red">不足</span>：类似构造函数模式，使用寄生式继承来为对象添加函数，会由于不能做到函数复用而降低效率</p>
 <pre><code>// 寄生式继承
@@ -715,7 +715,7 @@ var person = {
 
 var anotherPerson = createAnother(person);
 anotherPerson.sayHi();    // hi
-</code></pre><h3 id="6-寄生组合式继承-——-实现基于类型继承的最有效方式"><a href="#6-寄生组合式继承-——-实现基于类型继承的最有效方式" class="headerlink" title="6. 寄生组合式继承 —— 实现基于类型继承的最有效方式"></a><p style="background: orange">6. 寄生组合式继承 —— 实现基于类型继承的最有效方式</p></h3><p><span style="color:red">寄生组合式继承</span>：通过借用构造函数来继承属性，通过原型链的混成形式来继承方法。</p>
+</code></pre><h3 id="6-寄生组合式继承-——-实现基于类型继承的最有效方式"><a href="#6-寄生组合式继承-——-实现基于类型继承的最有效方式" class="headerlink" title="6. 寄生组合式继承 —— 实现基于类型继承的最有效方式"></a>6. 寄生组合式继承 —— 实现基于类型继承的最有效方式</h3><p><span style="color:red">寄生组合式继承</span>：通过借用构造函数来继承属性，通过原型链的混成形式来继承方法。</p>
 <p><span style="color:red">基本思路</span>：不必为了指定子类型的原型二调用超类型的构造函数。我们所需要的无非就是超类型原型的一个副本而已。</p>
 <p><span style="color:red">本质</span>：就是使用寄生式继承来继承超类型的原型，然后将结果指定给子类型的原型。</p>
 <p><span style="color:red">优点</span>：解决组合式继承两次调用超类型构造函数的问题。</p>
@@ -756,7 +756,7 @@ SubType.prototype.sayAge = function() {
 var instance = new SubType(&quot;Nicholas&quot;, 29);
 instance.sayName();    // &quot;Nicholas&quot;
 instance.sayAge();    // 29
-</code></pre><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a><p style="background: orange">小结</p></h3><ul>
+</code></pre><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
 <li><p>JavaScript 主要通过<strong>原型链</strong>实现继承。</p>
 </li>
 <li><p><strong>原型链的构建</strong>：通过将一个类型的实例赋值给另一个构造函数的原型实现的。这样子，子类型就能够访问超类型的所有属性和方法，这一点与基于类的继承很相似。</p>
@@ -918,7 +918,7 @@ instance.sayAge();    // 29
       
         
           
-            <h3 id="一、创建对象"><a href="#一、创建对象" class="headerlink" title="一、创建对象"></a><p style="background: orange">一、创建对象</p></h3><h4 id="（1）工厂模式"><a href="#（1）工厂模式" class="headerlink" title="（1）工厂模式"></a><p style="background: #cfc9fa">（1）工厂模式</p></h4><blockquote>
+            <h3 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h3><h4 id="（1）工厂模式"><a href="#（1）工厂模式" class="headerlink" title="（1）工厂模式"></a>（1）工厂模式</h4><blockquote>
 <p>这种模式抽象了创建具体对象的过程。</p>
 <p>考虑到 ECMAScript 中无法创建类，开发人员就发明了一种函数，用函数来封装特定接口创建对象的细节。</p>
 </blockquote>
@@ -939,7 +939,7 @@ var person1 = createPerson(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quo
 </code></pre><ul>
 <li>工厂模式虽然解决了<span style="background:yellow">创建多个相似对象</span>的问题，但却没有解决<span style="background:yellow">对象识别</span>的问题。</li>
 </ul>
-<h3 id="（2）构造函数模式"><a href="#（2）构造函数模式" class="headerlink" title="（2）构造函数模式"></a><p style="background: #cfc9fa">（2）构造函数模式</p></h3><blockquote>
+<h3 id="（2）构造函数模式"><a href="#（2）构造函数模式" class="headerlink" title="（2）构造函数模式"></a>（2）构造函数模式</h3><blockquote>
 <p>ECMAScript 中的构造函数可用来创建特定类型的对象。</p>
 <p>像 Object 和 Array 这样的原生构造函数，在运行时会自动出现在执行环境中。此外，也可以创建自定义的构造函数，从而定义自定义对象类型的属性和方法。</p>
 </blockquote>
@@ -1022,7 +1022,7 @@ function sayName() {
 </code></pre><ul>
 <li><span style="color:red">新问题</span>：上面的做法，<span style="color:#b01c57">在全局作用域中定义的函数只能被某个对象调用</span>，这让全局作用域有点名不副实。而且，如果对象需要定义很多方法，那么就要定义很多个全局函数，那么我们这个自定义的引用类型就丝毫<span style="color:#b01c57">没有封装性</span>可言了。</li>
 </ul>
-<h3 id="（3）原型模式"><a href="#（3）原型模式" class="headerlink" title="（3）原型模式"></a><p style="background: #cfc9fa">（3）原型模式</p></h3><blockquote>
+<h3 id="（3）原型模式"><a href="#（3）原型模式" class="headerlink" title="（3）原型模式"></a>（3）原型模式</h3><blockquote>
 <p>我们创建的每个函数都有一个<span style="color:red"> <code>prototype</code> </span>（原型）属性，这个属性是一个指针，指向一个对象。</p>
 <p>原型对象的 <span style="color:red"><em>用途</em> </span>是包含可以由特定类型的所有实例共享的属性和方法。</p>
 <p><span style="background:yellow">按照字面意思来理解：</span> <span style="color:red"> <code>prototype</code> </span> 就是通过调用构造函数而创建的那个对象实例的原型对象。使用原型对象的 <span style="color:red"><em>好处</em> </span>是可以让所有对象实例共享它所包含的属性和方法。</p>
@@ -1298,7 +1298,7 @@ person1.friends.push(&quot;Van&quot;);
 alert(person1.friends);    //[&quot;Shelby&quot;, &quot;Court&quot;, &quot;Van&quot;]
 alert(person2.friends);    //[&quot;Shelby&quot;, &quot;Court&quot;, &quot;Van&quot;]
 alert(person1.friends === person2.friends);    // true
-</code></pre><h3 id="（4）组合使用构造函数模式和原型模式——创建自定义类型的最常见方式"><a href="#（4）组合使用构造函数模式和原型模式——创建自定义类型的最常见方式" class="headerlink" title="（4）组合使用构造函数模式和原型模式——创建自定义类型的最常见方式"></a><p style="background: #cfc9fa">（4）组合使用构造函数模式和原型模式——创建自定义类型的最常见方式</p></h3><ul>
+</code></pre><h3 id="（4）组合使用构造函数模式和原型模式——创建自定义类型的最常见方式"><a href="#（4）组合使用构造函数模式和原型模式——创建自定义类型的最常见方式" class="headerlink" title="（4）组合使用构造函数模式和原型模式——创建自定义类型的最常见方式"></a>（4）组合使用构造函数模式和原型模式——创建自定义类型的最常见方式</h3><ul>
 <li><p><strong>构造函数模式</strong>：定义实例属性；</p>
 </li>
 <li><p><strong>原型模式</strong>：定义方法和共享的属性。</p>
@@ -1329,7 +1329,7 @@ alert(person2.friends); // [&quot;Shelby&quot;, &quot;Court&quot;]
 alert(person1.friends === person2.friends);    // false
 alert(person1.sayName === person2.sayName);    // true
 </code></pre><p><span style="color:red"><strong>价值：</strong></span>这种构造函数与原型混成的模式，是目前在 ECMAScript 中使用<span style="background:yellow">最广泛、认同度最高</span>的一种创建自定义类型的方法。可以说，这是<span style="background:yellow">用来定义引用类型的一种默认模式。</span></p>
-<h3 id="（5）动态原型模式"><a href="#（5）动态原型模式" class="headerlink" title="（5）动态原型模式"></a><p style="background: #cfc9fa">（5）动态原型模式</p></h3><ul>
+<h3 id="（5）动态原型模式"><a href="#（5）动态原型模式" class="headerlink" title="（5）动态原型模式"></a>（5）动态原型模式</h3><ul>
 <li><p>解决独立的构造函数和原型问题；</p>
 </li>
 <li><p>把所有信息都封装在了构造函数中，通过在构造函数初始化原型（仅在必要的情况下）；</p>
@@ -1370,7 +1370,7 @@ Person.prototype.sayName = function() { console.log(&quot;Greg&quot;); }
 friend.sayName();    // &quot;Greg&quot;
 </code></pre></li>
 </ul>
-<h3 id="（6）-寄生构造函数模式"><a href="#（6）-寄生构造函数模式" class="headerlink" title="（6）*寄生构造函数模式"></a><p style="background: #cfc9fa">（6）*寄生构造函数模式</p></h3><p><span style="color:red">基本思想：</span>创建一个函数——&gt;仅用于封装创建对象的代码，然后再返回新创建的对象。（这个函数很像是典型的构造函数）</p>
+<h3 id="（6）-寄生构造函数模式"><a href="#（6）-寄生构造函数模式" class="headerlink" title="（6）*寄生构造函数模式"></a>（6）*寄生构造函数模式</h3><p><span style="color:red">基本思想：</span>创建一个函数——&gt;仅用于封装创建对象的代码，然后再返回新创建的对象。（这个函数很像是典型的构造函数）</p>
 <pre><code>// 寄生构造函数模式
 function Person(name, age, job) {
 
@@ -1426,7 +1426,7 @@ arr.toPipedString();    // &quot;a|b|c&quot;
 <p>（2）因此，<span style="background:yellow">不能依赖 <code>instanceof</code> 操作符来确定对象类型。</span></p>
 <pre><code>alert(colors instanceof SpeciaArray);    // false
 alert(arr instanceof Array);    // true
-</code></pre><h3 id="（7）-稳妥构造函数模式"><a href="#（7）-稳妥构造函数模式" class="headerlink" title="（7）*稳妥构造函数模式"></a><p style="background: #cfc9fa">（7）*稳妥构造函数模式</p></h3><blockquote>
+</code></pre><h3 id="（7）-稳妥构造函数模式"><a href="#（7）-稳妥构造函数模式" class="headerlink" title="（7）*稳妥构造函数模式"></a>（7）*稳妥构造函数模式</h3><blockquote>
 <p><span style="color:red"><code>稳妥对象</code></span>：指没有公共属性，而且其方法也不引用 <code>this</code> 的对象。</p>
 <p><span style="color:#b01c57"><em>稳妥对象</em></span> 最适合在一些安全的环境中（这些环境中会禁止使用 <code>this</code> 和 <code>new</code>），或者在防止数据被其他应用程序改动时使用。</p>
 </blockquote>
@@ -1452,7 +1452,7 @@ var friend = Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);
 friend.sayName();    // &quot;Nicholas&quot;
 </code></pre><p>稳妥构造函数遵循与寄生构造函数类似的模式，但有<span style="color:#b01c57">两点不同</span>：</p>
 <p>（1）新创建对象的实例方法不引用 <code>this</code>；<br>（2）不使用 <code>new</code> 操作符调用构造函数。</p>
-<h3 id="二、小结"><a href="#二、小结" class="headerlink" title="二、小结"></a><p style="background: orange">二、小结</p></h3><ul>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
 <li><p><strong>工厂模式</strong>，使用简单的函数创建对象，为对象添加属性和方法，然后返回对象。这个模式后来被构造函数模式所取代。</p>
 </li>
 <li><p><strong>构造函数模式</strong>，可以自定义引用类型，可以像创建内置对象实例一样使用 <code>new</code> 操作符。不过，构造函数模式也有缺点，即它的每个成员都无法得到复用，包括函数。由于函数可以不局限于任何对象（即与对象具有松散耦合的特点），因此没有理由不在多个对象间共享函数。</p>
@@ -1779,7 +1779,7 @@ person.sayName(); // Nicholas
 
       
         
-          <h2 id="一、整体预览"><a href="#一、整体预览" class="headerlink" title="一、整体预览"></a>一、整体预览</h2><p><img src="https://images2015.cnblogs.com/blog/894254/201604/894254-20160404173139922-812724883.png" alt=""></p>
+          <h2 id="整体预览"><a href="#整体预览" class="headerlink" title="整体预览"></a>整体预览</h2><p><img src="https://images2015.cnblogs.com/blog/894254/201604/894254-20160404173139922-812724883.png" alt=""></p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/07/28/《JavaScript高级程序设计》第5章 引用类型/#more" rel="contents">
