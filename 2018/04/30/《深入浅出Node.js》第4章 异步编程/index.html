@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-4%20Promise%E7%9A%84%E7%8A%B6%E6%80%81%E8%BD%AC%E5%8C%96%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-5%20%E7%8A%B6%E6%80%81%E5%92%8C%E6%96%B9%E6%B3%95%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-6%20Promise%E5%92%8CDeferred%E6%95%B4%E4%BD%93%E5%85%B3%E7%B3%BB%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true">
-<meta property="og:updated_time" content="2018-04-29T21:48:00.000Z">
+<meta property="og:updated_time" content="2018-08-04T18:30:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入浅出Node.js》第4章 异步编程">
 <meta name="twitter:description" content="Node 能够迅速成功并流行起来的原因：  V8 和 异步 I/O 在性能上带来的提升； 前后端 JavaScript 编程风格一致  一、函数式编程 高阶函数  定义：是指把函数作为参数，或是将函数作为返回值的函数。  应用：事件处理，数组的迭代和归并方法等。">
@@ -363,25 +363,8 @@
 <p> 偏函数用法：是指创建一个调用另外一个部分（参数或变量已经预置的函数）的函数的用法。</p>
 <p> 偏函数：通过指定部分参数来产生一个新的定制函数的形式就是偏函数。</p>
 <p> var toString = Object.prototype.toString;</p>
-<pre><code>// 原来，可扩展性不高
-var isString = function(obj) {
-    return toString.call(obj) == &apos;[object String]&apos;;
-};
-
-var isFunction = function(obj) {
-    return toString.call(obj) == &apos;[object Function]&apos;;
-};
-
-// 偏函数用法
-var isType = function(type) {
-    return function(obj) {
-        return toString.call(obj) == &apos;[object&apos; + type + &apos;]&apos;;
-    };
-};
-
-var isString = isType(&apos;String&apos;);
-var isFunction = isType(&apos;Function&apos;);
-</code></pre></li>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原来，可扩展性不高</span></span><br><span class="line"><span class="keyword">var</span> isString = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> toString.call(obj) == <span class="string">'[object String]'</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> isFunction = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> toString.call(obj) == <span class="string">'[object Function]'</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 偏函数用法</span></span><br><span class="line"><span class="keyword">var</span> isType = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> toString.call(obj) == <span class="string">'[object'</span> + type + <span class="string">']'</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> isString = isType(<span class="string">'String'</span>);</span><br><span class="line"><span class="keyword">var</span> isFunction = isType(<span class="string">'Function'</span>);</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <h3 id="二、异步编程的优势与难点"><a href="#二、异步编程的优势与难点" class="headerlink" title="二、异步编程的优势与难点"></a>二、异步编程的优势与难点</h3><ol>
 <li><p><span style="color:#ac4a4a"><strong>优势</strong></span></p>
@@ -403,34 +386,19 @@ var isFunction = isType(&apos;Function&apos;);
 <li><p><span style="color:#ac4a4a"><strong>事件发布/订阅模式</strong></span></p>
 <p> 即事件监听器模式，被广泛用于异步编程的模式，是回调函数的事件化。</p>
 <p> ps：其本身并无同步和异步调用问题，只不过在 Node 中多半是伴随事件循环而异步触发的。</p>
-<pre><code>// 订阅：高阶函数的应用
-emitter.on(&apos;event1&apos;, function(message) {
-    console.log(message);
-});
-
-// 发布
-emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
-</code></pre><blockquote>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 订阅：高阶函数的应用</span></span><br><span class="line">emitter.on(<span class="string">'event1'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(message);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布</span></span><br><span class="line">emitter.emit(<span class="string">'event1'</span>, <span class="string">'I am message!'</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>事件发布/订阅模式可以实现一个事件与多个回调函数（事件侦听器）的关联。</p>
 </blockquote>
 </li>
 <li><p><span style="color:#ac4a4a"><strong>Promise/Deferred模式</strong></span>：包含 Promise 和 Deferred</p>
 <p> ☊ 使用事件的方式：执行流程需要被预先设定。</p>
-<pre><code>$.get(&apos;/api&apos;, {
-    success: onSuccess,
-    error: onError,
-    complete: onComplete
-});
-</code></pre><p> ♤ Promist/Deferred：可以先执行异步调用，延迟传递处理。这样即使不调用 <code>success()</code>、<code>error()</code>等方法，Ajax 也会执行。</p>
-<pre><code>$.get(&apos;/api&apos;)
-    .success(onSuccess)
-    .error(onError)
-    .complete(onComplete)
-</code></pre><p> ♧ 在原始的 API 中，一个事件只能处理一个回调，而通过 Defferred 对象，可以对事件加入任意的业务处理逻辑。</p>
-<pre><code>$.get(&apos;/api&apos;)
-    .success(onSuccess1)
-    .success(onSuccess2)
-</code></pre><p> ☛【<strong>Promises/A</strong>】</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$.get(<span class="string">'/api'</span>, &#123;</span><br><span class="line">	success: onSuccess,</span><br><span class="line">	error: onError,</span><br><span class="line">	complete: onComplete</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p> ♤ Promist/Deferred：可以先执行异步调用，延迟传递处理。这样即使不调用 <code>success()</code>、<code>error()</code>等方法，Ajax 也会执行。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$.get(<span class="string">'/api'</span>)</span><br><span class="line">    .success(onSuccess)</span><br><span class="line">    .error(onError)</span><br><span class="line">    .complete(onComplete)</span><br></pre></td></tr></table></figure>
+<p> ♧ 在原始的 API 中，一个事件只能处理一个回调，而通过 Defferred 对象，可以对事件加入任意的业务处理逻辑。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$.get(<span class="string">'/api'</span>)</span><br><span class="line">    .success(onSuccess1)</span><br><span class="line">    .success(onSuccess2)</span><br></pre></td></tr></table></figure>
+<p> ☛【<strong>Promises/A</strong>】</p>
 <p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-4%20Promise%E7%9A%84%E7%8A%B6%E6%80%81%E8%BD%AC%E5%8C%96%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="图4-4 Promise的状态转化示意图"></p>
 <p> 在 API 的定义上，一个 Promise 对象只要具备 <code>then()</code> 方法即可。要求如下：</p>
 <ul>
@@ -438,8 +406,8 @@ emitter.emit(&apos;event1&apos;, &apos;I am message!&apos;);
 <li>可选地支持 <code>progress</code> 事件回调作为第三个方法。</li>
 <li><code>then()</code> 方法只接受 <code>function</code> 对象，其余对象将被忽略。</li>
 <li><p><code>then()</code> 方法继续返回 <code>Promise</code> 对象，以实现链式调用。</p>
-<pre><code>then(fulfilledHandler, errorHandler, progressHandler)
-</code></pre><p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-5%20%E7%8A%B6%E6%80%81%E5%92%8C%E6%96%B9%E6%B3%95%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png?raw=true" alt="图4-5 状态和方法之间的对应关系"></p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">then(fulfilledHandler, errorHandler, progressHandler)</span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-5%20%E7%8A%B6%E6%80%81%E5%92%8C%E6%96%B9%E6%B3%95%E4%B9%8B%E9%97%B4%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB.png?raw=true" alt="图4-5 状态和方法之间的对应关系"></p>
 <p>☛【<strong>Promises 和 Deferred 的差别</strong>】</p>
 <p>Deferred 主要是用于内部，用于维护异步模型的状态；Promise 则作用域外部，通过 <code>then()</code> 方法暴露给外部以添加自定义逻辑。</p>
 <p><img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE4-6%20Promise%E5%92%8CDeferred%E6%95%B4%E4%BD%93%E5%85%B3%E7%B3%BB%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true" alt="图4-6 Promise和Deferred整体关系示意图"></p>

@@ -95,7 +95,7 @@
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-6%20%E6%89%A9%E5%B1%95%E6%A8%A1%E5%9D%97%E4%B8%8D%E5%90%8C%E5%B9%B3%E5%8F%B0%E4%B8%8A%E7%9A%84%E7%BC%96%E8%AF%91%E5%92%8C%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-8%20%E6%A8%A1%E5%9D%97%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B0%83%E7%94%A8%E5%85%B3%E7%B3%BB.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-9%20%E5%8C%85%E7%BB%84%E7%BB%87%E6%A8%A1%E5%9D%97%E7%A4%BA%E6%84%8F%E5%9B%BE.png?raw=true">
-<meta property="og:updated_time" content="2018-04-29T21:48:10.000Z">
+<meta property="og:updated_time" content="2018-08-04T18:29:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入浅出Node.js》第2章 模块机制">
 <meta name="twitter:description" content="JavaScript 先天缺乏的功能：模块。">
@@ -362,15 +362,14 @@
 <ol>
 <li><p><span style="color:#ac4a4a"><strong>模块引用：</strong></span></p>
 <p> <code>require()</code> 方法：引入一个模块的 API 到当前上下文中。</p>
-<pre><code>var math = require(&apos;math&apos;);
-</code></pre></li>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> math = <span class="built_in">require</span>(<span class="string">'math'</span>);</span><br></pre></td></tr></table></figure>
+</li>
 <li><p><span style="color:#ac4a4a"><strong>模块定义：</strong></span></p>
 <p> <code>module</code> 对象：代表模块自身。</p>
 <p> <code>exports</code> 对象：<code>module</code> 的属性，用于导出当前模块的方法或者变量，且它是唯一导出的出口。</p>
 <p> 在 Node 中，一个文件就是一个模块，将方法挂载在 <code>exports</code> 对象上作为属性即可定义导出的方式：</p>
-<pre><code>// math.js
-exports.add = function() {};
-</code></pre></li>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// math.js</span></span><br><span class="line">exports.add = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br></pre></td></tr></table></figure>
+</li>
 <li><p><span style="color:#ac4a4a"><strong>模块标识：</strong></span>传递给 <code>require()</code> 方法的参数</p>
 <p> <img src="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE2-3%20%E6%A8%A1%E5%9D%97%E5%AE%9A%E4%B9%89.png?raw=true" alt="模块定义"></p>
 </li>
@@ -421,35 +420,20 @@ exports.add = function() {};
 </li>
 <li><p><span style="color:#ac4a4a"><strong>模块编译</strong></span></p>
 <p> 在 Node 中，每个文件模块都是一个对象，其定义如下：</p>
-<pre><code>function Module(id, parent) {
-    this.id = id;
-    this.exports = {};
-    this.parent = parent;
-    if (parent &amp;&amp; parent.children) {
-        parent.children.push(this);
-    }
-
-    this.filename = null;
-    this.loaded = false;
-    this.children = [];
-}
-</code></pre><ul>
-<li>定位到具体的文件后，Node 会新建一个模块对象，然后根据路径载入并编译。</li>
-<li><p>对于不同的文件扩展名，有不同的载入方法：</p>
-<ul>
-<li><code>.js</code> 文件：通过 <code>fs</code> 模块同步读取文件后编译执行；</li>
-<li><code>.node</code> 文件：这是用 <code>c/C++</code> 编写的扩展文件，通过 <code>dlopen()</code> 方法加在最后编译生成的文件；</li>
-<li><code>.json</code> 文件：通过 <code>fs</code> 模块同步读取文件后，用 <code>JSON.parse()</code> 解析返回结果；</li>
-<li>其余扩展名文件：它们都被当做 <code>.js</code> 文件载入。</li>
-</ul>
-</li>
-<li><p>每一次编译成功的模块都会将其文件路径作为索引缓存在 <code>Module._cache</code> 对象上，以提高二次引入的性能。</p>
-</li>
-<li><code>exports</code> 只能改变形参的引用，但不能改变作用域外的值；要达到 <code>require</code> 引入一个类的效果，请赋值给 <code>module.exports</code> 对象。</li>
-</ul>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Module</span>(<span class="params">id, parent</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.id = id;</span><br><span class="line">    <span class="keyword">this</span>.exports = &#123;&#125;;</span><br><span class="line">    <span class="keyword">this</span>.parent = parent;</span><br><span class="line">    <span class="keyword">if</span> (parent &amp;&amp; parent.children) &#123;</span><br><span class="line">        parent.children.push(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.filename = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">this</span>.loaded = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">this</span>.children = [];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="三、核心模块"><a href="#三、核心模块" class="headerlink" title="三、核心模块"></a>三、核心模块</h3><p>核心模块分为两部分： c/C++ 编写的和 JavaScript 编写的。</p>
+<pre><code>- 定位到具体的文件后，Node 会新建一个模块对象，然后根据路径载入并编译。
+- 对于不同的文件扩展名，有不同的载入方法：
+
+    - `.js` 文件：通过 `fs` 模块同步读取文件后编译执行；
+    - `.node` 文件：这是用 `c/C++` 编写的扩展文件，通过 `dlopen()` 方法加在最后编译生成的文件；
+    - `.json` 文件：通过 `fs` 模块同步读取文件后，用 `JSON.parse()` 解析返回结果；
+    - 其余扩展名文件：它们都被当做 `.js` 文件载入。
+
+- 每一次编译成功的模块都会将其文件路径作为索引缓存在 `Module._cache` 对象上，以提高二次引入的性能。
+- `exports` 只能改变形参的引用，但不能改变作用域外的值；要达到 `require` 引入一个类的效果，请赋值给 `module.exports` 对象。
+</code></pre><h3 id="三、核心模块"><a href="#三、核心模块" class="headerlink" title="三、核心模块"></a>三、核心模块</h3><p>核心模块分为两部分： c/C++ 编写的和 JavaScript 编写的。</p>
 <ol>
 <li><p><span style="color:#ac4a4a"><strong>JavaScript 核心模块的编译过程</strong></span></p>
 <p> ① 转存为 C/C++ 代码</p>
@@ -521,18 +505,8 @@ exports.add = function() {};
 <li><p>AMD：Asynchronous Module Definition，异步模块定义，是 CommonJS 规范的一个延伸，适用于前端应用场景。</p>
 </li>
 <li><p>AMD 模块定义（id 和依赖是可选的）：</p>
-<pre><code>// 定义
-define(id?, dependencies?, factory);
-
-// 实现
-define(function() {
-    var exports = {};
-    exports.sayHello = function() {
-        alert(&apos;Hello from module: &apos; + module.id);
-    };
-    return exports;
-})
-</code></pre></li>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义</span></span><br><span class="line">define(id?, dependencies?, factory);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> exports = &#123;&#125;;</span><br><span class="line">    exports.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        alert(<span class="string">'Hello from module: '</span> + <span class="built_in">module</span>.id);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> exports;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>与 Node 的区别：1）AMD模块需要用 <code>define</code> 来明确定义模块，而在 Node 实现中是隐式包装的，目的都是进行作用域隔离；2）内容需要通过返回的方式实现导出。</p>
 </li>
 </ul>
@@ -542,27 +516,8 @@ define(function() {
 <li><p>由国内的玉伯提出。</p>
 </li>
 <li><p>与 AMD 规范的主要区别：在于定义模块和依赖引入的部分。</p>
-<pre><code>/**
- * AMD 模块定义：
- * 在声明模块的时候需要制定所有的依赖，通过形参传递到模块内容中
- */
-define([&apos;dep1&apos;, &apos;dep2&apos;], function(dep1, dep2) {
-    return function () {};
-});
-
-/**
- * CMD 模块定义：
- * 更加接近于 Node 对 CommonJS 规范的定义
- */
-define(factory);
-
-// 在依赖部分，CMD 支持动态引入
-// require、exports 和 module 通过形参传递给模块
-// 在需要依赖模块时，随时调用 require() 引入即可
-define(function(require, exports, module) {
-    // The module code goes here
-});
-</code></pre></li>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * AMD 模块定义：</span></span><br><span class="line"><span class="comment"> * 在声明模块的时候需要制定所有的依赖，通过形参传递到模块内容中</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">define([<span class="string">'dep1'</span>, <span class="string">'dep2'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">dep1, dep2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * CMD 模块定义：</span></span><br><span class="line"><span class="comment"> * 更加接近于 Node 对 CommonJS 规范的定义</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">define(factory);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在依赖部分，CMD 支持动态引入</span></span><br><span class="line"><span class="comment">// require、exports 和 module 通过形参传递给模块</span></span><br><span class="line"><span class="comment">// 在需要依赖模块时，随时调用 require() 引入即可</span></span><br><span class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params">require, exports, module</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// The module code goes here</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 <li><p><span style="color:#ac4a4a"><strong>兼容多种模块规范</strong></span></p>
