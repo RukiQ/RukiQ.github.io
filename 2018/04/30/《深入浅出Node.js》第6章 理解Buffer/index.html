@@ -88,7 +88,7 @@
 <meta property="og:image" content="https://qph.ec.quoracdn.net/main-qimg-834ccb11d3921310fb1a1f47535066c4.webp">
 <meta property="og:image" content="https://qph.ec.quoracdn.net/main-qimg-834ccb11d3921310fb1a1f47535066c4.webp">
 <meta property="og:image" content="https://github.com/RukiQ/ReadingNotes/blob/master/%E3%80%8A%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BANode.js%E3%80%8B/img/%E5%9B%BE6-1%20Buffer%E7%9A%84%E5%88%86%E5%B7%A5.png?raw=true">
-<meta property="og:updated_time" content="2018-08-04T18:33:03.000Z">
+<meta property="og:updated_time" content="2018-08-04T18:49:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《深入浅出Node.js》第6章 理解 Buffer">
 <meta name="twitter:image" content="https://qph.ec.quoracdn.net/main-qimg-834ccb11d3921310fb1a1f47535066c4.webp">
@@ -438,15 +438,14 @@ var rs = fs.createReadStream(&apos;test.md&apos;, {highWaterMark: 11});
 2）在读取时逐步从磁盘中将字节复制到 `Buffer` 中。
 3）完成一次读取时，则从这个 `Buffer` 中通过 `slice()` 方法取出部分数据作为一个小 `Buffer` 对象，再通过 `data` 事件传递给调用方。
 4）如果 `Buffer` 用完，则重新分配一个；如果还有剩余，则继续使用。
-</code></pre>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fs.createReadStream(path, opts);</span><br><span class="line"><span class="comment">// opts:</span></span><br><span class="line">&#123;</span><br><span class="line">  flags: <span class="string">'r'</span>,</span><br><span class="line">  encoding: <span class="literal">null</span>,</span><br><span class="line">  fd: <span class="literal">null</span>,</span><br><span class="line">  mode: o666,</span><br><span class="line">  highWarterMark: <span class="number">64</span> * <span class="number">1024</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>  highWaterMark 的大小对性能有两个影响点：</p>
-<ul>
-<li>highWaterMark 设置过小，可能导致系统调用次数过多；</li>
-<li>highWaterMark 的值越大，读取速度越快。</li>
+</code></pre></li>
 </ul>
-</li>
-</ul>
+<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">fs.createReadStream(path, opts);</span><br><span class="line"><span class="comment">// opts:</span></span><br><span class="line">&#123;</span><br><span class="line">  flags: <span class="string">'r'</span>,</span><br><span class="line">  encoding: <span class="literal">null</span>,</span><br><span class="line">  fd: <span class="literal">null</span>,</span><br><span class="line">  mode: o666,</span><br><span class="line">  highWarterMark: <span class="number">64</span> * <span class="number">1024</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+highWaterMark 的大小对性能有两个影响点：
+- highWaterMark 设置过小，可能导致系统调用次数过多；
+- highWaterMark 的值越大，读取速度越快。
+</code></pre>
       
     </div>
     
@@ -567,7 +566,7 @@ var rs = fs.createReadStream(&apos;test.md&apos;, {highWaterMark: 11});
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
