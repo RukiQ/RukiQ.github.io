@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="面向对象的JavaScript 动态类型和鸭子类型 编程语言按照数据类型大体可以分为两类：  ① 静态类型语言：在编译时便已确定变量的类型。  ② 动态类型语言：变量类型要到程序运行的时候，待变量被赋予某个值之后，才会具有某种类型。  【鸭子类型】：如果它走起路来像鸭子，叫起来像鸭子，那么它就是鸭子。 鸭子类型指导我们只关注对象的行为，而不关注对象本身，也就是关注 HAS-A，而不是 IS-A。">
+<meta name="description" content="面向对象的JavaScript动态类型和鸭子类型编程语言按照数据类型大体可以分为两类： ① 静态类型语言：在编译时便已确定变量的类型。 ② 动态类型语言：变量类型要到程序运行的时候，待变量被赋予某个值之后，才会具有某种类型。  【鸭子类型】：如果它走起路来像鸭子，叫起来像鸭子，那么它就是鸭子。 鸭子类型指导我们只关注对象的行为，而不关注对象本身，也就是关注 HAS-A，而不是 IS-A。   ☛">
 <meta name="keywords" content="reading,JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《JavaScript设计模式与开发实践》第一部分 基础知识">
 <meta property="og:url" content="http://yoursite.com/2018/08/02/《JavaScript设计模式与开发实践》第一部分 基础知识/index.html">
 <meta property="og:site_name" content="一个笑点低的妹纸">
-<meta property="og:description" content="面向对象的JavaScript 动态类型和鸭子类型 编程语言按照数据类型大体可以分为两类：  ① 静态类型语言：在编译时便已确定变量的类型。  ② 动态类型语言：变量类型要到程序运行的时候，待变量被赋予某个值之后，才会具有某种类型。  【鸭子类型】：如果它走起路来像鸭子，叫起来像鸭子，那么它就是鸭子。 鸭子类型指导我们只关注对象的行为，而不关注对象本身，也就是关注 HAS-A，而不是 IS-A。">
+<meta property="og:description" content="面向对象的JavaScript动态类型和鸭子类型编程语言按照数据类型大体可以分为两类： ① 静态类型语言：在编译时便已确定变量的类型。 ② 动态类型语言：变量类型要到程序运行的时候，待变量被赋予某个值之后，才会具有某种类型。  【鸭子类型】：如果它走起路来像鸭子，叫起来像鸭子，那么它就是鸭子。 鸭子类型指导我们只关注对象的行为，而不关注对象本身，也就是关注 HAS-A，而不是 IS-A。   ☛">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-04T02:24:35.000Z">
+<meta property="og:updated_time" content="2018-08-04T02:33:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript设计模式与开发实践》第一部分 基础知识">
-<meta name="twitter:description" content="面向对象的JavaScript 动态类型和鸭子类型 编程语言按照数据类型大体可以分为两类：  ① 静态类型语言：在编译时便已确定变量的类型。  ② 动态类型语言：变量类型要到程序运行的时候，待变量被赋予某个值之后，才会具有某种类型。  【鸭子类型】：如果它走起路来像鸭子，叫起来像鸭子，那么它就是鸭子。 鸭子类型指导我们只关注对象的行为，而不关注对象本身，也就是关注 HAS-A，而不是 IS-A。">
+<meta name="twitter:description" content="面向对象的JavaScript动态类型和鸭子类型编程语言按照数据类型大体可以分为两类： ① 静态类型语言：在编译时便已确定变量的类型。 ② 动态类型语言：变量类型要到程序运行的时候，待变量被赋予某个值之后，才会具有某种类型。  【鸭子类型】：如果它走起路来像鸭子，叫起来像鸭子，那么它就是鸭子。 鸭子类型指导我们只关注对象的行为，而不关注对象本身，也就是关注 HAS-A，而不是 IS-A。   ☛">
 
 
 
@@ -342,31 +342,26 @@
       
 
       
-        <h3 id="面向对象的JavaScript"><a href="#面向对象的JavaScript" class="headerlink" title="面向对象的JavaScript"></a>面向对象的JavaScript</h3><ol>
-<li><h4 id="动态类型和鸭子类型"><a href="#动态类型和鸭子类型" class="headerlink" title="动态类型和鸭子类型"></a><span style="color:#ac4a4a"><strong>动态类型和鸭子类型</strong></span></h4><p> 编程语言按照数据类型大体可以分为两类：</p>
-<p> ① 静态类型语言：在编译时便已确定变量的类型。</p>
-<p> ② 动态类型语言：变量类型要到程序运行的时候，待变量被赋予某个值之后，才会具有某种类型。</p>
+        <h2 id="面向对象的JavaScript"><a href="#面向对象的JavaScript" class="headerlink" title="面向对象的JavaScript"></a>面向对象的JavaScript</h2><h3 id="动态类型和鸭子类型"><a href="#动态类型和鸭子类型" class="headerlink" title="动态类型和鸭子类型"></a><span style="color:#ac4a4a"><strong>动态类型和鸭子类型</strong></span></h3><p>编程语言按照数据类型大体可以分为两类：</p>
+<p>① 静态类型语言：在编译时便已确定变量的类型。</p>
+<p>② 动态类型语言：变量类型要到程序运行的时候，待变量被赋予某个值之后，才会具有某种类型。</p>
 <blockquote>
 <p>【鸭子类型】：如果它走起路来像鸭子，叫起来像鸭子，那么它就是鸭子。</p>
 <p>鸭子类型指导我们只关注对象的行为，而不关注对象本身，也就是关注 HAS-A，而不是 IS-A。 </p>
 </blockquote>
-<p> ☛ 在动态类型语言的面向对象设计中，鸭子类型的概念至关重要。利用鸭子类型的思想，我们不必借助超类型的帮助，就能轻松地在动态类型语言中实现一个原则：“<strong>面向接口编程，而不是面向实现编程。</strong>”</p>
-</li>
-</ol>
+<p>☛ 在动态类型语言的面向对象设计中，鸭子类型的概念至关重要。利用鸭子类型的思想，我们不必借助超类型的帮助，就能轻松地在动态类型语言中实现一个原则：“<strong>面向接口编程，而不是面向实现编程。</strong>”</p>
 <a id="more"></a>
-<ol start="2">
-<li><h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a><span style="color:#ac4a4a"><strong>多态</strong></span></h4><p> 【多态的实际含义】：同一操作作用于不同的对象上面，可以产生不同的解释和不同的执行结果。即，给不同的对象发送同一个消息的时候，这些对象会根据这个消息分别给出不同的反馈。</p>
-<p> 【多态背后的思想】：是将“做什么”和“谁去做以及怎样去做”分离开来，也就是将“不变的事物”与“可能改变的事物”分离开来。</p>
-<p> 静态类型的面向对象语言通常被设计为可以“向上转型”，使用继承得到多态效果，是让对象表现出多态性的最常用手段。</p>
-<p> JavaScript 对象的多态性是与生俱来的，并不需要诸如向上转型之类的技术来取得多态的效果。</p>
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a><span style="color:#ac4a4a"><strong>多态</strong></span></h3><p>【多态的实际含义】：同一操作作用于不同的对象上面，可以产生不同的解释和不同的执行结果。即，给不同的对象发送同一个消息的时候，这些对象会根据这个消息分别给出不同的反馈。</p>
+<p>【多态背后的思想】：是将“做什么”和“谁去做以及怎样去做”分离开来，也就是将“不变的事物”与“可能改变的事物”分离开来。</p>
+<p>静态类型的面向对象语言通常被设计为可以“向上转型”，使用继承得到多态效果，是让对象表现出多态性的最常用手段。</p>
+<p>JavaScript 对象的多态性是与生俱来的，并不需要诸如向上转型之类的技术来取得多态的效果。</p>
 <blockquote>
 <p>将行为分布在各个对象中，并让这些对象各自负责自己的行为，这正是面型对象设计的优点。</p>
 <p>对象的多态性提示我们，“做什么”和“怎么去做”是可以分开的。</p>
 </blockquote>
-</li>
-<li><h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a><span style="color:#ac4a4a"><strong>封装</strong></span></h4><p> 封装的目的是将信息隐藏，封装应该被视为“任何形式的封装”，即，封装不仅仅是隐藏数据，还包括隐藏实现细节、设计细节以及隐藏对象的类型等。</p>
-<p> <strong>（1）封装数据</strong></p>
-<p> JavaScript 只能依赖变量的作用域来实现封装特性，而且只能模拟出 public 和 private 这两种封装性。</p>
+<h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a><span style="color:#ac4a4a"><strong>封装</strong></span></h3><p>封装的目的是将信息隐藏，封装应该被视为“任何形式的封装”，即，封装不仅仅是隐藏数据，还包括隐藏实现细节、设计细节以及隐藏对象的类型等。</p>
+<p><strong>（1）封装数据</strong></p>
+<p>JavaScript 只能依赖变量的作用域来实现封装特性，而且只能模拟出 public 和 private 这两种封装性。</p>
 <pre><code>var myObject = (function() {
     var __name = &apos;sven&apos;; // 私有(private)变量
     return {
@@ -378,21 +373,20 @@
 
 console.log(myObject.getName()); // &apos;sven&apos;
 console.log(myObject.__name); // &apos;undefined&apos;
-</code></pre><p> <strong>（2）封装实现</strong></p>
-<p> 封装使得对象之间的耦合变松散，对象之间只通过暴露的 API 接口来通信。</p>
-<p> <strong>（3）封装类型</strong></p>
-<p> 封装类型是静态语言中一种重要的封装方式。一般而言，封装类型是通过抽象类和接口来进行的。</p>
-<p> 而 JavaScript 本身是一门类型模糊的语言，在封装类型方面没有能力，也没有必要做的更多。</p>
-<p> <strong>（4）封装变化</strong></p>
-<p> 从设计模式的角度出发，封装在更重要的层面体现为封装变化。</p>
-<p> 通过封装变化的方式，把系统中稳定不变的部分和容易变化的部分隔离开来，在系统的演变过程中，我们只需要替换那些容易变化的部分，如果这些部分是已经封装好的，替换起来也相对容易。</p>
+</code></pre><p><strong>（2）封装实现</strong></p>
+<p>封装使得对象之间的耦合变松散，对象之间只通过暴露的 API 接口来通信。</p>
+<p><strong>（3）封装类型</strong></p>
+<p>封装类型是静态语言中一种重要的封装方式。一般而言，封装类型是通过抽象类和接口来进行的。</p>
+<p>而 JavaScript 本身是一门类型模糊的语言，在封装类型方面没有能力，也没有必要做的更多。</p>
+<p><strong>（4）封装变化</strong></p>
+<p>从设计模式的角度出发，封装在更重要的层面体现为封装变化。</p>
+<p>通过封装变化的方式，把系统中稳定不变的部分和容易变化的部分隔离开来，在系统的演变过程中，我们只需要替换那些容易变化的部分，如果这些部分是已经封装好的，替换起来也相对容易。</p>
 <blockquote>
 <p>这可以很大程度地保证程序的稳定性和可扩展性。</p>
 </blockquote>
-</li>
-<li><h4 id="原型模式和基于原型的-JavaScript-对象系统"><a href="#原型模式和基于原型的-JavaScript-对象系统" class="headerlink" title="原型模式和基于原型的 JavaScript 对象系统"></a><span style="color:#ac4a4a"><strong>原型模式和基于原型的 JavaScript 对象系统</strong></span></h4><p> <strong>（1）使用克隆的原型模式</strong></p>
-<p> 原型模式是通过克隆来创建对象的。使用原型模式，我们只需要调用负责克隆的方法，便能完成同样的功能。</p>
-<p> 【原型模式的实现关键】：语言本身是否提供了 clone 方法，ECMAScript 5 提供了 <code>Object.create</code> 方法，可以用来克隆对象：</p>
+<h3 id="原型模式和基于原型的-JavaScript-对象系统"><a href="#原型模式和基于原型的-JavaScript-对象系统" class="headerlink" title="原型模式和基于原型的 JavaScript 对象系统"></a><span style="color:#ac4a4a"><strong>原型模式和基于原型的 JavaScript 对象系统</strong></span></h3><p><strong>（1）使用克隆的原型模式</strong></p>
+<p>原型模式是通过克隆来创建对象的。使用原型模式，我们只需要调用负责克隆的方法，便能完成同样的功能。</p>
+<p>【原型模式的实现关键】：语言本身是否提供了 clone 方法，ECMAScript 5 提供了 <code>Object.create</code> 方法，可以用来克隆对象：</p>
 <pre><code>var Plane = function() {
     this.blood = 100;
     this.attackLevel = 1;
@@ -414,27 +408,31 @@ Object.create = Object.create || function(obj) {
 
     return new F();
 }
-</code></pre><p> <strong>（2）克隆是创建对象的手段</strong></p>
-<p> 原型模式的<span style="background:yellow">真正目的</span>并非在于需要得到一个一模一样的对象，而是提供了一种便捷的方式去创建某个类型的对象，克隆只是创建这个对象的过程和手段。</p>
-<p> <strong>（3）体验 Io 语言</strong></p>
-<p> 原型模式不仅仅是一种设计模式，也是一种编程范型。JavaScript 就是使用原型模式来搭建整个面向对象系统的。</p>
-<p> 在 JavaScript 语言中不存在类的概念，对象也并非从类中创建出来的，所有的 JavaScript 对象都是从某个对象上克隆而来的。</p>
-<p> <strong>（4）原型编程范型的一些规则</strong></p>
-<p> 【原型编程中的一个重要特性】：当对象无法响应某个请求时，会把该请求委托给它自己的原型。</p>
-<p> 【原型编程范型至少包括以下基本规则】：</p>
+</code></pre><p><strong>（2）克隆是创建对象的手段</strong></p>
+<p>原型模式的<span style="background:yellow">真正目的</span>并非在于需要得到一个一模一样的对象，而是提供了一种便捷的方式去创建某个类型的对象，克隆只是创建这个对象的过程和手段。</p>
+<p><strong>（3）体验 Io 语言</strong></p>
+<p>原型模式不仅仅是一种设计模式，也是一种编程范型。JavaScript 就是使用原型模式来搭建整个面向对象系统的。</p>
+<p>在 JavaScript 语言中不存在类的概念，对象也并非从类中创建出来的，所有的 JavaScript 对象都是从某个对象上克隆而来的。</p>
+<p><strong>（4）原型编程范型的一些规则</strong></p>
+<p>【原型编程中的一个重要特性】：当对象无法响应某个请求时，会把该请求委托给它自己的原型。</p>
+<p>【原型编程范型至少包括以下基本规则】：</p>
 <ul>
 <li>所有的数据都是对象。</li>
 <li>要得到一个对象，不是通过实例化类，而是找到一个对象作为原型并克隆它。</li>
 <li>对象会记住它的原型。</li>
-<li><p>如果对象无法响应某个请求，它会把这个请求委托给它自己的原型。</p>
+<li>如果对象无法响应某个请求，它会把这个请求委托给它自己的原型。</li>
+</ul>
 <p><strong>（5）JavaScript 中的原型继承</strong></p>
 <p><span style="color:darkred">① 所有的数据都是对象</span></p>
 <p>JavaScript 在设计时，模仿 Java 引入了两套类型机制：基本类型和对象类型。基本类型包括 <code>undefined</code>、<code>number</code>、<code>boolean</code>、<code>string</code>、<code>function</code>、<code>object</code>。</p>
 <p>按照 JavaScript 设计者的本意，除了 <code>undefined</code> 之外，一切都应是对象。为了实现这一目标，<code>number</code>、<code>boolean</code>、<code>string</code> 这几种基本类型数据也可以通过“包装类”的方式变成对象类型数据来处理。</p>
 <p>我们不能说在 JavaScript 中所有的数据都是对象，但可以说绝大部分数据都是对象。 JavaScript 中的跟对象是 <code>Object.prototype</code> 空对象，每个对象都是从它克隆而来的，它就是它们的原型。</p>
-<p>  var obj1 = new Object();<br>  var obj2 = {};</p>
-<p>  console.log(Object.getPrototypeOf(obj1) === Object.prototype); // true<br>  console.log(Object.getPrototypeOf(obj2) === Object.prototype); // true</p>
-<p><span style="color:darkred">② 要得到一个对象，不是通过实例化类，而是找到一个对象作为原型并克隆它</span></p>
+<pre><code>var obj1 = new Object();
+var obj2 = {};
+
+console.log(Object.getPrototypeOf(obj1) === Object.prototype); // true
+console.log(Object.getPrototypeOf(obj2) === Object.prototype); // true
+</code></pre><p><span style="color:darkred">② 要得到一个对象，不是通过实例化类，而是找到一个对象作为原型并克隆它</span></p>
 <p>JavaScript 的函数既可以作为普通函数被调用，也可以作为构造器被调用。当使用 <code>new</code> 运算符来调用函数时，此时的函数就是一个构造器。</p>
 <p><span style="color:darkred">③ 对象会记住它的原型</span></p>
 <p>就 JavaScript 的真正实现来说，其实并不能说对象有原型，而只能说对象的构造器有原型。对象把请求委托给它的构造器的原型。。</p>
@@ -447,54 +445,55 @@ Object.create = Object.create || function(obj) {
 <p>另外，通过设置构造器的 <code>prototype</code> 来实现原型继承的时候，除了根对象 <code>Object.prototype</code> 本身之外，任何对象都会有一个原型。而通过 <code>Object.object(null)</code> 可以创建出没有原型的对象。</p>
 </blockquote>
 <p>ECMAScript 6 带来了新的 Class 语法。但其背后仍是通过原型机制来创建对象的。示例代码：</p>
-<p>  class Animal {</p>
-<pre><code>constructor(name) {
-    this.name = name;
+<pre><code>class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+
+    getName() {
+        return this.name;
+    }
 }
 
-getName() {
-    return this.name;
-}
-</code></pre><p>  }</p>
-<p>  class Dog extends Animal {</p>
-<pre><code>constructor(name) {
-    super(name);
+class Dog extends Animal {
+    constructor(name) {
+        super(name);
+    }
+
+    speak() {
+        return &quot;woof&quot;;
+    }
 }
 
-speak() {
-    return &quot;woof&quot;;
-}
-</code></pre><p>  }</p>
-<p>  var dog = new Dog(‘Scamp’);<br>  console.log(dog.getName() + ‘ says ‘ + dog.speak());</p>
-</li>
-</ul>
-</li>
-</ol>
-<h3 id="this、call-和-apply"><a href="#this、call-和-apply" class="headerlink" title="this、call 和 apply"></a>this、call 和 apply</h3><ol>
-<li><h4 id="this"><a href="#this" class="headerlink" title="this"></a><span style="color:#ac4a4a"><strong>this</strong></span></h4><p> 在 JavaScript 中，<code>this</code> 总是指向一个对象，而具体指向哪一个对象是在运行时基于函数的执行环境动态绑定的，而非函数被声明时的环境。</p>
-<p> <code>this</code> 的指向大致可以分为以下4种：</p>
+var dog = new Dog(&apos;Scamp&apos;);
+console.log(dog.getName() + &apos; says &apos; + dog.speak());
+</code></pre><h2 id="this、call-和-apply"><a href="#this、call-和-apply" class="headerlink" title="this、call 和 apply"></a>this、call 和 apply</h2><h3 id="this"><a href="#this" class="headerlink" title="this"></a><span style="color:#ac4a4a"><strong>this</strong></span></h3><p>在 JavaScript 中，<code>this</code> 总是指向一个对象，而具体指向哪一个对象是在运行时基于函数的执行环境动态绑定的，而非函数被声明时的环境。</p>
+<p><code>this</code> 的指向大致可以分为以下4种：</p>
 <ul>
 <li>作为对象的方法调用。</li>
 <li>作为普通函数调用。</li>
 <li>构造器调用。</li>
-<li><p><code>Function.prototype.call</code> 或 <code>Function.prototype.apply</code> 调用</p>
-<p>☛ 丢失的 <code>this</code></p>
-<p>  var obj = {</p>
-<pre><code>myName: &apos;sven&apos;,
-getName: function() {
-    return this.myName;
-}
-</code></pre><p>  };</p>
-<p>  // 作为对象的方法调用<br>  console.log(obj.getName()); // ‘sven’</p>
-<p>  // 作为普通函数调用<br>  var getName2 = obj.getName;<br>  console.log(getName2()); // ‘undefined’</p>
-</li>
+<li><code>Function.prototype.call</code> 或 <code>Function.prototype.apply</code> 调用</li>
 </ul>
-</li>
-<li><h4 id="call-和-apply"><a href="#call-和-apply" class="headerlink" title="call 和 apply"></a><span style="color:#ac4a4a"><strong>call 和 apply</strong></span></h4><p> 【区别】：传参方式不同</p>
-<p> 【用途】：</p>
-<p> <strong>（1）改变 <code>this</code> 的指向</strong></p>
-<p> <strong>（2）<code>Function.prototype.bind</code></strong></p>
-<p> // 简化版实现</p>
+<p>☛ 丢失的 <code>this</code></p>
+<pre><code>var obj = {
+    myName: &apos;sven&apos;,
+    getName: function() {
+        return this.myName;
+    }
+};
+
+// 作为对象的方法调用
+console.log(obj.getName()); // &apos;sven&apos;
+
+// 作为普通函数调用
+var getName2 = obj.getName;
+console.log(getName2()); // &apos;undefined&apos;
+</code></pre><h3 id="call-和-apply"><a href="#call-和-apply" class="headerlink" title="call 和 apply"></a><span style="color:#ac4a4a"><strong>call 和 apply</strong></span></h3><p>【区别】：传参方式不同</p>
+<p>【用途】：</p>
+<p><strong>（1）改变 <code>this</code> 的指向</strong></p>
+<p><strong>（2）<code>Function.prototype.bind</code></strong></p>
+<p>// 简化版实现</p>
 <pre><code>Function.prototype.bind = function(context) {
     var self = this;
     return function() {
@@ -511,7 +510,7 @@ var func = function() {
 }.bind(obj);
 
 func();
-</code></pre><p> // 完整版实现</p>
+</code></pre><p>// 完整版实现</p>
 <pre><code>Function.prototype.bind = function() {
     var self = this, // 保存原函数
         context = [].shift.call(arguments), // 需要绑定的 this 上下文
@@ -534,8 +533,8 @@ var func = function(a, b, c, d) {
 }.bind(obj, 1, 2);
 
 func(3, 4);
-</code></pre><p> <strong>（3）借用其他对象的方法</strong></p>
-<p> // 方法1</p>
+</code></pre><p><strong>（3）借用其他对象的方法</strong></p>
+<p>// 方法1</p>
 <pre><code>var A = function(name) {
     this.name = name;
 };
@@ -550,21 +549,16 @@ B.prototype.getName = function() {
 
 var b = new B(&apos;sven&apos;);
 console.log(b.getName()); // 输出：sven
-</code></pre><p> // 方法2：借用 Array.prototype 对象操作 arguments</p>
+</code></pre><p>// 方法2：借用 Array.prototype 对象操作 arguments</p>
 <pre><code>Array.prototype.slice     // 转成真正的数组
 Array.prototype.shift    // 截去 arguments 列表中的头一个元素
 Array.prototype.push    // 往 arguments 中添加一个新元素
-</code></pre></li>
-</ol>
-<h3 id="闭包和高阶函数"><a href="#闭包和高阶函数" class="headerlink" title="闭包和高阶函数"></a>闭包和高阶函数</h3><p>在 JavaScript 版本的设计模式中，许多模式都可以用闭包和高阶函数来实现。</p>
-<ol>
-<li><h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a><span style="color:#ac4a4a"><strong>闭包</strong></span></h4><p> 闭包的形成与变量的作用域以及变量的生存周期密切相关。</p>
-<p> <strong>（1）变量的作用域：</strong></p>
-<p> 就是指变量的有效范围，最常指函数中声明的变量作用域。</p>
-<p> <strong>（2）变量的生存周期：</strong></p>
-<p> ① 全局变量：生存周期是永久的，除非主动销毁这个全局变量。</p>
-<p> ② 局部变量：当退出函数时，局部变量即失去它们的价值，会随着函数调用的结束而被销毁。</p>
-<p> ★ 闭包的经典应用：</p>
+</code></pre><h2 id="闭包和高阶函数"><a href="#闭包和高阶函数" class="headerlink" title="闭包和高阶函数"></a>闭包和高阶函数</h2><p>在 JavaScript 版本的设计模式中，许多模式都可以用闭包和高阶函数来实现。</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a><span style="color:#ac4a4a"><strong>闭包</strong></span></h3><p>闭包的形成与变量的作用域以及变量的生存周期密切相关。</p>
+<h4 id="（1）变量的作用域"><a href="#（1）变量的作用域" class="headerlink" title="（1）变量的作用域"></a>（1）变量的作用域</h4><p>就是指变量的有效范围，最常指函数中声明的变量作用域。</p>
+<h4 id="（2）变量的生存周期"><a href="#（2）变量的生存周期" class="headerlink" title="（2）变量的生存周期"></a>（2）变量的生存周期</h4><p>① 全局变量：生存周期是永久的，除非主动销毁这个全局变量。</p>
+<p>② 局部变量：当退出函数时，局部变量即失去它们的价值，会随着函数调用的结束而被销毁。</p>
+<p>★ 闭包的经典应用：</p>
 <pre><code>&lt;div&gt;1&lt;/div&gt;
 &lt;div&gt;2&lt;/div&gt;
 &lt;div&gt;3&lt;/div&gt;
@@ -584,7 +578,7 @@ Array.prototype.push    // 往 arguments 中添加一个新元素
         }
     }
 &lt;/script&gt;
-</code></pre><p> ☞ 解决方法：</p>
+</code></pre><p>☞ 解决方法：</p>
 <pre><code>for (var i = 0, len = nodes.length; i &lt; len; i++) {
     (function(i) {
         nodes[i].onclick = function() {
@@ -595,8 +589,7 @@ Array.prototype.push    // 往 arguments 中添加一个新元素
 </code></pre><blockquote>
 <p>在闭包的帮助下，把每次循环的 <code>i</code> 值都封闭起来。当在事件函数中顺着作用域链从内到外查找变量 <code>i</code> 时，会先找到被封闭在闭包环境中的 <code>i</code>。</p>
 </blockquote>
-<p> <strong>（3）闭包的更多作用</strong></p>
-<p> <span style="color:darkred">① 封装变量</span></p>
+<h4 id="（3）闭包的更多作用"><a href="#（3）闭包的更多作用" class="headerlink" title="（3）闭包的更多作用"></a>（3）闭包的更多作用</h4><p><span style="color:darkred">① 封装变量</span></p>
 <pre><code>/*var mult = function() {
     var a = 1;
     for (var i = 0, len = arguments.length; i &lt; len; i++) {
@@ -665,7 +658,7 @@ var mult = (function() {
 })();
 
 console.log(mult(1, 2, 3, 4));
-</code></pre><p> <span style="color:darkred">② 延续局部变量的寿命</span></p>
+</code></pre><p><span style="color:darkred">② 延续局部变量的寿命</span></p>
 <pre><code>// 把 img 变量用闭包封闭起来，解决请求丢失的问题
 var report = (function() {
     var imgs = [];
@@ -675,8 +668,7 @@ var report = (function() {
         img.src = src;
     }
 })();
-</code></pre><p> <strong>（4）闭包和面向对象设计</strong></p>
-<p> 对象以方法的形式包含了过程，而闭包则是在过程中以环境的形式包含了数据。通常用面向对象能实现的功能，用闭包也能实现。反之亦然。</p>
+</code></pre><h4 id="（4）闭包和面向对象设计"><a href="#（4）闭包和面向对象设计" class="headerlink" title="（4）闭包和面向对象设计"></a>（4）闭包和面向对象设计</h4><p>对象以方法的形式包含了过程，而闭包则是在过程中以环境的形式包含了数据。通常用面向对象能实现的功能，用闭包也能实现。反之亦然。</p>
 <pre><code>// 闭包实现
 var extent = function() {
     var value = 0;
@@ -717,10 +709,8 @@ Extent.prototype.call = function() {
 var extent = new Extent();
 extent.call(); // 1
 extent.call(); // 2
-</code></pre><p> <strong>（5）用闭包实现命令模式</strong></p>
-<p> 在面向对象版本的命令模式中，预先植入的命令接收者被当成对象的属性保存起来；而在闭包版本的命令模式中，命令接收者会被封闭在闭包形成的环境中。</p>
-<p> <strong>（6）闭包与内存管理</strong>    </p>
-<ul>
+</code></pre><h4 id="（5）用闭包实现命令模式"><a href="#（5）用闭包实现命令模式" class="headerlink" title="（5）用闭包实现命令模式"></a>（5）用闭包实现命令模式</h4><p>在面向对象版本的命令模式中，预先植入的命令接收者被当成对象的属性保存起来；而在闭包版本的命令模式中，命令接收者会被封闭在闭包形成的环境中。</p>
+<h3 id="（6）闭包与内存管理"><a href="#（6）闭包与内存管理" class="headerlink" title="（6）闭包与内存管理"></a>（6）闭包与内存管理</h3><ul>
 <li><p>局部变量本来应该在函数退出的时候被解除引用，但如果局部变量被封闭在闭包形成的环境中，那么这个局部变量就能一直生存下去。从这个意义上，闭包的确会使一些数据无法被及时销毁。</p>
 </li>
 <li><p>使用闭包的一部分原因是我们选择主动把一些变量封闭在闭包中，因为可能在以后还需要使用这些变量，把这些变量方闭包中和放在全局环境中，对内存方面的影响是一致的，这里并不能说是内存泄漏。</p>
@@ -732,216 +722,246 @@ extent.call(); // 2
 <li><p>同样，如果要解决循环引用带来的内存泄漏问题，我们只需要把循环引用中的变量设为 null 即可。</p>
 </li>
 </ul>
-</li>
-<li><h4 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a><span style="color:#ac4a4a"><strong>高阶函数</strong></span></h4><p> 高阶函数是指至少满足下列条件之一的函数：</p>
+<h3 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a><span style="color:#ac4a4a"><strong>高阶函数</strong></span></h3><p>高阶函数是指至少满足下列条件之一的函数：</p>
 <ul>
 <li>函数可以作为参数被传递；</li>
-<li><p>函数可以作为返回值输出。</p>
-<p><strong>（1）函数作为参数传递</strong></p>
-<p><span style="color:darkred">① 回调函数</span></p>
+<li>函数可以作为返回值输出。</li>
+</ul>
+<h4 id="（1）函数作为参数传递"><a href="#（1）函数作为参数传递" class="headerlink" title="（1）函数作为参数传递"></a>（1）函数作为参数传递</h4><p><span style="color:darkred">① 回调函数</span></p>
 <p>回调函数的应用不仅只在异步请求中，当一个函数不适合执行一些请求时，我们也可以把这些请求封装成一个函数，并把它作为参数传递给另外一个函数，“委托”给另外一个函数来执行。    </p>
-<p>  var appendDiv = function(callback) {</p>
-<pre><code>for (var i = 0; i &lt; 100; i++) {
-    var div = document.createElement(&apos;div&apos;);
-    div.innerHTML = 1;
-    document.body.appendChild(div);
-    if (typeof callback === &apos;function&apos;) {
-        callback(div);
+<pre><code>var appendDiv = function(callback) {
+    for (var i = 0; i &lt; 100; i++) {
+        var div = document.createElement(&apos;div&apos;);
+        div.innerHTML = 1;
+        document.body.appendChild(div);
+        if (typeof callback === &apos;function&apos;) {
+            callback(div);
+        }
     }
-}
-</code></pre><p>  };</p>
-<p>  appendDiv(function(node) {</p>
-<pre><code>node.style.display = &apos;none&apos;;
-</code></pre><p>  });</p>
-<p><span style="color:darkred">② Array.prototype.sort</span></p>
+};
+
+appendDiv(function(node) {
+    node.style.display = &apos;none&apos;;
+});
+</code></pre><p><span style="color:darkred">② Array.prototype.sort</span></p>
 <p>把用什么规则去排序（可变的）的部分封装在函数参数里，动态传入。</p>
-<p>  // 从小到大排序<br>  [1, 4, 3].sort(function(a, b) {</p>
-<pre><code>return a - b;
-</code></pre><p>  });</p>
-<p><strong>（2）函数作为返回值输出</strong></p>
-<p><span style="color:darkred">① 判断数据的类型</span></p>
-<p>  // 判断数据类型1<br>  var isType = function(type) {</p>
-<pre><code>return function(obj) {
-    return Object.prototype.toString.call(obj) === &apos;[object &apos; + type + &apos;]&apos;;
-}
-</code></pre><p>  };</p>
-<p>  var isString = isType(‘String’);<br>  var isArray = isType(‘Array’);<br>  var isNumber = isType(‘Number’);</p>
-<p>  console.log(isArray([1, 2, 3]));</p>
-<p>  // 判断数据类型2：循环语句，批量注册这些 isType 函数<br>  var Type = {};</p>
-<p>  for (var i = 0, type; type = [‘String’, ‘Array’, ‘Number’][i++];) {</p>
-<pre><code>(function(type) {
-    Type[&apos;is&apos; + type] = function(obj) {
+<pre><code>// 从小到大排序
+[1, 4, 3].sort(function(a, b) {
+    return a - b;
+});
+</code></pre><h4 id="（2）函数作为返回值输出"><a href="#（2）函数作为返回值输出" class="headerlink" title="（2）函数作为返回值输出"></a>（2）函数作为返回值输出</h4><p><span style="color:darkred">① 判断数据的类型</span></p>
+<pre><code>// 判断数据类型1
+var isType = function(type) {
+    return function(obj) {
         return Object.prototype.toString.call(obj) === &apos;[object &apos; + type + &apos;]&apos;;
     }
-})(type);
-</code></pre><p>  }</p>
-<p>  Type.isArray([]);<br>  Type.isString(‘str’);</p>
-<p><span style="color:darkred">② getSingle</span></p>
-<p>  // 既把函数当作参数传递，又让函数执行后返回了另外一个函数<br>  var getSingle = function(fn) {</p>
-<pre><code>var ret;
-return function() {
-    return ret || (ret = fn.apply(this, arguments));
 };
-</code></pre><p>  };</p>
-<p>  var getScript = getSingle(function() {</p>
-<pre><code>return document.createElement(&apos;script&apos;);
-</code></pre><p>  });</p>
-<p>  var script1 = getScript();<br>  var script2 = getScript();</p>
-<p>  alert(script1 === script2); // true</p>
-<p><strong>（3） 高阶函数实现 AOP</strong></p>
-<p>AOP（面向切面编程）的主要作用是把一些跟核心业务逻辑模块无关的功能抽离出来，这些跟业务逻辑无关的功能通常包括日志统计、安全控制、异常处理等。</p>
+
+var isString = isType(&apos;String&apos;);
+var isArray = isType(&apos;Array&apos;);
+var isNumber = isType(&apos;Number&apos;);
+
+console.log(isArray([1, 2, 3]));
+
+// 判断数据类型2：循环语句，批量注册这些 isType 函数
+var Type = {};
+
+for (var i = 0, type; type = [&apos;String&apos;, &apos;Array&apos;, &apos;Number&apos;][i++];) {
+    (function(type) {
+        Type[&apos;is&apos; + type] = function(obj) {
+            return Object.prototype.toString.call(obj) === &apos;[object &apos; + type + &apos;]&apos;;
+        }
+    })(type);
+}
+
+Type.isArray([]);
+Type.isString(&apos;str&apos;);
+</code></pre><p><span style="color:darkred">② getSingle</span></p>
+<pre><code>// 既把函数当作参数传递，又让函数执行后返回了另外一个函数
+var getSingle = function(fn) {
+    var ret;
+    return function() {
+        return ret || (ret = fn.apply(this, arguments));
+    };
+};
+
+var getScript = getSingle(function() {
+    return document.createElement(&apos;script&apos;);
+});
+
+var script1 = getScript();
+var script2 = getScript();
+
+alert(script1 === script2); // true
+</code></pre><h4 id="（3）-高阶函数实现-AOP"><a href="#（3）-高阶函数实现-AOP" class="headerlink" title="（3） 高阶函数实现 AOP"></a>（3） 高阶函数实现 AOP</h4><p>AOP（面向切面编程）的主要作用是把一些跟核心业务逻辑模块无关的功能抽离出来，这些跟业务逻辑无关的功能通常包括日志统计、安全控制、异常处理等。</p>
 <p>好处：（1）可以保持业务逻辑模块的纯净和高内聚性；（2）可以很方便地服用日志统计等功能模块。</p>
 <p>通常在 JavaScript 中实现 AOP，都是指把一个函数“动态织入”到另外一个函数之中。</p>
-<p>  Function.prototype.before = function(beforefn) {</p>
-<pre><code>var __self = this;
-return function() {
-    beforefn.apply(this, arguments);
-    return __self.apply(this, arguments);
+<pre><code>Function.prototype.before = function(beforefn) {
+    var __self = this;
+    return function() {
+        beforefn.apply(this, arguments);
+        return __self.apply(this, arguments);
+    }
+};
+
+Function.prototype.after = function(afterfn) {
+    var __self = this;
+    return function() {
+        var ret = __self.apply(this, arguments);
+        afterfn.apply(this, arguments);
+        return ret;
+    }
 }
-</code></pre><p>  };</p>
-<p>  Function.prototype.after = function(afterfn) {</p>
-<pre><code>var __self = this;
-return function() {
-    var ret = __self.apply(this, arguments);
-    afterfn.apply(this, arguments);
-    return ret;
-}
-</code></pre><p>  }</p>
-<p>  var func = function() {</p>
-<pre><code>console.log(2);
-</code></pre><p>  };</p>
-<p>  func = func.before(function() {</p>
-<pre><code>console.log(1);
-</code></pre><p>  }).after(function() {</p>
-<pre><code>console.log(3);
-</code></pre><p>  });</p>
-<p>  func();</p>
-<p><strong>（4） 高阶函数的其他应用</strong></p>
-<p><span style="color:darkred">① currying</span></p>
+
+var func = function() {
+    console.log(2);
+};
+
+func = func.before(function() {
+    console.log(1);
+}).after(function() {
+    console.log(3);
+});
+
+func();
+</code></pre><h4 id="（4）-高阶函数的其他应用"><a href="#（4）-高阶函数的其他应用" class="headerlink" title="（4） 高阶函数的其他应用"></a>（4） 高阶函数的其他应用</h4><p><span style="color:darkred">① currying</span></p>
 <p>currying 又称部分求值。一个 currying 的函数首先会接受一些参数，接受了这些参数之后，该函数并不会立即求值，而是继续返回另外一个函数，刚才传入的参数在函数形成的闭包中被保存起来。待到函数被真正需要求值的时候，之前传入的所有参数都会被一次性用于求值。</p>
-<p>  var currying = function(fn) {</p>
-<pre><code>var args = [];
+<pre><code>var currying = function(fn) {
+    var args = [];
 
-return function() {
-    if (arguments.length === 0) {
-        return fn.apply(this, args);
-    } else {
-        [].push.apply(args, arguments);
-        return arguments.callee;
+    return function() {
+        if (arguments.length === 0) {
+            return fn.apply(this, args);
+        } else {
+            [].push.apply(args, arguments);
+            return arguments.callee;
+        }
     }
-}
-</code></pre><p>  };</p>
-<p>  var cost = (function() {</p>
-<pre><code>var money = 0;
+};
 
-return function() {
-    for (var i = 0, len = arguments.length; i &lt; len; i++) {
-        money += arguments[i];
+var cost = (function() {
+    var money = 0;
+
+    return function() {
+        for (var i = 0, len = arguments.length; i &lt; len; i++) {
+            money += arguments[i];
+        }
+        return money;
     }
-    return money;
-}
-</code></pre><p>  })();</p>
-<p>  var cost = currying(cost); // 转化成curring函数<br>  cost(100);<br>  cost(200);<br>  cost(300);</p>
-<p>  cost(); // 600</p>
-<p><span style="color:darkred">② uncurring</span></p>
+})();
+
+var cost = currying(cost); // 转化成curring函数
+cost(100);
+cost(200);
+cost(300);
+
+cost(); // 600
+</code></pre><p><span style="color:darkred">② uncurring</span></p>
 <p>在 JavaScript 中，当我们调用对象的某个方法时，其实不用去关心该对象原本是否被设计为拥有这个方法，这是动态类型语言的特点（鸭子类型思想）。</p>
 <p>同理，一个对象未必只能使用它自身的方法，可以让它去借用一个原本不属于它的方法。</p>
-<p>  // 实现1<br>  Function.prototype.uncurrying = function() {</p>
-<pre><code>var self = this;
-return function() {
-    var obj = Array.prototype.shift.call(arguments);
-    return self.apply(obj, arguments);
+<pre><code>// 实现1
+Function.prototype.uncurrying = function() {
+    var self = this;
+    return function() {
+        var obj = Array.prototype.shift.call(arguments);
+        return self.apply(obj, arguments);
+    };
 };
-</code></pre><p>  };</p>
-<p>  var push = Array.prototype.push.uncurrying();<br>  var obj = {</p>
-<pre><code>&apos;length&apos;: 1,
-&apos;0&apos;: 1
-</code></pre><p>  };</p>
-<p>  push(obj, 2);<br>  console.log(obj);</p>
-<p>  // 实现2<br>  Function.prototype.uncurrying = function() {</p>
-<pre><code>var self = this;
-return function() {
-    return Function.prototype.call.apply(arguments);
+
+var push = Array.prototype.push.uncurrying();
+var obj = {
+    &apos;length&apos;: 1,
+    &apos;0&apos;: 1
 };
-</code></pre><p>  };</p>
-<p><span style="color:darkred">③ 函数节流</span></p>
+
+push(obj, 2);
+console.log(obj);
+
+// 实现2
+Function.prototype.uncurrying = function() {
+    var self = this;
+    return function() {
+        return Function.prototype.call.apply(arguments);
+    };
+};
+</code></pre><p><span style="color:darkred">③ 函数节流</span></p>
 <p>【函数被频繁调用的场景】：</p>
-</li>
-<li><p>window.onresize 事件</p>
-</li>
+<ul>
+<li>window.onresize 事件</li>
 <li>mousemove 事件</li>
-<li><p>上传进度</p>
-<p>【实现代码】：</p>
-<p>  // 原理：将即将被执行的函数用 setTimeout 延迟一段时间执行。<br>  // 如果该次延迟执行还没有完成，则忽略接下来调用该函数的请求。<br>  var throttle = function(fn, interval) {</p>
-<pre><code>var __self = fn, // 保存需要被延迟执行的函数引用
-    timer, // 定时器
-    firstTime = true; // 是否是第一次调用
-
-return function() {
-    var args = arguments,
-        __me = this;
-
-    if (firstTime) { // 如果是第一次调用，不需要延迟执行
-        __self.apply(__me, args);
-        return firstTime = false;
-    }
-
-    if (timer) { // 如果定时器还在，说明前一次延迟执行还没有完成
-        return false;
-    }
-
-    timer = setTimeout(function() {
-        clearTimeout(timer);
-        timer = null;
-        __self.apply(__me, args);
-    }, interval || 500);
-};
-</code></pre><p>  };</p>
-<p><span style="color:darkred">④ 分时函数</span></p>
-<p>  // 原理：让创建节点的工作分批进行<br>  // 比如把1秒钟创建1000个节点，改为每隔200毫秒创建8个节点<br>  var timeChunk = function(arr, fn, count) {</p>
-<pre><code>var obj,
-    t;
-
-var len = arr.length;
-
-var start = function() {
-    for (var i = 0; i &lt; Math.min(count || 1, arr.length); i++) {
-        var obj = arr.shift();
-        fn(obj);
-    }
-};
-
-return function() {
-    t = setInterval(function() {
-        if (arr.length === 0) { // 如果全部节点都已经被创建好
-            return clearInterval(t);
-        }
-        start();
-    }, 200); // 分批执行的时间间隔，也可以用参数的形式传入
-};
-</code></pre><p>  };</p>
-<p><span style="color:darkred">⑤ 惰性加载函数</span></p>
-<p>  // 原理：在第一次进入条件分支之后，在函数内部会重写这个函数<br>  // 重写之后就是我们期望的addEvent函数<br>  // 在下一次进入addEvent函数的时候，addEvent函数里不再存在条件分支语句<br>  var addEvent = function(elem, type, handler) {</p>
-<pre><code>if (window.addEventListener) {
-    addEvent = function(elem, type, handler) {
-        elem.addEventListener(type, handler, false);
-    }
-} else if (window.attachEvent) {
-    addEvent = function(elem, type, handler) {
-        elem.attachEvent(&apos;on&apos; + type, handler);
-    }
-}
-
-addEvent(elem, type, handler);
-</code></pre><p>  };</p>
-</li>
+<li>上传进度</li>
 </ul>
-</li>
-<li><p><span style="color:#ac4a4a"><strong>小结</strong></span></p>
-<p> 在 JavaScript 中，很多设计模式都是通过闭包和高阶函数实现的。相对于模式的实现过程，我们更关注的是模式可以帮助我们完成什么。</p>
-</li>
-</ol>
-<p><br></p>
+<p>【实现代码】：</p>
+<pre><code>// 原理：将即将被执行的函数用 setTimeout 延迟一段时间执行。
+// 如果该次延迟执行还没有完成，则忽略接下来调用该函数的请求。
+var throttle = function(fn, interval) {
+    var __self = fn, // 保存需要被延迟执行的函数引用
+        timer, // 定时器
+        firstTime = true; // 是否是第一次调用
+
+    return function() {
+        var args = arguments,
+            __me = this;
+
+        if (firstTime) { // 如果是第一次调用，不需要延迟执行
+            __self.apply(__me, args);
+            return firstTime = false;
+        }
+
+        if (timer) { // 如果定时器还在，说明前一次延迟执行还没有完成
+            return false;
+        }
+
+        timer = setTimeout(function() {
+            clearTimeout(timer);
+            timer = null;
+            __self.apply(__me, args);
+        }, interval || 500);
+    };
+};
+</code></pre><p><span style="color:darkred">④ 分时函数</span></p>
+<pre><code>// 原理：让创建节点的工作分批进行
+// 比如把1秒钟创建1000个节点，改为每隔200毫秒创建8个节点
+var timeChunk = function(arr, fn, count) {
+    var obj,
+        t;
+
+    var len = arr.length;
+
+    var start = function() {
+        for (var i = 0; i &lt; Math.min(count || 1, arr.length); i++) {
+            var obj = arr.shift();
+            fn(obj);
+        }
+    };
+
+    return function() {
+        t = setInterval(function() {
+            if (arr.length === 0) { // 如果全部节点都已经被创建好
+                return clearInterval(t);
+            }
+            start();
+        }, 200); // 分批执行的时间间隔，也可以用参数的形式传入
+    };
+};
+</code></pre><p><span style="color:darkred">⑤ 惰性加载函数</span></p>
+<pre><code>// 原理：在第一次进入条件分支之后，在函数内部会重写这个函数
+// 重写之后就是我们期望的addEvent函数
+// 在下一次进入addEvent函数的时候，addEvent函数里不再存在条件分支语句
+var addEvent = function(elem, type, handler) {
+    if (window.addEventListener) {
+        addEvent = function(elem, type, handler) {
+            elem.addEventListener(type, handler, false);
+        }
+    } else if (window.attachEvent) {
+        addEvent = function(elem, type, handler) {
+            elem.attachEvent(&apos;on&apos; + type, handler);
+        }
+    }
+
+    addEvent(elem, type, handler);
+};
+</code></pre><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#ac4a4a"><strong>小结</strong></span></h3><p>在 JavaScript 中，很多设计模式都是通过闭包和高阶函数实现的。相对于模式的实现过程，我们更关注的是模式可以帮助我们完成什么。</p>
 
       
     </div>
@@ -1114,7 +1134,7 @@ addEvent(elem, type, handler);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#面向对象的JavaScript"><span class="nav-number">1.</span> <span class="nav-text">面向对象的JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态类型和鸭子类型"><span class="nav-number">1.1.</span> <span class="nav-text">动态类型和鸭子类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多态"><span class="nav-number">1.2.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#封装"><span class="nav-number">1.3.</span> <span class="nav-text">封装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原型模式和基于原型的-JavaScript-对象系统"><span class="nav-number">1.4.</span> <span class="nav-text">原型模式和基于原型的 JavaScript 对象系统</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#this、call-和-apply"><span class="nav-number">2.</span> <span class="nav-text">this、call 和 apply</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#this"><span class="nav-number">2.1.</span> <span class="nav-text">this</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#call-和-apply"><span class="nav-number">2.2.</span> <span class="nav-text">call 和 apply</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包和高阶函数"><span class="nav-number">3.</span> <span class="nav-text">闭包和高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#闭包"><span class="nav-number">3.1.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高阶函数"><span class="nav-number">3.2.</span> <span class="nav-text">高阶函数</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象的JavaScript"><span class="nav-number">1.</span> <span class="nav-text">面向对象的JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态类型和鸭子类型"><span class="nav-number">1.1.</span> <span class="nav-text">动态类型和鸭子类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多态"><span class="nav-number">1.2.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#封装"><span class="nav-number">1.3.</span> <span class="nav-text">封装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原型模式和基于原型的-JavaScript-对象系统"><span class="nav-number">1.4.</span> <span class="nav-text">原型模式和基于原型的 JavaScript 对象系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this、call-和-apply"><span class="nav-number">2.</span> <span class="nav-text">this、call 和 apply</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#this"><span class="nav-number">2.1.</span> <span class="nav-text">this</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call-和-apply"><span class="nav-number">2.2.</span> <span class="nav-text">call 和 apply</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#闭包和高阶函数"><span class="nav-number">3.</span> <span class="nav-text">闭包和高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">3.1.</span> <span class="nav-text">闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）变量的作用域"><span class="nav-number">3.1.1.</span> <span class="nav-text">（1）变量的作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）变量的生存周期"><span class="nav-number">3.1.2.</span> <span class="nav-text">（2）变量的生存周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）闭包的更多作用"><span class="nav-number">3.1.3.</span> <span class="nav-text">（3）闭包的更多作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（4）闭包和面向对象设计"><span class="nav-number">3.1.4.</span> <span class="nav-text">（4）闭包和面向对象设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（5）用闭包实现命令模式"><span class="nav-number">3.1.5.</span> <span class="nav-text">（5）用闭包实现命令模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（6）闭包与内存管理"><span class="nav-number">3.2.</span> <span class="nav-text">（6）闭包与内存管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高阶函数"><span class="nav-number">3.3.</span> <span class="nav-text">高阶函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）函数作为参数传递"><span class="nav-number">3.3.1.</span> <span class="nav-text">（1）函数作为参数传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）函数作为返回值输出"><span class="nav-number">3.3.2.</span> <span class="nav-text">（2）函数作为返回值输出</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）-高阶函数实现-AOP"><span class="nav-number">3.3.3.</span> <span class="nav-text">（3） 高阶函数实现 AOP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（4）-高阶函数的其他应用"><span class="nav-number">3.3.4.</span> <span class="nav-text">（4） 高阶函数的其他应用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">3.4.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
             
 
           </div>
