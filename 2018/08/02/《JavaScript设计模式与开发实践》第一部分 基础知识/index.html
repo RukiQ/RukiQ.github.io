@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="一个笑点低的妹纸">
 <meta property="og:description" content="面向对象的JavaScript动态类型和鸭子类型编程语言按照数据类型大体可以分为两类： ① 静态类型语言：在编译时便已确定变量的类型。 ② 动态类型语言：变量类型要到程序运行的时候，待变量被赋予某个值之后，才会具有某种类型。  【鸭子类型】：如果它走起路来像鸭子，叫起来像鸭子，那么它就是鸭子。 鸭子类型指导我们只关注对象的行为，而不关注对象本身，也就是关注 HAS-A，而不是 IS-A。   ☛">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-04T14:22:42.000Z">
+<meta property="og:updated_time" content="2018-08-04T17:40:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript设计模式与开发实践》第一部分 基础知识">
 <meta name="twitter:description" content="面向对象的JavaScript动态类型和鸭子类型编程语言按照数据类型大体可以分为两类： ① 静态类型语言：在编译时便已确定变量的类型。 ② 动态类型语言：变量类型要到程序运行的时候，待变量被赋予某个值之后，才会具有某种类型。  【鸭子类型】：如果它走起路来像鸭子，叫起来像鸭子，那么它就是鸭子。 鸭子类型指导我们只关注对象的行为，而不关注对象本身，也就是关注 HAS-A，而不是 IS-A。   ☛">
@@ -362,18 +362,8 @@
 <h3 id="封装"><a href="#封装" class="headerlink" title="封装"></a><span style="color:#ac4a4a"><strong>封装</strong></span></h3><p>封装的目的是将信息隐藏，封装应该被视为“任何形式的封装”，即，封装不仅仅是隐藏数据，还包括隐藏实现细节、设计细节以及隐藏对象的类型等。</p>
 <p><strong>（1）封装数据</strong></p>
 <p>JavaScript 只能依赖变量的作用域来实现封装特性，而且只能模拟出 public 和 private 这两种封装性。</p>
-<pre><code>var myObject = (function() {
-    var __name = &apos;sven&apos;; // 私有(private)变量
-    return {
-        getName: function() { // 公开(public)函数
-            return __name;
-        }
-    }
-})();
-
-console.log(myObject.getName()); // &apos;sven&apos;
-console.log(myObject.__name); // &apos;undefined&apos;
-</code></pre><p><strong>（2）封装实现</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var myObject = (function() &#123;</span><br><span class="line">    var __name = &apos;sven&apos;; // 私有(private)变量</span><br><span class="line">    return &#123;</span><br><span class="line">        getName: function() &#123; // 公开(public)函数</span><br><span class="line">            return __name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line">	</span><br><span class="line">console.log(myObject.getName()); // &apos;sven&apos;</span><br><span class="line">console.log(myObject.__name); // &apos;undefined&apos;</span><br></pre></td></tr></table></figure>
+<p><strong>（2）封装实现</strong></p>
 <p>封装使得对象之间的耦合变松散，对象之间只通过暴露的 API 接口来通信。</p>
 <p><strong>（3）封装类型</strong></p>
 <p>封装类型是静态语言中一种重要的封装方式。一般而言，封装类型是通过抽象类和接口来进行的。</p>
