@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="一个笑点低的妹纸">
 <meta property="og:description" content="面向对象的JavaScript动态类型和鸭子类型编程语言按照数据类型大体可以分为两类： ① 静态类型语言：在编译时便已确定变量的类型。 ② 动态类型语言：变量类型要到程序运行的时候，待变量被赋予某个值之后，才会具有某种类型。  【鸭子类型】：如果它走起路来像鸭子，叫起来像鸭子，那么它就是鸭子。 鸭子类型指导我们只关注对象的行为，而不关注对象本身，也就是关注 HAS-A，而不是 IS-A。   ☛">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-04T17:49:31.000Z">
+<meta property="og:updated_time" content="2018-08-04T17:58:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript设计模式与开发实践》第一部分 基础知识">
 <meta name="twitter:description" content="面向对象的JavaScript动态类型和鸭子类型编程语言按照数据类型大体可以分为两类： ① 静态类型语言：在编译时便已确定变量的类型。 ② 动态类型语言：变量类型要到程序运行的时候，待变量被赋予某个值之后，才会具有某种类型。  【鸭子类型】：如果它走起路来像鸭子，叫起来像鸭子，那么它就是鸭子。 鸭子类型指导我们只关注对象的行为，而不关注对象本身，也就是关注 HAS-A，而不是 IS-A。   ☛">
@@ -377,28 +377,8 @@
 <h3 id="原型模式和基于原型的-JavaScript-对象系统"><a href="#原型模式和基于原型的-JavaScript-对象系统" class="headerlink" title="原型模式和基于原型的 JavaScript 对象系统"></a><span style="color:#ac4a4a"><strong>原型模式和基于原型的 JavaScript 对象系统</strong></span></h3><p><strong>（1）使用克隆的原型模式</strong></p>
 <p>原型模式是通过克隆来创建对象的。使用原型模式，我们只需要调用负责克隆的方法，便能完成同样的功能。</p>
 <p>【原型模式的实现关键】：语言本身是否提供了 clone 方法，ECMAScript 5 提供了 <code>Object.create</code> 方法，可以用来克隆对象：</p>
-<pre><code>var Plane = function() {
-    this.blood = 100;
-    this.attackLevel = 1;
-    this.defenseLevel = 1;
-};
-
-var plane = new Plane();
-plane.blood = 500;
-plane.attackLevel = 10;
-plane.defenseLevel = 7;
-
-var clonePlane = Object.create(plane);
-console.log(clonePlane);
-
-// 在不支持 Object.create 方法的浏览器中，可以使用以下代码：
-Object.create = Object.create || function(obj) {
-    var F = function() {};
-    F.prototype = obj;
-
-    return new F();
-}
-</code></pre><p><strong>（2）克隆是创建对象的手段</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Plane = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.blood = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">this</span>.attackLevel = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">this</span>.defenseLevel = <span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> plane = <span class="keyword">new</span> Plane();</span><br><span class="line">plane.blood = <span class="number">500</span>;</span><br><span class="line">plane.attackLevel = <span class="number">10</span>;</span><br><span class="line">plane.defenseLevel = <span class="number">7</span>;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> clonePlane = <span class="built_in">Object</span>.create(plane);</span><br><span class="line"><span class="built_in">console</span>.log(clonePlane);</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 在不支持 Object.create 方法的浏览器中，可以使用以下代码：</span></span><br><span class="line"><span class="built_in">Object</span>.create = <span class="built_in">Object</span>.create || <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">    F.prototype = obj;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>（2）克隆是创建对象的手段</strong></p>
 <p>原型模式的<span style="background:yellow">真正目的</span>并非在于需要得到一个一模一样的对象，而是提供了一种便捷的方式去创建某个类型的对象，克隆只是创建这个对象的过程和手段。</p>
 <p><strong>（3）体验 Io 语言</strong></p>
 <p>原型模式不仅仅是一种设计模式，也是一种编程范型。JavaScript 就是使用原型模式来搭建整个面向对象系统的。</p>
@@ -417,12 +397,8 @@ Object.create = Object.create || function(obj) {
 <p>JavaScript 在设计时，模仿 Java 引入了两套类型机制：基本类型和对象类型。基本类型包括 <code>undefined</code>、<code>number</code>、<code>boolean</code>、<code>string</code>、<code>function</code>、<code>object</code>。</p>
 <p>按照 JavaScript 设计者的本意，除了 <code>undefined</code> 之外，一切都应是对象。为了实现这一目标，<code>number</code>、<code>boolean</code>、<code>string</code> 这几种基本类型数据也可以通过“包装类”的方式变成对象类型数据来处理。</p>
 <p>我们不能说在 JavaScript 中所有的数据都是对象，但可以说绝大部分数据都是对象。 JavaScript 中的跟对象是 <code>Object.prototype</code> 空对象，每个对象都是从它克隆而来的，它就是它们的原型。</p>
-<pre><code>var obj1 = new Object();
-var obj2 = {};
-
-console.log(Object.getPrototypeOf(obj1) === Object.prototype); // true
-console.log(Object.getPrototypeOf(obj2) === Object.prototype); // true
-</code></pre><p><span style="color:darkred">② 要得到一个对象，不是通过实例化类，而是找到一个对象作为原型并克隆它</span></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(obj1) === <span class="built_in">Object</span>.prototype); <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(obj2) === <span class="built_in">Object</span>.prototype); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p><span style="color:darkred">② 要得到一个对象，不是通过实例化类，而是找到一个对象作为原型并克隆它</span></p>
 <p>JavaScript 的函数既可以作为普通函数被调用，也可以作为构造器被调用。当使用 <code>new</code> 运算符来调用函数时，此时的函数就是一个构造器。</p>
 <p><span style="color:darkred">③ 对象会记住它的原型</span></p>
 <p>就 JavaScript 的真正实现来说，其实并不能说对象有原型，而只能说对象的构造器有原型。对象把请求委托给它的构造器的原型。。</p>
@@ -435,29 +411,8 @@ console.log(Object.getPrototypeOf(obj2) === Object.prototype); // true
 <p>另外，通过设置构造器的 <code>prototype</code> 来实现原型继承的时候，除了根对象 <code>Object.prototype</code> 本身之外，任何对象都会有一个原型。而通过 <code>Object.object(null)</code> 可以创建出没有原型的对象。</p>
 </blockquote>
 <p>ECMAScript 6 带来了新的 Class 语法。但其背后仍是通过原型机制来创建对象的。示例代码：</p>
-<pre><code>class Animal {
-    constructor(name) {
-        this.name = name;
-    }
-
-    getName() {
-        return this.name;
-    }
-}
-
-class Dog extends Animal {
-    constructor(name) {
-        super(name);
-    }
-
-    speak() {
-        return &quot;woof&quot;;
-    }
-}
-
-var dog = new Dog(&apos;Scamp&apos;);
-console.log(dog.getName() + &apos; says &apos; + dog.speak());
-</code></pre><h2 id="this、call-和-apply"><a href="#this、call-和-apply" class="headerlink" title="this、call 和 apply"></a>this、call 和 apply</h2><h3 id="this"><a href="#this" class="headerlink" title="this"></a><span style="color:#ac4a4a"><strong>this</strong></span></h3><p>在 JavaScript 中，<code>this</code> 总是指向一个对象，而具体指向哪一个对象是在运行时基于函数的执行环境动态绑定的，而非函数被声明时的环境。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    getName() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    speak() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"woof"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> dog = <span class="keyword">new</span> Dog(<span class="string">'Scamp'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(dog.getName() + <span class="string">' says '</span> + dog.speak());</span><br></pre></td></tr></table></figure>
+<h2 id="this、call-和-apply"><a href="#this、call-和-apply" class="headerlink" title="this、call 和 apply"></a>this、call 和 apply</h2><h3 id="this"><a href="#this" class="headerlink" title="this"></a><span style="color:#ac4a4a"><strong>this</strong></span></h3><p>在 JavaScript 中，<code>this</code> 总是指向一个对象，而具体指向哪一个对象是在运行时基于函数的执行环境动态绑定的，而非函数被声明时的环境。</p>
 <p><code>this</code> 的指向大致可以分为以下4种：</p>
 <ul>
 <li>作为对象的方法调用。</li>
@@ -466,242 +421,37 @@ console.log(dog.getName() + &apos; says &apos; + dog.speak());
 <li><code>Function.prototype.call</code> 或 <code>Function.prototype.apply</code> 调用</li>
 </ul>
 <p>☛ 丢失的 <code>this</code></p>
-<pre><code>var obj = {
-    myName: &apos;sven&apos;,
-    getName: function() {
-        return this.myName;
-    }
-};
-
-// 作为对象的方法调用
-console.log(obj.getName()); // &apos;sven&apos;
-
-// 作为普通函数调用
-var getName2 = obj.getName;
-console.log(getName2()); // &apos;undefined&apos;
-</code></pre><h3 id="call-和-apply"><a href="#call-和-apply" class="headerlink" title="call 和 apply"></a><span style="color:#ac4a4a"><strong>call 和 apply</strong></span></h3><p>【区别】：传参方式不同</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    myName: <span class="string">'sven'</span>,</span><br><span class="line">    getName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.myName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 作为对象的方法调用</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.getName()); <span class="comment">// 'sven'</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">// 作为普通函数调用</span></span><br><span class="line"><span class="keyword">var</span> getName2 = obj.getName;</span><br><span class="line"><span class="built_in">console</span>.log(getName2()); <span class="comment">// 'undefined'</span></span><br></pre></td></tr></table></figure>
+<h3 id="call-和-apply"><a href="#call-和-apply" class="headerlink" title="call 和 apply"></a><span style="color:#ac4a4a"><strong>call 和 apply</strong></span></h3><p>【区别】：传参方式不同</p>
 <p>【用途】：</p>
 <p><strong>（1）改变 <code>this</code> 的指向</strong></p>
 <p><strong>（2）<code>Function.prototype.bind</code></strong></p>
 <p>// 简化版实现</p>
-<pre><code>Function.prototype.bind = function(context) {
-    var self = this;
-    return function() {
-        return self.apply(context, arguments);
-    }
-};
-
-var obj = {
-    name: &apos;sven&apos;
-};
-
-var func = function() {
-    alert(this.name);
-}.bind(obj);
-
-func();
-</code></pre><p>// 完整版实现</p>
-<pre><code>Function.prototype.bind = function() {
-    var self = this, // 保存原函数
-        context = [].shift.call(arguments), // 需要绑定的 this 上下文
-        args = [].slice.call(arguments); // 剩余的参数转成数组
-
-    return function() {
-        return self.apply(context, [].concat.call(args, [].slice.call(arguments)));
-        // 执行新的函数的时候，会把之前传入的 context 当做函数体内的 this
-        // 并且组合两次分别传入的参数，作为新函数的参数
-    }
-};
-
-var obj = {
-    name: &apos;sven&apos;
-};
-
-var func = function(a, b, c, d) {
-    alert(this.name); // 输出：sven
-    alert([a, b, c, d]); // 输出： [1, 2, 3, 4]
-}.bind(obj, 1, 2);
-
-func(3, 4);
-</code></pre><p><strong>（3）借用其他对象的方法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.bind = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> self.apply(context, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'sven'</span></span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    alert(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;.bind(obj);</span><br><span class="line">	</span><br><span class="line">func();</span><br></pre></td></tr></table></figure>
+<p>// 完整版实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.bind = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>, <span class="comment">// 保存原函数</span></span><br><span class="line">        context = [].shift.call(<span class="built_in">arguments</span>), <span class="comment">// 需要绑定的 this 上下文</span></span><br><span class="line">        args = [].slice.call(<span class="built_in">arguments</span>); <span class="comment">// 剩余的参数转成数组</span></span><br><span class="line">	</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> self.apply(context, [].concat.call(args, [].slice.call(<span class="built_in">arguments</span>)));</span><br><span class="line">        <span class="comment">// 执行新的函数的时候，会把之前传入的 context 当做函数体内的 this</span></span><br><span class="line">        <span class="comment">// 并且组合两次分别传入的参数，作为新函数的参数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">'sven'</span></span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">a, b, c, d</span>) </span>&#123;</span><br><span class="line">    alert(<span class="keyword">this</span>.name); <span class="comment">// 输出：sven</span></span><br><span class="line">    alert([a, b, c, d]); <span class="comment">// 输出： [1, 2, 3, 4]</span></span><br><span class="line">&#125;.bind(obj, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	</span><br><span class="line">func(<span class="number">3</span>, <span class="number">4</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>（3）借用其他对象的方法</strong></p>
 <p>// 方法1</p>
-<pre><code>var A = function(name) {
-    this.name = name;
-};
-
-var B = function() {
-    A.apply(this, arguments);
-};
-
-B.prototype.getName = function() {
-    return this.name;
-};
-
-var b = new B(&apos;sven&apos;);
-console.log(b.getName()); // 输出：sven
-</code></pre><p>// 方法2：借用 Array.prototype 对象操作 arguments</p>
-<pre><code>Array.prototype.slice     // 转成真正的数组
-Array.prototype.shift    // 截去 arguments 列表中的头一个元素
-Array.prototype.push    // 往 arguments 中添加一个新元素
-</code></pre><h2 id="闭包和高阶函数"><a href="#闭包和高阶函数" class="headerlink" title="闭包和高阶函数"></a>闭包和高阶函数</h2><p>在 JavaScript 版本的设计模式中，许多模式都可以用闭包和高阶函数来实现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> A = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> B = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    A.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line">B.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B(<span class="string">'sven'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(b.getName()); <span class="comment">// 输出：sven</span></span><br></pre></td></tr></table></figure>
+<p>// 方法2：借用 Array.prototype 对象操作 arguments</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.prototype.slice 	<span class="comment">// 转成真正的数组</span></span><br><span class="line"><span class="built_in">Array</span>.prototype.shift	<span class="comment">// 截去 arguments 列表中的头一个元素</span></span><br><span class="line"><span class="built_in">Array</span>.prototype.push	<span class="comment">// 往 arguments 中添加一个新元素</span></span><br></pre></td></tr></table></figure>
+<h2 id="闭包和高阶函数"><a href="#闭包和高阶函数" class="headerlink" title="闭包和高阶函数"></a>闭包和高阶函数</h2><p>在 JavaScript 版本的设计模式中，许多模式都可以用闭包和高阶函数来实现。</p>
 <h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a><span style="color:#ac4a4a"><strong>闭包</strong></span></h3><p>闭包的形成与变量的作用域以及变量的生存周期密切相关。</p>
 <h4 id="（1）变量的作用域"><a href="#（1）变量的作用域" class="headerlink" title="（1）变量的作用域"></a>（1）变量的作用域</h4><p>就是指变量的有效范围，最常指函数中声明的变量作用域。</p>
 <h4 id="（2）变量的生存周期"><a href="#（2）变量的生存周期" class="headerlink" title="（2）变量的生存周期"></a>（2）变量的生存周期</h4><p>① 全局变量：生存周期是永久的，除非主动销毁这个全局变量。</p>
 <p>② 局部变量：当退出函数时，局部变量即失去它们的价值，会随着函数调用的结束而被销毁。</p>
 <p>★ 闭包的经典应用：</p>
-<pre><code>&lt;div&gt;1&lt;/div&gt;
-&lt;div&gt;2&lt;/div&gt;
-&lt;div&gt;3&lt;/div&gt;
-&lt;div&gt;4&lt;/div&gt;
-&lt;div&gt;5&lt;/div&gt;
-
-&lt;script&gt;
-    var nodes = document.getElementsByTagName(&apos;div&apos;);
-
-    // 无论点击哪个div，结果都是5
-    // 因为div节点的onclick事件是被异步触发的，
-    // 当事件被触发时，for循环早已结束，此时变量i的值已经是5
-    // 所以在div的onclick事件函数中顺着作用域链从内到外查找变量i时，查找到的值总是5
-    for (var i = 0, len = nodes.length; i &lt; len; i++) {
-        nodes[i].onclick = function() {
-            console.log(i);
-        }
-    }
-&lt;/script&gt;
-</code></pre><p>☞ 解决方法：</p>
-<pre><code>for (var i = 0, len = nodes.length; i &lt; len; i++) {
-    (function(i) {
-        nodes[i].onclick = function() {
-            console.log(i);
-        }
-    })(i);
-}
-</code></pre><blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;<span class="number">1</span>&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;div&gt;2&lt;/</span>div&gt;</span><br><span class="line">&lt;div&gt;<span class="number">3</span>&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;div&gt;4&lt;/</span>div&gt;</span><br><span class="line">&lt;div&gt;<span class="number">5</span>&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">	</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">    var nodes = document.getElementsByTagName('div');</span></span><br><span class="line"><span class="regexp">	</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ 无论点击哪个div，结果都是5</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ 因为div节点的onclick事件是被异步触发的，</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ 当事件被触发时，for循环早已结束，此时变量i的值已经是5</span></span><br><span class="line"><span class="regexp">    /</span><span class="regexp">/ 所以在div的onclick事件函数中顺着作用域链从内到外查找变量i时，查找到的值总是5</span></span><br><span class="line"><span class="regexp">    for (var i = 0, len = nodes.length; i &lt; len; i++) &#123;</span></span><br><span class="line"><span class="regexp">        nodes[i].onclick = function() &#123;</span></span><br><span class="line"><span class="regexp">            console.log(i);</span></span><br><span class="line"><span class="regexp">        &#125;</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+<p>☞ 解决方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = nodes.length; i &lt; len; i++) &#123;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">        nodes[i].onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>在闭包的帮助下，把每次循环的 <code>i</code> 值都封闭起来。当在事件函数中顺着作用域链从内到外查找变量 <code>i</code> 时，会先找到被封闭在闭包环境中的 <code>i</code>。</p>
 </blockquote>
 <h4 id="（3）闭包的更多作用"><a href="#（3）闭包的更多作用" class="headerlink" title="（3）闭包的更多作用"></a>（3）闭包的更多作用</h4><p><span style="color:darkred">① 封装变量</span></p>
-<pre><code>/*var mult = function() {
-    var a = 1;
-    for (var i = 0, len = arguments.length; i &lt; len; i++) {
-        a = a * arguments[i];
-    }
-    return a;
-};*/
-
-// 改进1：
-// 对于那些相同的参数来说，每次都进行计算是一种浪费
-// 加入缓存机制来提高函数的性能
-
-/*var cache = {};
-var mult = function() {
-    var args = Array.prototype.join.call(arguments, &apos;,&apos;);
-    if (cache[args]) {
-        return cache[args];
-    }
-
-    var a = 1;
-    for (var i = 0, len = arguments.length; i &lt; len; i++) {
-        a = a * arguments[i];
-    }
-
-    return cache[args] = a;
-}*/
-
-// 继续改进2：减少页面中的全局变量
-/*var mult = (function() {
-    var cache = {};
-    return function() {
-        var args = Array.prototype.join.call(arguments, &apos;,&apos;);
-        if (cache[args]) {
-            return cache[args];
-        }
-
-        var a = 1;
-        for (var i = 0, len = arguments.length; i &lt; len; i++) {
-            a = a * arguments[i];
-        }
-
-        return cache[args] = a;
-    }
-})();*/
-
-// 继续改进4：提炼函数是代码重构中的一种常见技巧
-// 独立出来的小函数有助于代码复用，如果这些小函数有一个良好的命名，它们本身也起到了注释的作用
-// 如果这些小函数不需要在程序的其他地方使用，最好是把它们用闭包封闭起来。
-var mult = (function() {
-    var cache = {};
-    var calculate = function() {
-        var a = 1;
-        for (var i = 0, len = arguments.length; i &lt; len; i++) {
-            a = a * arguments[i];
-        }
-        return a;
-    };
-
-    return function() {
-        var args = Array.prototype.join.call(arguments, &apos;,&apos;);
-
-        if (args in cache) {
-            return cache[args];
-        }
-
-        return cache[args] = calculate.apply(null, arguments);
-    }
-})();
-
-console.log(mult(1, 2, 3, 4));
-</code></pre><p><span style="color:darkred">② 延续局部变量的寿命</span></p>
-<pre><code>// 把 img 变量用闭包封闭起来，解决请求丢失的问题
-var report = (function() {
-    var imgs = [];
-    return function(src) {
-        var img = new Image();
-        imgs.push(img);
-        img.src = src;
-    }
-})();
-</code></pre><h4 id="（4）闭包和面向对象设计"><a href="#（4）闭包和面向对象设计" class="headerlink" title="（4）闭包和面向对象设计"></a>（4）闭包和面向对象设计</h4><p>对象以方法的形式包含了过程，而闭包则是在过程中以环境的形式包含了数据。通常用面向对象能实现的功能，用闭包也能实现。反之亦然。</p>
-<pre><code>// 闭包实现
-var extent = function() {
-    var value = 0;
-    return {
-        call: function() {
-            value++;
-            console.log(value);
-        }
-    }
-};
-
-var extent = extent();
-extent.call(); // 1
-extent.call(); // 2
-
-// 面向对象写法1
-var extent = {
-    value: 0,
-    call: function() {
-        this.value++;
-        console.log(this.value);
-    }
-};
-
-extent.call(); // 1
-extent.call(); // 2
-
-// 面向对象写法2
-var Extent = function() {
-    this.value = 0;
-};
-
-Extent.prototype.call = function() {
-    this.value++;
-    console.log(this.value);
-}
-
-var extent = new Extent();
-extent.call(); // 1
-extent.call(); // 2
-</code></pre><h4 id="（5）用闭包实现命令模式"><a href="#（5）用闭包实现命令模式" class="headerlink" title="（5）用闭包实现命令模式"></a>（5）用闭包实现命令模式</h4><p>在面向对象版本的命令模式中，预先植入的命令接收者被当成对象的属性保存起来；而在闭包版本的命令模式中，命令接收者会被封闭在闭包形成的环境中。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*var mult = function() &#123;</span></span><br><span class="line"><span class="comment">    var a = 1;</span></span><br><span class="line"><span class="comment">    for (var i = 0, len = arguments.length; i &lt; len; i++) &#123;</span></span><br><span class="line"><span class="comment">        a = a * arguments[i];</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    return a;</span></span><br><span class="line"><span class="comment">&#125;;*/</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">// 改进1：</span></span><br><span class="line"><span class="comment">// 对于那些相同的参数来说，每次都进行计算是一种浪费</span></span><br><span class="line"><span class="comment">// 加入缓存机制来提高函数的性能</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">/*var cache = &#123;&#125;;</span></span><br><span class="line"><span class="comment">var mult = function() &#123;</span></span><br><span class="line"><span class="comment">    var args = Array.prototype.join.call(arguments, ',');</span></span><br><span class="line"><span class="comment">    if (cache[args]) &#123;</span></span><br><span class="line"><span class="comment">        return cache[args];</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">    var a = 1;</span></span><br><span class="line"><span class="comment">    for (var i = 0, len = arguments.length; i &lt; len; i++) &#123;</span></span><br><span class="line"><span class="comment">        a = a * arguments[i];</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">    return cache[args] = a;</span></span><br><span class="line"><span class="comment">&#125;*/</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">// 继续改进2：减少页面中的全局变量</span></span><br><span class="line"><span class="comment">/*var mult = (function() &#123;</span></span><br><span class="line"><span class="comment">    var cache = &#123;&#125;;</span></span><br><span class="line"><span class="comment">    return function() &#123;</span></span><br><span class="line"><span class="comment">        var args = Array.prototype.join.call(arguments, ',');</span></span><br><span class="line"><span class="comment">        if (cache[args]) &#123;</span></span><br><span class="line"><span class="comment">            return cache[args];</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">        var a = 1;</span></span><br><span class="line"><span class="comment">        for (var i = 0, len = arguments.length; i &lt; len; i++) &#123;</span></span><br><span class="line"><span class="comment">            a = a * arguments[i];</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">	</span></span><br><span class="line"><span class="comment">        return cache[args] = a;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;)();*/</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">// 继续改进4：提炼函数是代码重构中的一种常见技巧</span></span><br><span class="line"><span class="comment">// 独立出来的小函数有助于代码复用，如果这些小函数有一个良好的命名，它们本身也起到了注释的作用</span></span><br><span class="line"><span class="comment">// 如果这些小函数不需要在程序的其他地方使用，最好是把它们用闭包封闭起来。</span></span><br><span class="line"><span class="keyword">var</span> mult = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> cache = &#123;&#125;;</span><br><span class="line">    <span class="keyword">var</span> calculate = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = <span class="built_in">arguments</span>.length; i &lt; len; i++) &#123;</span><br><span class="line">            a = a * <span class="built_in">arguments</span>[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.join.call(<span class="built_in">arguments</span>, <span class="string">','</span>);</span><br><span class="line">	</span><br><span class="line">        <span class="keyword">if</span> (args <span class="keyword">in</span> cache) &#123;</span><br><span class="line">            <span class="keyword">return</span> cache[args];</span><br><span class="line">        &#125;</span><br><span class="line">	</span><br><span class="line">        <span class="keyword">return</span> cache[args] = calculate.apply(<span class="literal">null</span>, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line">	</span><br><span class="line"><span class="built_in">console</span>.log(mult(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>));</span><br><span class="line"></span><br><span class="line">&lt;span style=<span class="string">"color:darkred"</span>&gt;② 延续局部变量的寿命&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 把 img 变量用闭包封闭起来，解决请求丢失的问题</span></span><br><span class="line"><span class="regexp">var report = (function() &#123;</span></span><br><span class="line"><span class="regexp">    var imgs = [];</span></span><br><span class="line"><span class="regexp">    return function(src) &#123;</span></span><br><span class="line"><span class="regexp">        var img = new Image();</span></span><br><span class="line"><span class="regexp">        imgs.push(img);</span></span><br><span class="line"><span class="regexp">        img.src = src;</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;)();</span></span><br></pre></td></tr></table></figure>
+<h4 id="（4）闭包和面向对象设计"><a href="#（4）闭包和面向对象设计" class="headerlink" title="（4）闭包和面向对象设计"></a>（4）闭包和面向对象设计</h4><p>对象以方法的形式包含了过程，而闭包则是在过程中以环境的形式包含了数据。通常用面向对象能实现的功能，用闭包也能实现。反之亦然。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 闭包实现</span></span><br><span class="line"><span class="keyword">var</span> extent = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> value = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        call: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            value++;</span><br><span class="line">            <span class="built_in">console</span>.log(value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> extent = extent();</span><br><span class="line">extent.call(); <span class="comment">// 1</span></span><br><span class="line">extent.call(); <span class="comment">// 2</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">// 面向对象写法1</span></span><br><span class="line"><span class="keyword">var</span> extent = &#123;</span><br><span class="line">    value: <span class="number">0</span>,</span><br><span class="line">    call: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.value++;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line">extent.call(); <span class="comment">// 1</span></span><br><span class="line">extent.call(); <span class="comment">// 2</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">// 面向对象写法2</span></span><br><span class="line"><span class="keyword">var</span> Extent = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.value = <span class="number">0</span>;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line">Extent.prototype.call = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.value++;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value);</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> extent = <span class="keyword">new</span> Extent();</span><br><span class="line">extent.call(); <span class="comment">// 1</span></span><br><span class="line">extent.call(); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<h4 id="（5）用闭包实现命令模式"><a href="#（5）用闭包实现命令模式" class="headerlink" title="（5）用闭包实现命令模式"></a>（5）用闭包实现命令模式</h4><p>在面向对象版本的命令模式中，预先植入的命令接收者被当成对象的属性保存起来；而在闭包版本的命令模式中，命令接收者会被封闭在闭包形成的环境中。</p>
 <h4 id="（6）闭包与内存管理"><a href="#（6）闭包与内存管理" class="headerlink" title="（6）闭包与内存管理"></a>（6）闭包与内存管理</h4><ul>
 <li><p>局部变量本来应该在函数退出的时候被解除引用，但如果局部变量被封闭在闭包形成的环境中，那么这个局部变量就能一直生存下去。从这个意义上，闭包的确会使一些数据无法被及时销毁。</p>
 </li>
@@ -720,163 +470,26 @@ extent.call(); // 2
 <li>函数可以作为返回值输出。</li>
 </ul>
 <h4 id="（1）函数作为参数传递"><a href="#（1）函数作为参数传递" class="headerlink" title="（1）函数作为参数传递"></a>（1）函数作为参数传递</h4><p><span style="color:darkred">① 回调函数</span></p>
-<p>回调函数的应用不仅只在异步请求中，当一个函数不适合执行一些请求时，我们也可以把这些请求封装成一个函数，并把它作为参数传递给另外一个函数，“委托”给另外一个函数来执行。    </p>
-<pre><code>var appendDiv = function(callback) {
-    for (var i = 0; i &lt; 100; i++) {
-        var div = document.createElement(&apos;div&apos;);
-        div.innerHTML = 1;
-        document.body.appendChild(div);
-        if (typeof callback === &apos;function&apos;) {
-            callback(div);
-        }
-    }
-};
-
-appendDiv(function(node) {
-    node.style.display = &apos;none&apos;;
-});
-</code></pre><p><span style="color:darkred">② Array.prototype.sort</span></p>
+<p>回调函数的应用不仅只在异步请求中，当一个函数不适合执行一些请求时，我们也可以把这些请求封装成一个函数，并把它作为参数传递给另外一个函数，“委托”给另外一个函数来执行。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> appendDiv = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span><br><span class="line">        div.innerHTML = <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(div);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> callback === <span class="string">'function'</span>) &#123;</span><br><span class="line">            callback(div);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line">appendDiv(<span class="function"><span class="keyword">function</span>(<span class="params">node</span>) </span>&#123;</span><br><span class="line">    node.style.display = <span class="string">'none'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><span style="color:darkred">② Array.prototype.sort</span></p>
 <p>把用什么规则去排序（可变的）的部分封装在函数参数里，动态传入。</p>
-<pre><code>// 从小到大排序
-[1, 4, 3].sort(function(a, b) {
-    return a - b;
-});
-</code></pre><h4 id="（2）函数作为返回值输出"><a href="#（2）函数作为返回值输出" class="headerlink" title="（2）函数作为返回值输出"></a>（2）函数作为返回值输出</h4><p><span style="color:darkred">① 判断数据的类型</span></p>
-<pre><code>// 判断数据类型1
-var isType = function(type) {
-    return function(obj) {
-        return Object.prototype.toString.call(obj) === &apos;[object &apos; + type + &apos;]&apos;;
-    }
-};
-
-var isString = isType(&apos;String&apos;);
-var isArray = isType(&apos;Array&apos;);
-var isNumber = isType(&apos;Number&apos;);
-
-console.log(isArray([1, 2, 3]));
-
-// 判断数据类型2：循环语句，批量注册这些 isType 函数
-var Type = {};
-
-for (var i = 0, type; type = [&apos;String&apos;, &apos;Array&apos;, &apos;Number&apos;][i++];) {
-    (function(type) {
-        Type[&apos;is&apos; + type] = function(obj) {
-            return Object.prototype.toString.call(obj) === &apos;[object &apos; + type + &apos;]&apos;;
-        }
-    })(type);
-}
-
-Type.isArray([]);
-Type.isString(&apos;str&apos;);
-</code></pre><p><span style="color:darkred">② getSingle</span></p>
-<pre><code>// 既把函数当作参数传递，又让函数执行后返回了另外一个函数
-var getSingle = function(fn) {
-    var ret;
-    return function() {
-        return ret || (ret = fn.apply(this, arguments));
-    };
-};
-
-var getScript = getSingle(function() {
-    return document.createElement(&apos;script&apos;);
-});
-
-var script1 = getScript();
-var script2 = getScript();
-
-alert(script1 === script2); // true
-</code></pre><h4 id="（3）-高阶函数实现-AOP"><a href="#（3）-高阶函数实现-AOP" class="headerlink" title="（3） 高阶函数实现 AOP"></a>（3） 高阶函数实现 AOP</h4><p>AOP（面向切面编程）的主要作用是把一些跟核心业务逻辑模块无关的功能抽离出来，这些跟业务逻辑无关的功能通常包括日志统计、安全控制、异常处理等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从小到大排序</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">4</span>, <span class="number">3</span>].sort(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a - b;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h4 id="（2）函数作为返回值输出"><a href="#（2）函数作为返回值输出" class="headerlink" title="（2）函数作为返回值输出"></a>（2）函数作为返回值输出</h4><p><span style="color:darkred">① 判断数据的类型</span></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断数据类型1</span></span><br><span class="line"><span class="keyword">var</span> isType = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(obj) === <span class="string">'[object '</span> + type + <span class="string">']'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> isString = isType(<span class="string">'String'</span>);</span><br><span class="line"><span class="keyword">var</span> isArray = isType(<span class="string">'Array'</span>);</span><br><span class="line"><span class="keyword">var</span> isNumber = isType(<span class="string">'Number'</span>);</span><br><span class="line">	</span><br><span class="line"><span class="built_in">console</span>.log(isArray([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]));</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 判断数据类型2：循环语句，批量注册这些 isType 函数</span></span><br><span class="line"><span class="keyword">var</span> Type = &#123;&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, type; type = [<span class="string">'String'</span>, <span class="string">'Array'</span>, <span class="string">'Number'</span>][i++];) &#123;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">type</span>) </span>&#123;</span><br><span class="line">        Type[<span class="string">'is'</span> + type] = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(obj) === <span class="string">'[object '</span> + type + <span class="string">']'</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)(type);</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">Type.isArray([]);</span><br><span class="line">Type.isString(<span class="string">'str'</span>);</span><br></pre></td></tr></table></figure>
+<p><span style="color:darkred">② getSingle</span></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 既把函数当作参数传递，又让函数执行后返回了另外一个函数</span></span><br><span class="line"><span class="keyword">var</span> getSingle = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> ret;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ret || (ret = fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>));</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> getScript = getSingle(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">&#125;);</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> script1 = getScript();</span><br><span class="line"><span class="keyword">var</span> script2 = getScript();</span><br><span class="line">	</span><br><span class="line">alert(script1 === script2); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h4 id="（3）-高阶函数实现-AOP"><a href="#（3）-高阶函数实现-AOP" class="headerlink" title="（3） 高阶函数实现 AOP"></a>（3） 高阶函数实现 AOP</h4><p>AOP（面向切面编程）的主要作用是把一些跟核心业务逻辑模块无关的功能抽离出来，这些跟业务逻辑无关的功能通常包括日志统计、安全控制、异常处理等。</p>
 <p>好处：（1）可以保持业务逻辑模块的纯净和高内聚性；（2）可以很方便地服用日志统计等功能模块。</p>
 <p>通常在 JavaScript 中实现 AOP，都是指把一个函数“动态织入”到另外一个函数之中。</p>
-<pre><code>Function.prototype.before = function(beforefn) {
-    var __self = this;
-    return function() {
-        beforefn.apply(this, arguments);
-        return __self.apply(this, arguments);
-    }
-};
-
-Function.prototype.after = function(afterfn) {
-    var __self = this;
-    return function() {
-        var ret = __self.apply(this, arguments);
-        afterfn.apply(this, arguments);
-        return ret;
-    }
-}
-
-var func = function() {
-    console.log(2);
-};
-
-func = func.before(function() {
-    console.log(1);
-}).after(function() {
-    console.log(3);
-});
-
-func();
-</code></pre><h4 id="（4）-高阶函数的其他应用"><a href="#（4）-高阶函数的其他应用" class="headerlink" title="（4） 高阶函数的其他应用"></a>（4） 高阶函数的其他应用</h4><p><span style="color:darkred">① currying</span></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.before = <span class="function"><span class="keyword">function</span>(<span class="params">beforefn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> __self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        beforefn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">        <span class="keyword">return</span> __self.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="built_in">Function</span>.prototype.after = <span class="function"><span class="keyword">function</span>(<span class="params">afterfn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> __self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> ret = __self.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">        afterfn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line">func = func.before(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;).after(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line">&#125;);</span><br><span class="line">	</span><br><span class="line">func();</span><br></pre></td></tr></table></figure>
+<h4 id="（4）-高阶函数的其他应用"><a href="#（4）-高阶函数的其他应用" class="headerlink" title="（4） 高阶函数的其他应用"></a>（4） 高阶函数的其他应用</h4><p><span style="color:darkred">① currying</span></p>
 <p>currying 又称部分求值。一个 currying 的函数首先会接受一些参数，接受了这些参数之后，该函数并不会立即求值，而是继续返回另外一个函数，刚才传入的参数在函数形成的闭包中被保存起来。待到函数被真正需要求值的时候，之前传入的所有参数都会被一次性用于求值。</p>
-<pre><code>var currying = function(fn) {
-    var args = [];
-
-    return function() {
-        if (arguments.length === 0) {
-            return fn.apply(this, args);
-        } else {
-            [].push.apply(args, arguments);
-            return arguments.callee;
-        }
-    }
-};
-
-var cost = (function() {
-    var money = 0;
-
-    return function() {
-        for (var i = 0, len = arguments.length; i &lt; len; i++) {
-            money += arguments[i];
-        }
-        return money;
-    }
-})();
-
-var cost = currying(cost); // 转化成curring函数
-cost(100);
-cost(200);
-cost(300);
-
-cost(); // 600
-</code></pre><p><span style="color:darkred">② uncurring</span></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> currying = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> args = [];</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">arguments</span>.length === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> fn.apply(<span class="keyword">this</span>, args);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            [].push.apply(args, <span class="built_in">arguments</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">arguments</span>.callee;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> cost = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> money = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = <span class="built_in">arguments</span>.length; i &lt; len; i++) &#123;</span><br><span class="line">            money += <span class="built_in">arguments</span>[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> money;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> cost = currying(cost); <span class="comment">// 转化成curring函数</span></span><br><span class="line">cost(<span class="number">100</span>);</span><br><span class="line">cost(<span class="number">200</span>);</span><br><span class="line">cost(<span class="number">300</span>);</span><br><span class="line">	</span><br><span class="line">cost(); <span class="comment">// 600</span></span><br></pre></td></tr></table></figure>
+<p><span style="color:darkred">② uncurring</span></p>
 <p>在 JavaScript 中，当我们调用对象的某个方法时，其实不用去关心该对象原本是否被设计为拥有这个方法，这是动态类型语言的特点（鸭子类型思想）。</p>
 <p>同理，一个对象未必只能使用它自身的方法，可以让它去借用一个原本不属于它的方法。</p>
-<pre><code>// 实现1
-Function.prototype.uncurrying = function() {
-    var self = this;
-    return function() {
-        var obj = Array.prototype.shift.call(arguments);
-        return self.apply(obj, arguments);
-    };
-};
-
-var push = Array.prototype.push.uncurrying();
-var obj = {
-    &apos;length&apos;: 1,
-    &apos;0&apos;: 1
-};
-
-push(obj, 2);
-console.log(obj);
-
-// 实现2
-Function.prototype.uncurrying = function() {
-    var self = this;
-    return function() {
-        return Function.prototype.call.apply(arguments);
-    };
-};
-</code></pre><p><span style="color:darkred">③ 函数节流</span></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实现1</span></span><br><span class="line"><span class="built_in">Function</span>.prototype.uncurrying = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> obj = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>);</span><br><span class="line">        <span class="keyword">return</span> self.apply(obj, <span class="built_in">arguments</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> push = <span class="built_in">Array</span>.prototype.push.uncurrying();</span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    <span class="string">'length'</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">'0'</span>: <span class="number">1</span></span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line">push(obj, <span class="number">2</span>);</span><br><span class="line"><span class="built_in">console</span>.log(obj);</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 实现2</span></span><br><span class="line"><span class="built_in">Function</span>.prototype.uncurrying = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Function</span>.prototype.call.apply(<span class="built_in">arguments</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><span style="color:darkred">③ 函数节流</span></p>
 <p>【函数被频繁调用的场景】：</p>
 <ul>
 <li>window.onresize 事件</li>
@@ -884,76 +497,12 @@ Function.prototype.uncurrying = function() {
 <li>上传进度</li>
 </ul>
 <p>【实现代码】：</p>
-<pre><code>// 原理：将即将被执行的函数用 setTimeout 延迟一段时间执行。
-// 如果该次延迟执行还没有完成，则忽略接下来调用该函数的请求。
-var throttle = function(fn, interval) {
-    var __self = fn, // 保存需要被延迟执行的函数引用
-        timer, // 定时器
-        firstTime = true; // 是否是第一次调用
-
-    return function() {
-        var args = arguments,
-            __me = this;
-
-        if (firstTime) { // 如果是第一次调用，不需要延迟执行
-            __self.apply(__me, args);
-            return firstTime = false;
-        }
-
-        if (timer) { // 如果定时器还在，说明前一次延迟执行还没有完成
-            return false;
-        }
-
-        timer = setTimeout(function() {
-            clearTimeout(timer);
-            timer = null;
-            __self.apply(__me, args);
-        }, interval || 500);
-    };
-};
-</code></pre><p><span style="color:darkred">④ 分时函数</span></p>
-<pre><code>// 原理：让创建节点的工作分批进行
-// 比如把1秒钟创建1000个节点，改为每隔200毫秒创建8个节点
-var timeChunk = function(arr, fn, count) {
-    var obj,
-        t;
-
-    var len = arr.length;
-
-    var start = function() {
-        for (var i = 0; i &lt; Math.min(count || 1, arr.length); i++) {
-            var obj = arr.shift();
-            fn(obj);
-        }
-    };
-
-    return function() {
-        t = setInterval(function() {
-            if (arr.length === 0) { // 如果全部节点都已经被创建好
-                return clearInterval(t);
-            }
-            start();
-        }, 200); // 分批执行的时间间隔，也可以用参数的形式传入
-    };
-};
-</code></pre><p><span style="color:darkred">⑤ 惰性加载函数</span></p>
-<pre><code>// 原理：在第一次进入条件分支之后，在函数内部会重写这个函数
-// 重写之后就是我们期望的addEvent函数
-// 在下一次进入addEvent函数的时候，addEvent函数里不再存在条件分支语句
-var addEvent = function(elem, type, handler) {
-    if (window.addEventListener) {
-        addEvent = function(elem, type, handler) {
-            elem.addEventListener(type, handler, false);
-        }
-    } else if (window.attachEvent) {
-        addEvent = function(elem, type, handler) {
-            elem.attachEvent(&apos;on&apos; + type, handler);
-        }
-    }
-
-    addEvent(elem, type, handler);
-};
-</code></pre><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#ac4a4a"><strong>小结</strong></span></h3><p>在 JavaScript 中，很多设计模式都是通过闭包和高阶函数实现的。相对于模式的实现过程，我们更关注的是模式可以帮助我们完成什么。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原理：将即将被执行的函数用 setTimeout 延迟一段时间执行。</span></span><br><span class="line"><span class="comment">// 如果该次延迟执行还没有完成，则忽略接下来调用该函数的请求。</span></span><br><span class="line"><span class="keyword">var</span> throttle = <span class="function"><span class="keyword">function</span>(<span class="params">fn, interval</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> __self = fn, <span class="comment">// 保存需要被延迟执行的函数引用</span></span><br><span class="line">        timer, <span class="comment">// 定时器</span></span><br><span class="line">        firstTime = <span class="literal">true</span>; <span class="comment">// 是否是第一次调用</span></span><br><span class="line">	</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> args = <span class="built_in">arguments</span>,</span><br><span class="line">            __me = <span class="keyword">this</span>;</span><br><span class="line">	</span><br><span class="line">        <span class="keyword">if</span> (firstTime) &#123; <span class="comment">// 如果是第一次调用，不需要延迟执行</span></span><br><span class="line">            __self.apply(__me, args);</span><br><span class="line">            <span class="keyword">return</span> firstTime = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">	</span><br><span class="line">        <span class="keyword">if</span> (timer) &#123; <span class="comment">// 如果定时器还在，说明前一次延迟执行还没有完成</span></span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">	</span><br><span class="line">        timer = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            clearTimeout(timer);</span><br><span class="line">            timer = <span class="literal">null</span>;</span><br><span class="line">            __self.apply(__me, args);</span><br><span class="line">        &#125;, interval || <span class="number">500</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><span style="color:darkred">④ 分时函数</span></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原理：让创建节点的工作分批进行</span></span><br><span class="line"><span class="comment">// 比如把1秒钟创建1000个节点，改为每隔200毫秒创建8个节点</span></span><br><span class="line"><span class="keyword">var</span> timeChunk = <span class="function"><span class="keyword">function</span>(<span class="params">arr, fn, count</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> obj,</span><br><span class="line">        t;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">var</span> len = arr.length;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">var</span> start = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="built_in">Math</span>.min(count || <span class="number">1</span>, arr.length); i++) &#123;</span><br><span class="line">            <span class="keyword">var</span> obj = arr.shift();</span><br><span class="line">            fn(obj);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        t = setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (arr.length === <span class="number">0</span>) &#123; <span class="comment">// 如果全部节点都已经被创建好</span></span><br><span class="line">                <span class="keyword">return</span> clearInterval(t);</span><br><span class="line">            &#125;</span><br><span class="line">            start();</span><br><span class="line">        &#125;, <span class="number">200</span>); <span class="comment">// 分批执行的时间间隔，也可以用参数的形式传入</span></span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><span style="color:darkred">⑤ 惰性加载函数</span></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原理：在第一次进入条件分支之后，在函数内部会重写这个函数</span></span><br><span class="line"><span class="comment">// 重写之后就是我们期望的addEvent函数</span></span><br><span class="line"><span class="comment">// 在下一次进入addEvent函数的时候，addEvent函数里不再存在条件分支语句</span></span><br><span class="line"><span class="keyword">var</span> addEvent = <span class="function"><span class="keyword">function</span>(<span class="params">elem, type, handler</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.addEventListener) &#123;</span><br><span class="line">        addEvent = <span class="function"><span class="keyword">function</span>(<span class="params">elem, type, handler</span>) </span>&#123;</span><br><span class="line">            elem.addEventListener(type, handler, <span class="literal">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">window</span>.attachEvent) &#123;</span><br><span class="line">        addEvent = <span class="function"><span class="keyword">function</span>(<span class="params">elem, type, handler</span>) </span>&#123;</span><br><span class="line">            elem.attachEvent(<span class="string">'on'</span> + type, handler);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    addEvent(elem, type, handler);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#ac4a4a"><strong>小结</strong></span></h3><p>在 JavaScript 中，很多设计模式都是通过闭包和高阶函数实现的。相对于模式的实现过程，我们更关注的是模式可以帮助我们完成什么。</p>
 
       
     </div>
