@@ -90,7 +90,7 @@
 <meta property="og:image" content="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&%E5%8E%9F%E5%9E%8B/%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%BB%A7%E6%89%BF.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&%E5%8E%9F%E5%9E%8B/%E5%AE%8C%E6%95%B4%E7%9A%84%E5%8E%9F%E5%9E%8B%E9%93%BE.png?raw=true">
 <meta property="og:image" content="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&%E5%8E%9F%E5%9E%8B/%E7%BB%84%E5%90%88%E5%BC%8F%E7%BB%A7%E6%89%BF.png?raw=true">
-<meta property="og:updated_time" content="2018-07-29T03:42:06.000Z">
+<meta property="og:updated_time" content="2018-08-04T18:27:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript高级程序设计》第6章-3 实现继承的6种方式">
 <meta name="twitter:description" content="许多OO语言都支持 两种继承方式： （1）接口继承：只继承方法签名； （2）实现继承：继承实际的方法。 ECMAScript 由于函数没有签名，无法实现接口继承，因此只支持实现继承，而且主要是依靠原型链来实现的。">
@@ -357,57 +357,9 @@
 <p><span style="color:red">基本思想：</span>利用原型让一个引用类型继承另一个引用类型的属性和方法。</p>
 <p><span style="background:yellow">原型链的实现</span>：让原型对象等于另一个类型的实例，层层递进，构成实例与原型的链条。</p>
 <p><span style="color:red">实现本质</span>：重写原型对象，代之以一个新类型的实例</p>
-<h4 id="实现原型链的基本模式"><a href="#实现原型链的基本模式" class="headerlink" title="实现原型链的基本模式"></a>实现原型链的基本模式</h4><pre><code>// 原型链继承--基本模式
-function SuperType() {
-    this.property = true;
-}
-
-SuperType.prototype.getSuperValue = function() {
-    return this.property;
-};
-
-function SubType() {
-    this.subproperty = false;
-}
-
-/*
- * 继承实现方式：通过创建 SuperType 的实例，并将该实例赋给 SubType.prototype
- * 实现本质：重写原型对象，代之以一个新类型的实例
- */
-SubType.prototype = new SuperType();
-
-// 添加新方法
-SubType.prototype.getSubValue = function() {
-    return this.subproperty;
-}
-
-// 创建实例并操作
-var instance = new SubType();
-
-alert(instance.getSuperValue());    // true
-
-// instance.constructor 现在指向的是 SuperType
-alert(instance.constructor);    // SuperType
-
-/*
- * 所有函数的默认原型都是 Object 的实例，因此默认原型都会包含一个内部指针，指向 Object.prototype
- */
-// SuperType 继承了 Object，能够调用保存在 Object.prototype 中的那个方法
-alert(intance.toString());    //&quot;[object Object]&quot;
-
-/*
- * 确定原型和实例的关系
- */
-// 方法1：使用 instanceof 操作符
-alert(instance instanceof Object);    // true
-alert(instance instanceof SuperType);    // true
-alert(instance instanceof SubType);    // true
-
-// 方法2：使用 isPrototypeOf() 方法
-alert(Object.prototype.isPrototypeOf(instance));    // true
-alert(SuperType.prototype.isPrototypeOf(instance));    // true
-alert(SubType.prototype.isPrototypeOf(instance));    // true
-</code></pre><p><img src="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&amp;%E5%8E%9F%E5%9E%8B/%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%BB%A7%E6%89%BF.png?raw=true" alt="原型链继承"></p>
+<h4 id="实现原型链的基本模式"><a href="#实现原型链的基本模式" class="headerlink" title="实现原型链的基本模式"></a>实现原型链的基本模式</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原型链继承--基本模式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.property = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">SuperType.prototype.getSuperValue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.property;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.subproperty = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 继承实现方式：通过创建 SuperType 的实例，并将该实例赋给 SubType.prototype</span></span><br><span class="line"><span class="comment"> * 实现本质：重写原型对象，代之以一个新类型的实例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 添加新方法</span></span><br><span class="line">SubType.prototype.getSubValue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.subproperty;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 创建实例并操作</span></span><br><span class="line"><span class="keyword">var</span> instance = <span class="keyword">new</span> SubType();</span><br><span class="line">	</span><br><span class="line">alert(instance.getSuperValue());	<span class="comment">// true</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">// instance.constructor 现在指向的是 SuperType</span></span><br><span class="line">alert(instance.constructor);	<span class="comment">// SuperType</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 所有函数的默认原型都是 Object 的实例，因此默认原型都会包含一个内部指针，指向 Object.prototype</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// SuperType 继承了 Object，能够调用保存在 Object.prototype 中的那个方法</span></span><br><span class="line">alert(intance.toString());	<span class="comment">//"[object Object]"</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 确定原型和实例的关系</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// 方法1：使用 instanceof 操作符</span></span><br><span class="line">alert(instance <span class="keyword">instanceof</span> <span class="built_in">Object</span>);	<span class="comment">// true</span></span><br><span class="line">alert(instance <span class="keyword">instanceof</span> SuperType);	<span class="comment">// true</span></span><br><span class="line">alert(instance <span class="keyword">instanceof</span> SubType);	<span class="comment">// true</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">// 方法2：使用 isPrototypeOf() 方法</span></span><br><span class="line">alert(<span class="built_in">Object</span>.prototype.isPrototypeOf(instance));	<span class="comment">// true</span></span><br><span class="line">alert(SuperType.prototype.isPrototypeOf(instance));	<span class="comment">// true</span></span><br><span class="line">alert(SubType.prototype.isPrototypeOf(instance));	<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&amp;%E5%8E%9F%E5%9E%8B/%E5%8E%9F%E5%9E%8B%E9%93%BE%E7%BB%A7%E6%89%BF.png?raw=true" alt="原型链继承"></p>
 <p><span style="color:red">注意点</span>：</p>
 <blockquote>
 <p>（1）图中，<code>getSuperValue()</code> 方法仍然还在 <code>SuperType.prototype</code> 中，但 <code>property</code> 则位于 <code>SubType.ptototype</code> 中。这是因为 <code>property</code> 是一个实例属性，而 <code>getSuperValue()</code> 则是一个原型方法。</p>
@@ -432,95 +384,14 @@ alert(SubType.prototype.isPrototypeOf(instance));    // true
 <h4 id="谨慎地定义方法"><a href="#谨慎地定义方法" class="headerlink" title="谨慎地定义方法"></a>谨慎地定义方法</h4><blockquote>
 <p>给原型添加方法的代码一定要放在替换原型的语句之后</p>
 </blockquote>
-<pre><code>/*
- * 谨慎地定义方法：给原型添加方法的代码一定要放在替换原型的语句之后
- */
-function SuperType() {
-    this.property = true;
-}
-
-SuperType.prototype.getSuperValue = function() {
-    return this.property;
-};
-
-function SubType() {
-    this.subproperty = false;
-}
-
-// 继承了 SuperType
-SubType.prototype = new SuperType();
-
-// 添加新方法
-SubType.prototype.getSubValue = function() {
-    return this.subproperty;
-}
-
-// 重写超类型中的方法，会屏蔽原来的那个方法
-SubType.prototype.getSuperValue = function() {
-    return false;
-}
-
-var instance = new SubType();
-alert(instance.getSuperValue());    // false
-</code></pre><p><span style="color:red">注意：</span>在通过原型链实现继承时，<span style="background:yellow">不能使用对象字面量创建原型方法</span>。因为这样会重写原型链。</p>
-<pre><code>/*
- * 不能使用对象字面量创建原型方法，因为这样会重写原型链
- */
-function SuperType() {
-    this.property = true;
-}
-
-SuperType.prototype.getSuperValue = function() {
-    return this.property;
-};
-
-function SubType() {
-    this.subproperty = false;
-}
-
-// 继承了 SuperType
-SubType.prototype = new SuperType();
-
-/*
- * 使用字面量添加新方法，会导致上一行代码无效
- * 现在 SubType.prototype 是一个 Object 的实例
- */
-SubType.prototype = {
-    getSubValue : function() {
-        return this.subproperty;
-    },
-
-    someOtherMethod : function() {
-        return false;
-    }
-}
-
-var instance = new SubType();
-console.log(SubType.prototype);    // Object {}
-alert(instance.getSuperValue());    // error!
-</code></pre><h4 id="原型链的问题"><a href="#原型链的问题" class="headerlink" title="原型链的问题"></a>原型链的问题</h4><p><span style="color:red">主要问题：</span>来自包含引用类型值的原型。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 谨慎地定义方法：给原型添加方法的代码一定要放在替换原型的语句之后</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.property = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">SuperType.prototype.getSuperValue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.property;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.subproperty = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 继承了 SuperType</span></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 添加新方法</span></span><br><span class="line">SubType.prototype.getSubValue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.subproperty;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 重写超类型中的方法，会屏蔽原来的那个方法</span></span><br><span class="line">SubType.prototype.getSuperValue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> instance = <span class="keyword">new</span> SubType();</span><br><span class="line">alert(instance.getSuperValue());	<span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<p><span style="color:red">注意：</span>在通过原型链实现继承时，<span style="background:yellow">不能使用对象字面量创建原型方法</span>。因为这样会重写原型链。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 不能使用对象字面量创建原型方法，因为这样会重写原型链</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.property = <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">SuperType.prototype.getSuperValue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.property;</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.subproperty = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 继承了 SuperType</span></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();</span><br><span class="line">	</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 使用字面量添加新方法，会导致上一行代码无效</span></span><br><span class="line"><span class="comment"> * 现在 SubType.prototype 是一个 Object 的实例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">SubType.prototype = &#123;</span><br><span class="line">	getSubValue : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.subproperty;</span><br><span class="line">	&#125;,</span><br><span class="line">	</span><br><span class="line">	someOtherMethod : <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> instance = <span class="keyword">new</span> SubType();</span><br><span class="line"><span class="built_in">console</span>.log(SubType.prototype);	<span class="comment">// Object &#123;&#125;</span></span><br><span class="line">alert(instance.getSuperValue());	<span class="comment">// error!</span></span><br></pre></td></tr></table></figure>
+<h4 id="原型链的问题"><a href="#原型链的问题" class="headerlink" title="原型链的问题"></a>原型链的问题</h4><p><span style="color:red">主要问题：</span>来自包含引用类型值的原型。</p>
 <p>—— 在通过实例来实现继承时，原型实际上会变成另一个类型的实例。于是，原先的实例属性也就顺理成章地变成了现在的原型属性了。</p>
 <p><span style="color:red">问题2：</span>在创建子类型的实例时，不能向超类型的构造函数中传递参数（在不影响所有对象实例的情况下）。</p>
-<pre><code>/*
- * 原型链的问题
- */
-function SuperType() {
-    this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];
-}
-
-function SubType() {
-}
-
-// 继承了 SuperType
-SubType.prototype = new SuperType();
-
-var instance1 = new SubType();
-instance1.colors.push(&quot;black&quot;);
-console.log(instance1.colors);    // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;black&quot;]
-
-var instance2 = new SubType();
-console.log(instance2.colors);    // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;black&quot;]
-</code></pre><h3 id="借用构造函数（伪造对象或经典继承）"><a href="#借用构造函数（伪造对象或经典继承）" class="headerlink" title="借用构造函数（伪造对象或经典继承）"></a>借用构造函数（伪造对象或经典继承）</h3><blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 原型链的问题</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.colors = [<span class="string">"red"</span>, <span class="string">"blue"</span>, <span class="string">"green"</span>];</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 继承了 SuperType</span></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> instance1 = <span class="keyword">new</span> SubType();</span><br><span class="line">instance1.colors.push(<span class="string">"black"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(instance1.colors);	<span class="comment">// ["red", "blue", "green", "black"]</span></span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> instance2 = <span class="keyword">new</span> SubType();</span><br><span class="line"><span class="built_in">console</span>.log(instance2.colors);	<span class="comment">// ["red", "blue", "green", "black"]</span></span><br></pre></td></tr></table></figure>
+<h3 id="借用构造函数（伪造对象或经典继承）"><a href="#借用构造函数（伪造对象或经典继承）" class="headerlink" title="借用构造函数（伪造对象或经典继承）"></a>借用构造函数（伪造对象或经典继承）</h3><blockquote>
 <p>实践中很少单独使用</p>
 </blockquote>
 <p><span style="color:red">优点</span>：</p>
@@ -531,24 +402,8 @@ console.log(instance2.colors);    // [&quot;red&quot;, &quot;blue&quot;, &quot;g
 </li>
 </ul>
 <p><span style="color:red">基本思想：</span>在子类型构造函数的内部调用超类型构造函数。</p>
-<pre><code>// 借用构造函数实现继承
-function SuperType() {
-    this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];
-}
-
-function SubType() {
-    // 继承了 SuperType
-    SuperType.call(this);    // 在新创建的对象上执行构造函数
-}
-
-var instance1 = new SubType();
-
-instance1.colors.push(&quot;black&quot;);
-console.log(instance1.colors);    // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;black&quot;]
-
-var instance2 = new SubType();
-console.log(instance2.colors);    // [red&quot;, &quot;blue&quot;, &quot;green&quot;]
-</code></pre><blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 借用构造函数实现继承</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.colors = [<span class="string">"red"</span>, <span class="string">"blue"</span>, <span class="string">"green"</span>];</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 继承了 SuperType</span></span><br><span class="line">	SuperType.call(<span class="keyword">this</span>);	<span class="comment">// 在新创建的对象上执行构造函数</span></span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> instance1 = <span class="keyword">new</span> SubType();</span><br><span class="line"></span><br><span class="line">instance1.colors.push(<span class="string">"black"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(instance1.colors);	<span class="comment">// ["red", "blue", "green", "black"]</span></span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> instance2 = <span class="keyword">new</span> SubType();</span><br><span class="line"><span class="built_in">console</span>.log(instance2.colors);	<span class="comment">// [red", "blue", "green"]</span></span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>通过 <code>call()</code> 方法或 <code>apply()</code> 方法，实际上是在（未来将要）新创建的 SubType 的实例的环境下调用了 SuperType 构造函数。</p>
 </blockquote>
 <blockquote>
@@ -557,27 +412,8 @@ console.log(instance2.colors);    // [red&quot;, &quot;blue&quot;, &quot;green&q
 <blockquote>
 <p>结果，SubType 的每个实例都会有自己的 colors 属性的副本了</p>
 </blockquote>
-<h4 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h4><pre><code>// 传递参数
-function SuperType(name) {
-    this.name = name;
-}
-
-function SubType() {
-    // 继承了 SuperType，同时还传递了参数
-    SuperType.call(this, &quot;Nicholas&quot;);
-
-    // 实例属性
-    this.age = 29;
-}
-
-var instance = new SubType();
-
-alert(instance.name);    // &quot;Nicholas&quot;
-alert(instance.age);    // 29
-
-// 实例的 constructor 属性指向 SubType，因此无法使用原型中定义的方法
-console.log(instance.constructor);    // function SubType() {}
-</code></pre><h4 id="借用构造函数的问题"><a href="#借用构造函数的问题" class="headerlink" title="借用构造函数的问题"></a>借用构造函数的问题</h4><p>1）无法避免构造函数模式存在的问题——方法都在构造函数中定义，无法实现函数复用。</p>
+<h4 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传递参数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 继承了 SuperType，同时还传递了参数</span></span><br><span class="line">	SuperType.call(<span class="keyword">this</span>, <span class="string">"Nicholas"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 实例属性</span></span><br><span class="line">	<span class="keyword">this</span>.age = <span class="number">29</span>;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> instance = <span class="keyword">new</span> SubType();</span><br><span class="line">	</span><br><span class="line">alert(instance.name);	<span class="comment">// "Nicholas"</span></span><br><span class="line">alert(instance.age);	<span class="comment">// 29</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例的 constructor 属性指向 SubType，因此无法使用原型中定义的方法</span></span><br><span class="line"><span class="built_in">console</span>.log(instance.constructor);	<span class="comment">// function SubType() &#123;&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="借用构造函数的问题"><a href="#借用构造函数的问题" class="headerlink" title="借用构造函数的问题"></a>借用构造函数的问题</h4><p>1）无法避免构造函数模式存在的问题——方法都在构造函数中定义，无法实现函数复用。</p>
 <p>2）在超类型的原型中定义的方法，对子类型而言是不可见的，结果所有类型都只能使用构造函数模式。</p>
 <h3 id="组合继承（伪经典继承）"><a href="#组合继承（伪经典继承）" class="headerlink" title="组合继承（伪经典继承）"></a>组合继承（伪经典继承）</h3><blockquote>
 <p>最常用的继承模式</p>
@@ -585,52 +421,8 @@ console.log(instance.constructor);    // function SubType() {}
 <p><span style="color:red">优点</span>：将原型链和借用构造函数的技术组合到一块，发挥二者之长。</p>
 <p><span style="color:red">基本思想：</span>使用原型链实现对原型属性和方法的继承，通过借用构造函数实现对实例属性的继承。</p>
 <p><span style="color:red">不足</span>：无论什么情况下，都会调用两次超类型构造函数，一次是在创建子类型原型的时候，另一次是在子类型构造函数内部。——&gt;子类型最终会包含超类型对象的全部实例属性，我们不得不在调用子类型构造函数时重写这些属性。</p>
-<pre><code>// 组合继承
-function SuperType(name) {
-    this.name = name;
-    this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];
-}
-
-SuperType.prototype.sayName = function() {
-    alert(this.name);
-}
-
-function SubType(name, age) {
-
-    // 继承属性
-    SuperType.call(this, name);    // 第二次调用 SuperType()，子类型构造函数内部调用
-
-    this.age = age;
-}
-
-// 继承方法
-SubType.prototype = new SuperType();    // 第一次调用 SuperType()，创建子类型原型时调用
-SubType.prototype.constructor = SubType;
-SubType.prototype.sayAge = function() {
-    alert(this.age);
-}
-
-var instance1 = new SubType(&quot;Nicholas&quot;, 29);
-
-instance1.colors.push(&quot;black&quot;);
-console.log(instance1.colors);    // [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;, &quot;black&quot;]
-instance1.sayName();    // &quot;Nicholas&quot;
-instance1.sayAge();    // 29
-
-var instance2 = new SubType(&quot;Greg&quot;, 27);
-console.log(instance2.colors);    // [red&quot;, &quot;blue&quot;, &quot;green&quot;]
-instance2.sayName();    // &quot;Greg&quot;
-instance2.sayAge();    // 27
-
-// 只是改变了 constructor 的指向，__proto__ 的指向没有变，还是通过原型链进行连接
-alert(instance1 instanceof Object);    // true
-alert(instance1 instanceof SuperType);    // true
-alert(instance1 instanceof SubType);    // true
-
-alert(Object.prototype.isPrototypeOf(instance1));    // true
-alert(SuperType.prototype.isPrototypeOf(instance1));    // true
-alert(SubType.prototype.isPrototypeOf(instance1));    // true    
-</code></pre><blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 组合继承</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">	<span class="keyword">this</span>.colors = [<span class="string">"red"</span>, <span class="string">"blue"</span>, <span class="string">"green"</span>];</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">SuperType.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 继承属性</span></span><br><span class="line">	SuperType.call(<span class="keyword">this</span>, name);	<span class="comment">// 第二次调用 SuperType()，子类型构造函数内部调用</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 继承方法</span></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();	<span class="comment">// 第一次调用 SuperType()，创建子类型原型时调用</span></span><br><span class="line">SubType.prototype.constructor = SubType;</span><br><span class="line">SubType.prototype.sayAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="keyword">this</span>.age);</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> instance1 = <span class="keyword">new</span> SubType(<span class="string">"Nicholas"</span>, <span class="number">29</span>);</span><br><span class="line">	</span><br><span class="line">instance1.colors.push(<span class="string">"black"</span>);</span><br><span class="line"><span class="built_in">console</span>.log(instance1.colors);	<span class="comment">// ["red", "blue", "green", "black"]</span></span><br><span class="line">instance1.sayName();	<span class="comment">// "Nicholas"</span></span><br><span class="line">instance1.sayAge();	<span class="comment">// 29</span></span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> instance2 = <span class="keyword">new</span> SubType(<span class="string">"Greg"</span>, <span class="number">27</span>);</span><br><span class="line"><span class="built_in">console</span>.log(instance2.colors);	<span class="comment">// [red", "blue", "green"]</span></span><br><span class="line">instance2.sayName();	<span class="comment">// "Greg"</span></span><br><span class="line">instance2.sayAge();	<span class="comment">// 27</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 只是改变了 constructor 的指向，__proto__ 的指向没有变，还是通过原型链进行连接</span></span><br><span class="line">alert(instance1 <span class="keyword">instanceof</span> <span class="built_in">Object</span>);	<span class="comment">// true</span></span><br><span class="line">alert(instance1 <span class="keyword">instanceof</span> SuperType);	<span class="comment">// true</span></span><br><span class="line">alert(instance1 <span class="keyword">instanceof</span> SubType);	<span class="comment">// true</span></span><br><span class="line">	</span><br><span class="line">alert(<span class="built_in">Object</span>.prototype.isPrototypeOf(instance1));	<span class="comment">// true</span></span><br><span class="line">alert(SuperType.prototype.isPrototypeOf(instance1));	<span class="comment">// true</span></span><br><span class="line">alert(SubType.prototype.isPrototypeOf(instance1));	<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<blockquote>
 <p><code>instnceof</code> 和 <code>isPrototypeOf()</code> 方法能够用于识别基于组合继承创建的对象</p>
 </blockquote>
 <blockquote>
@@ -642,58 +434,11 @@ alert(SubType.prototype.isPrototypeOf(instance1));    // true
 <p><img src="https://github.com/RukiQ/blog-learning-patch/blob/master/JS-PJfWD/JS%E5%AF%B9%E8%B1%A1&amp;%E5%8E%9F%E5%9E%8B/%E7%BB%84%E5%90%88%E5%BC%8F%E7%BB%A7%E6%89%BF.png?raw=true" alt="组合式继承"></p>
 <h3 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h3><ul>
 <li>没有严格意义上的构造函数</li>
-<li><p>借助原型可以基于已有的对象创建新对象，同时还不必因此创建自定义类型。</p>
-<pre><code>// 原型式继承
-function object(o) {
-    // 先创建一个临时性的构造函数
-    function F() {};
-
-    // 将传入的对象作为这个构造函数的原型
-    F.prototype = o;
-
-    // 返回这个临时类型的新实例
-    return new F();
-}
-
-// 本质上来讲，object() 对其中的对象执行了一次浅复制
-var person = {
-    name : &quot;Nicholas&quot;,    // 基本类型值属性
-    friends : [&quot;Shelby&quot;, &quot;Court&quot;]    // 引用类型值属性
-};
-
-var person1 = object(person);
-person1.name = &quot;Greg&quot;;
-person1.friends.push(&quot;Rob&quot;);
-
-var person2 = object(person);
-person2.name = &quot;Linda&quot;;
-person2.friends.push(&quot;Barbie&quot;);
-
-console.log(person.friends);    // [&quot;Shelby&quot;, &quot;Court&quot;, &quot;Rob&quot;, &quot;Barbie&quot;]
-</code></pre></li>
+<li>借助原型可以基于已有的对象创建新对象，同时还不必因此创建自定义类型。</li>
 </ul>
-<pre><code>/*
- * Object.create() 方法：规范化了原型式继承
- */
-var person3 = Object.create(person);
-person3.name = &quot;Allie&quot;;
-person3.friends.push(&quot;Anna&quot;);
-
-var person4 = Object.create(person);
-person4.name = &quot;John&quot;;
-person4.friends.push(&quot;Mark&quot;);    
-
-console.log(person.friends);    // [&quot;Shelby&quot;, &quot;Court&quot;, &quot;Rob&quot;, &quot;Barbie&quot;, &quot;Anna&quot;, &quot;Mark&quot;]
-
-// Object.create() 传入第二个参数，会覆盖原型对象上的同名属性
-var person5 = Object.create(person, {
-    name: {
-        value: &quot;Don&quot;
-    }
-})
-
-console.log(person5.name);    // Don
-</code></pre><blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 原型式继承</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">object</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 先创建一个临时性的构造函数</span></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 将传入的对象作为这个构造函数的原型</span></span><br><span class="line">	F.prototype = o;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// 返回这个临时类型的新实例</span></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> F();</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 本质上来讲，object() 对其中的对象执行了一次浅复制</span></span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">	name : <span class="string">"Nicholas"</span>,	<span class="comment">// 基本类型值属性</span></span><br><span class="line">	friends : [<span class="string">"Shelby"</span>, <span class="string">"Court"</span>]	<span class="comment">// 引用类型值属性</span></span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> person1 = object(person);</span><br><span class="line">person1.name = <span class="string">"Greg"</span>;</span><br><span class="line">person1.friends.push(<span class="string">"Rob"</span>);</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> person2 = object(person);</span><br><span class="line">person2.name = <span class="string">"Linda"</span>;</span><br><span class="line">person2.friends.push(<span class="string">"Barbie"</span>);</span><br><span class="line">	</span><br><span class="line"><span class="built_in">console</span>.log(person.friends);	<span class="comment">// ["Shelby", "Court", "Rob", "Barbie"]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Object.create() 方法：规范化了原型式继承</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> person3 = <span class="built_in">Object</span>.create(person);</span><br><span class="line">person3.name = <span class="string">"Allie"</span>;</span><br><span class="line">person3.friends.push(<span class="string">"Anna"</span>);</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> person4 = <span class="built_in">Object</span>.create(person);</span><br><span class="line">person4.name = <span class="string">"John"</span>;</span><br><span class="line">person4.friends.push(<span class="string">"Mark"</span>);	</span><br><span class="line">	</span><br><span class="line"><span class="built_in">console</span>.log(person.friends);	<span class="comment">// ["Shelby", "Court", "Rob", "Barbie", "Anna", "Mark"]</span></span><br><span class="line">	</span><br><span class="line"><span class="comment">// Object.create() 传入第二个参数，会覆盖原型对象上的同名属性</span></span><br><span class="line"><span class="keyword">var</span> person5 = <span class="built_in">Object</span>.create(person, &#123;</span><br><span class="line">	name: &#123;</span><br><span class="line">		value: <span class="string">"Don"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br><span class="line">	</span><br><span class="line"><span class="built_in">console</span>.log(person5.name);	<span class="comment">// Don</span></span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>这种原型式继承，必须要有一个对象可以作为另一个对象的基础。如果有一个对象的话，可以把它传递给 <code>object()</code> 函数，然后再根据具体需求对得到的对象加以修改即可。</p>
 <p>在没有必要兴师动众地创建构造函数，而只想让一个对象与另一个对象保持类似的情况下，原型式继承是完全可以胜任的。</p>
 </blockquote>
@@ -707,78 +452,16 @@ console.log(person5.name);    // Don
 <h3 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h3><p><span style="color:red">思路</span>：与寄生构造函数和工厂模式类似，即创建一个仅用于封装继承过程的函数，该函数在内部以某种方式来增强对象，最后再像真的是它做了所有工作一样返回对象。</p>
 <p><span style="color:red">用处</span>：在主要考虑对象而不是自定义类型和构造函数的情况下，寄生式继承也是一种有用的模式</p>
 <p><span style="color:red">不足</span>：类似构造函数模式，使用寄生式继承来为对象添加函数，会由于不能做到函数复用而降低效率</p>
-<pre><code>// 寄生式继承
-function object(o) {
-    function F() {};    // 先创建一个临时性的构造函数
-    F.prototype = o;    // 将传入的对象作为这个构造函数的原型
-    return new F();    // 返回这个临时类型的新实例
-}
-
-/*
- * 利用原型式继承所创建的 object() 函数，但不是必须的
- * 任何能够返回新对象的函数都是用于此模式
- */
-function createAnother(original) {
-    var clone = object(original);    // 通过调用函数创建一个新对象
-    clone.sayHi = function() {    // 以某种方式来增强这个对象
-        alert(&quot;hi&quot;);
-    };
-    return clone;    // 返回这个对象
-}
-
-// 使用
-var person = {
-    name : &quot;Nicholas&quot;,
-    friends : [&quot;Shelby&quot;, &quot;Court&quot;]
-};
-
-var anotherPerson = createAnother(person);
-anotherPerson.sayHi();    // hi
-</code></pre><h3 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h3><blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 寄生式继承</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">object</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;&#125;;	<span class="comment">// 先创建一个临时性的构造函数</span></span><br><span class="line">	F.prototype = o;	<span class="comment">// 将传入的对象作为这个构造函数的原型</span></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> F();	<span class="comment">// 返回这个临时类型的新实例</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 利用原型式继承所创建的 object() 函数，但不是必须的</span></span><br><span class="line"><span class="comment"> * 任何能够返回新对象的函数都是用于此模式</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createAnother</span>(<span class="params">original</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> clone = object(original);	<span class="comment">// 通过调用函数创建一个新对象</span></span><br><span class="line">	clone.sayHi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;	<span class="comment">// 以某种方式来增强这个对象</span></span><br><span class="line">		alert(<span class="string">"hi"</span>);</span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> clone;	<span class="comment">// 返回这个对象</span></span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">	name : <span class="string">"Nicholas"</span>,</span><br><span class="line">	friends : [<span class="string">"Shelby"</span>, <span class="string">"Court"</span>]</span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> anotherPerson = createAnother(person);</span><br><span class="line">anotherPerson.sayHi();	<span class="comment">// hi</span></span><br></pre></td></tr></table></figure>
+<h3 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h3><blockquote>
 <p>实现基于类型继承的最有效方式</p>
 </blockquote>
 <p><span style="color:red">寄生组合式继承</span>：通过借用构造函数来继承属性，通过原型链的混成形式来继承方法。</p>
 <p><span style="color:red">基本思路</span>：不必为了指定子类型的原型二调用超类型的构造函数。我们所需要的无非就是超类型原型的一个副本而已。</p>
 <p><span style="color:red">本质</span>：就是使用寄生式继承来继承超类型的原型，然后将结果指定给子类型的原型。</p>
 <p><span style="color:red">优点</span>：解决组合式继承两次调用超类型构造函数的问题。</p>
-<pre><code>// 寄生组合式继承
-function object(o) {
-    function F() {};    // 先创建一个临时性的构造函数
-    F.prototype = o;    // 将传入的对象作为这个构造函数的原型
-    return new F();    // 返回这个临时类型的新实例
-}
-
-function inheritPrototype(subType, superType) {
-    var prototype = object(superType.prototype);    // 创建对象，即创建超类型原型的副本
-    prototype.constructor = subType;    // 增强对象，即为创建的副本添加 contructor 属性
-    subType.prototype = prototype;    // 指定对象，即将新创建的对象（副本）赋值给子类型的原型
-}
-
-function SuperType(name) {
-    this.name = name;
-    this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];
-}
-
-SuperType.prototype.sayName = function() {
-    alert(this.name);
-}
-
-function SubType(name, age) {
-    SuperType.call(this, name);
-
-    this.age = age;
-}
-
-inheritPrototype(SubType, SuperType);
-
-SubType.prototype.sayAge = function() {
-    alert(this.age);
-}
-
-var instance = new SubType(&quot;Nicholas&quot;, 29);
-instance.sayName();    // &quot;Nicholas&quot;
-instance.sayAge();    // 29
-</code></pre><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 寄生组合式继承</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">object</span>(<span class="params">o</span>) </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;&#125;;	<span class="comment">// 先创建一个临时性的构造函数</span></span><br><span class="line">	F.prototype = o;	<span class="comment">// 将传入的对象作为这个构造函数的原型</span></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> F();	<span class="comment">// 返回这个临时类型的新实例</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">inheritPrototype</span>(<span class="params">subType, superType</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> prototype = object(superType.prototype);	<span class="comment">// 创建对象，即创建超类型原型的副本</span></span><br><span class="line">	prototype.constructor = subType;	<span class="comment">// 增强对象，即为创建的副本添加 contructor 属性</span></span><br><span class="line">	subType.prototype = prototype;	<span class="comment">// 指定对象，即将新创建的对象（副本）赋值给子类型的原型</span></span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.name = name;</span><br><span class="line">	<span class="keyword">this</span>.colors = [<span class="string">"red"</span>, <span class="string">"blue"</span>, <span class="string">"green"</span>];</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">SuperType.prototype.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params">name, age</span>) </span>&#123;</span><br><span class="line">	SuperType.call(<span class="keyword">this</span>, name);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">inheritPrototype(SubType, SuperType);</span><br><span class="line">	</span><br><span class="line">SubType.prototype.sayAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="keyword">this</span>.age);</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> instance = <span class="keyword">new</span> SubType(<span class="string">"Nicholas"</span>, <span class="number">29</span>);</span><br><span class="line">instance.sayName();	<span class="comment">// "Nicholas"</span></span><br><span class="line">instance.sayAge();	<span class="comment">// 29</span></span><br></pre></td></tr></table></figure>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
 <li><p>JavaScript 主要通过<strong>原型链</strong>实现继承。</p>
 </li>
 <li><p><strong>原型链的构建</strong>：通过将一个类型的实例赋值给另一个构造函数的原型实现的。这样子，子类型就能够访问超类型的所有属性和方法，这一点与基于类的继承很相似。</p>

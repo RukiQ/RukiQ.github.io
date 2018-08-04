@@ -647,21 +647,7 @@
 <p>这种模式抽象了创建具体对象的过程。</p>
 <p>考虑到 ECMAScript 中无法创建类，开发人员就发明了一种函数，用函数来封装特定接口创建对象的细节。</p>
 </blockquote>
-<pre><code>// 工厂模式
-function createPerson(name, age, job) {
-    var o = new Object();    // 显示创建对象
-    o.name = name;
-    o.age = age;
-    o.job = job;
-    o.sayName = function() {
-        alert(this.name);
-    }
-    return o;    // 注意返回值
-}
-
-// 使用
-var person1 = createPerson(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);
-</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 工厂模式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span>(<span class="params">name, age, job</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();	<span class="comment">// 显示创建对象</span></span><br><span class="line">	o.name = name;</span><br><span class="line">	o.age = age;</span><br><span class="line">	o.job = job;</span><br><span class="line">	o.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		alert(<span class="keyword">this</span>.name);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> o;	<span class="comment">// 注意返回值</span></span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="keyword">var</span> person1 = createPerson(<span class="string">"Nicholas"</span>, <span class="number">29</span>, <span class="string">"Software Engineer"</span>);</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/07/29/《JavaScript高级程序设计》第6章-2 创建对象的7种方式/#more" rel="contents">

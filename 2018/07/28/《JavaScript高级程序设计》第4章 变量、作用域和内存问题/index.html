@@ -89,7 +89,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images2015.cnblogs.com/blog/894254/201603/894254-20160313102403960-526328441.png">
 <meta property="og:image" content="https://images2015.cnblogs.com/blog/894254/201603/894254-20160313102422475-2092612005.png">
-<meta property="og:updated_time" content="2018-07-27T16:39:32.000Z">
+<meta property="og:updated_time" content="2018-08-04T18:11:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript高级程序设计》第4章 变量、作用域和内存问题">
 <meta name="twitter:description" content="一、基本类型和引用类型的值ECMAScript 变量可能包含两种不同数据类型的值：基本类型值和引用类型值。 创建方式类似：创建一个变量并为其赋值。">
@@ -393,19 +393,9 @@
 <p>　当从一个变量向另一个变量复制引用类型的值时，同样也会将存储在变量对象中的值复制一份放到为新变量分配的空间中。不同的是，这个值的副本实际上是一个指针，而这个指针指向存储在堆中的一个对象。</p>
 <p><img src="https://images2015.cnblogs.com/blog/894254/201603/894254-20160313102422475-2092612005.png" alt=""></p>
 <h4 id="（3）参数传递"><a href="#（3）参数传递" class="headerlink" title="（3）参数传递"></a>（3）参数传递</h4><p>　ECMAScript 中所有函数的参数都是按值传递的。即，基本类型值的传递如同基本类型变量的复制一样，而引用类型值的传递，则如同引用类型变量的复制一样。</p>
-<p>但是，对于引用类型，即使这个变量是按值传递的，obj也会按引用来访问同一个对象。因此，很多开发者认为的：在局部作用域中修改的对象会在全局作用域中反映出来，因此参数是按引用传递的，这是错误的。
-　</p>
-<pre><code>function setName(obj) {
-    obj.name = &quot;Nicholas&quot;;
-    // 在函数内部重写对象时，这个对象就是一个局部变量，会在函数执行完毕后立即被销毁
-    obj = new Object();
-    obj.name = &quot;Greg&quot;;
-}
-
-var person = new Object();
-setName(person);
-console.log(person.name);    // &quot;Nicholas&quot;
-</code></pre><blockquote>
+<p>但是，对于引用类型，即使这个变量是按值传递的，obj也会按引用来访问同一个对象。因此，很多开发者认为的：在局部作用域中修改的对象会在全局作用域中反映出来，因此参数是按引用传递的，这是错误的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setName</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">	obj.name = <span class="string">"Nicholas"</span>;</span><br><span class="line">	<span class="comment">// 在函数内部重写对象时，这个对象就是一个局部变量，会在函数执行完毕后立即被销毁</span></span><br><span class="line">	obj = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">	obj.name = <span class="string">"Greg"</span>;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">setName(person);</span><br><span class="line"><span class="built_in">console</span>.log(person.name);	<span class="comment">// "Nicholas"</span></span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>这个例子中，person 没有被自动修改为指向其 name 属性值为 “Greg” 的新对象，说明参数是按值传递的。</p>
 </blockquote>
 <h4 id="（4）检测类型"><a href="#（4）检测类型" class="headerlink" title="（4）检测类型"></a>（4）检测类型</h4><p>【检测基本数据类型】：typeof 操作符是确定一个变量是字符串、数值、布尔值，还是 undefined 的最佳工具。</p>

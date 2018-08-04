@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="一个笑点低的妹纸">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images2015.cnblogs.com/blog/894254/201603/894254-20160323150144401-1985826373.png">
-<meta property="og:updated_time" content="2018-07-29T03:41:32.000Z">
+<meta property="og:updated_time" content="2018-08-04T18:15:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript高级程序设计》第6章-1 理解对象&#x2F;原型">
 <meta name="twitter:image" content="https://images2015.cnblogs.com/blog/894254/201603/894254-20160323150144401-1985826373.png">
@@ -349,34 +349,11 @@
 </blockquote>
 <h5 id="创建自定义对象的2种方式："><a href="#创建自定义对象的2种方式：" class="headerlink" title="创建自定义对象的2种方式："></a><span style="color:red">创建自定义对象的2种方式：</span></h5><p>（1）创建一个 <code>Object</code> 的实例，然后为其添加属性和方法</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——最简单（早期开发人员的选择）</p>
-<pre><code>// 创建一个 Object() 的实例，为其添加属性和方法
-var person = new Object();
-person.name = &quot;Nicholas&quot;;
-person.age = 29;
-person.job = &quot;Software Engineer&quot;;
-
-person.sayName = function() {
-    alert(this.name);
-};
-
-// 使用
-person.age; // 29
-</code></pre><p>（2）对象字面量</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个 Object() 的实例，为其添加属性和方法</span></span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> <span class="built_in">Object</span>();</span><br><span class="line">person.name = <span class="string">"Nicholas"</span>;</span><br><span class="line">person.age = <span class="number">29</span>;</span><br><span class="line">person.job = <span class="string">"Software Engineer"</span>;</span><br><span class="line">	</span><br><span class="line">person.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	alert(<span class="keyword">this</span>.name);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line">person.age; <span class="comment">// 29</span></span><br></pre></td></tr></table></figure>
+<p>（2）对象字面量</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——几年后的首选模式</p>
-<pre><code>// 对象字面量
-var person = {
-    name: &quot;Nicholas&quot;,
-    age: 29,
-    job: &quot;Software Engineer&quot;,
-
-    sayName: function() {
-        alert(this.name);
-    }
-};
-
-// 使用
-person.sayName(); // Nicholas
-</code></pre><blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对象字面量</span></span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">	name: <span class="string">"Nicholas"</span>,</span><br><span class="line">	age: <span class="number">29</span>,</span><br><span class="line">	job: <span class="string">"Software Engineer"</span>,</span><br><span class="line">	</span><br><span class="line">	sayName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		alert(<span class="keyword">this</span>.name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line">person.sayName(); <span class="comment">// Nicholas</span></span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>虽然 <code>Object</code> 构造函数或字面量都可以用来创建对象，但这些方式有个明显的 <span style="color:red">缺点</span>：使用同一个接口创建很多对象，会产生大量的重复代码。</p>
 </blockquote>
 <p>属性类型及方法参考：<a href="http://www.cnblogs.com/Ruth92/p/5301342.html" target="_blank" rel="noopener">《JS高程》对象&amp;原型学习笔记</a></p>
